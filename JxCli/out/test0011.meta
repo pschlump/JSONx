@@ -1,0 +1,48 @@
+{
+	"": {
+		"LineNo": 0,
+		"FileName": "",
+		"ErrorMsg": [
+			"Warning: Duplicate key [0] File Name: testdata/0 11a Line No: 2 and 1 - last one seen has been used.",
+			"Warning: Duplicate key [0] File Name: testdata/0 11a Line No: 3 and 1 - last one seen has been used.",
+			"Warning: Duplicate key [0] File Name: testdata/0 11a Line No: 4 and 1 - last one seen has been used."
+		],
+		"SetBy": 0,
+		"DataFrom": 0
+	},
+	"[\"0\"]": {
+		"LineNo": 4,
+		"FileName": "testdata/0 11a",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"ColPos\"]": {
+		"LineNo": 1,
+		"FileName": "__col_pos__:macro",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"FileName\"]": {
+		"LineNo": 1,
+		"FileName": "__file_name__:macro",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"LineNo\"]": {
+		"LineNo": 1,
+		"FileName": "__line_no__:macro",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"This is Me\"]": {
+		"LineNo": 6,
+		"FileName": "testdata/test0011.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	}
+}

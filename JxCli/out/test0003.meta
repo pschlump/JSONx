@@ -1,0 +1,32 @@
+{
+	"": {
+		"LineNo": 0,
+		"FileName": "",
+		"ErrorMsg": [
+			"Note: Allocated Slice"
+		],
+		"SetBy": 5,
+		"DataFrom": 0
+	},
+	"[0]": {
+		"LineNo": 2,
+		"FileName": "testdata/test0003.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[1]": {
+		"LineNo": 2,
+		"FileName": "testdata/test0003.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[2]": {
+		"LineNo": 2,
+		"FileName": "testdata/test0003.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	}
+}

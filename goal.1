@@ -1,0 +1,20 @@
+
+1. Input
+	1. Ability to report errors with line/col in a CLI
+	2. Ability to have a "top" that will not just error out.
+	3. Connectors to Redis, Etcd, PostgreSQL, FileSystem
+	4. Converter for map-key and data values that can actually be figured out!
+	5. Enums, time.Time, time.Duration
+
+2. Output
+	1. Better indentation of JSON output	{ a: 12, b: 22 } -- on a single line if will fit in X witdy (specifiable, but 120 default)
+	2. Config for Human or ToJSON format - for pure JSON
+	3. Allow "aaa \n bbb" where \n is a new line in output, or encode it, or error it
+	4. Allow non-usable types
+	5. Allow for conversion to base64 for []byte or with pattern for when to convert (meta)
+	6. Functions for conversion
+	7. Do all Go types - ignore non-supported -
+
+3. Input test
+	1. validate that "aaa \n bbb" works.
+

@@ -1,0 +1,55 @@
+{
+	"": {
+		"LineNo": 0,
+		"FileName": "",
+		"ErrorMsg": [
+			"Note: Allocated Slice"
+		],
+		"SetBy": 5,
+		"DataFrom": 0
+	},
+	"[0][\"abc\"]": {
+		"LineNo": 2,
+		"FileName": "testdata/test0005.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[1][\"def\"]": {
+		"LineNo": 3,
+		"FileName": "testdata/test0005.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[2]": {
+		"LineNo": 0,
+		"FileName": "",
+		"ErrorMsg": [
+			"Warning: Duplicate key [aMapKey02] File Name: testdata/test0005.jx Line No: 8 and 6 - last one seen has been used."
+		],
+		"SetBy": 0,
+		"DataFrom": 0
+	},
+	"[2][\"aMapKey01\"]": {
+		"LineNo": 5,
+		"FileName": "testdata/test0005.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[2][\"aMapKey02\"]": {
+		"LineNo": 8,
+		"FileName": "testdata/test0005.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[2][\"aMapKey03\"]": {
+		"LineNo": 7,
+		"FileName": "testdata/test0005.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	}
+}

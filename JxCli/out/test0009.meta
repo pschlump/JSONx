@@ -1,0 +1,37 @@
+{
+	"[\"ColPos\"]": {
+		"LineNo": 1,
+		"FileName": "__col_pos__:macro",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"FileName\"]": {
+		"LineNo": 1,
+		"FileName": "__file_name__:macro",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"IncC\"]": {
+		"LineNo": 1,
+		"FileName": "testdata/0009c",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"LineNo\"]": {
+		"LineNo": 1,
+		"FileName": "__line_no__:macro",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"This is Me\"]": {
+		"LineNo": 6,
+		"FileName": "testdata/test0009.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	}
+}

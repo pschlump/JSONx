@@ -1,0 +1,23 @@
+{
+	"[\"ColPos\"]": {
+		"LineNo": 1,
+		"FileName": "__col_pos__:macro",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"FileName\"]": {
+		"LineNo": 1,
+		"FileName": "__file_name__:macro",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"LineNo\"]": {
+		"LineNo": 1,
+		"FileName": "__line_no__:macro",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	}
+}

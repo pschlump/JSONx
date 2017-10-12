@@ -1,0 +1,12 @@
+Data: {
+	"Bob": 12,
+	"BobSet": true,
+	"Jane": 101,
+	"JaneSet": true,
+	"Tim": 102,
+	"TimIsSet": false,
+	"Larry": 103,
+	"LarryIsSet": true,
+	"Moe": 5000,
+	"MoeIsSet": true
+}

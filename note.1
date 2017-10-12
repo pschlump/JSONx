@@ -1,0 +1,216 @@
+
+					/*
+						// xyzzy - check to see if it is alreay in the map. If so then a dulicate key.  Report -- Options.FirstInWins -- defaults to false => LastInWins
+
+						// https://www.reddit.com/r/golang/comments/38u4j4/how_to_create_an_object_with_reflection/ -- Useful
+						// https://groups.google.com/forum/#!topic/golang-nuts/i9hiVBRQQa0
+
+						switch v.Kind() {
+						case reflect.Map:
+							// Map key must either have string kind, have an integer kind,
+							// or be an encoding.TextUnmarshaler.
+							t := v.Type()
+							switch t.Key().Kind() {
+							case reflect.String,
+								reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64,
+								reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Uintptr:
+							default:
+								if !reflect.PtrTo(t.Key()).Implements(textUnmarshalerType) {
+									d.saveError(&UnmarshalTypeError{"object", v.Type(), int64(d.off)})
+									d.off--
+									d.next() // skip over { } in input
+									return
+								}
+							}
+							if v.IsNil() {
+								v.Set(reflect.MakeMap(t))
+							}
+						// ------------------------------------------------------------------------------------
+						if v.Kind() == reflect.Map {
+							elemType := v.Type().Elem()
+							if !mapElem.IsValid() {
+								mapElem = reflect.New(elemType).Elem()
+							} else {
+								mapElem.Set(reflect.Zero(elemType))
+							}
+
+
+						// ------------------------------------------------------------------------------------
+						1. Converter from "string" -> map[x]y the y key type.
+
+						2. Currently all 'x' are strings
+
+						3. Json allows "int" keys - why? not in spec.
+
+						4. Json has "any character" for inside strings - not in Json(go)
+
+						5. Converter for "data" -> 'y' type?
+
+						Currently 'x' is a string - only.
+						Generate 'y' as an Elem - then pass &Elem -> recursive call.
+						If 'x' already exists then report a duplicate-key error with
+						both line numbers.  - Last in wins - v.s. - First in wins -
+						Then stick the Elem in with the key.
+
+						7. what happens if
+
+							type Test1 map[string]Whatever
+
+							type ReadIn struct {
+								Abc	Test1
+							}
+
+
+
+					*/
+
+
+			/*
+				reflect.Kind - types
+				Done	Type
+				====	==================
+				   *	Invalid
+				   *	Bool
+				   *	Int
+				   *	Int8
+				   *	Int16
+				   *	Int32
+				   *	Int64
+				   *	Uint
+				   *	Uint8
+				   *	Uint16
+				   *	Uint32
+				   *	Uint64
+				   Uintptr
+				   *	Float32
+				   *	Float64
+				   Complex64
+				   Complex128
+				   *	Array
+				   !	Chan
+				   !	Func
+				   Interface
+				   *	Map
+				   *	Ptr
+				   *	Slice
+				   *	String
+				   *	Struct
+				   !	UnsafePointer
+			*/
+
+			// xyzzy - other types???
+			// xyzzy - complex?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$include xyz$
+
+{
+$include xyz$
+}
+
+{ abc : "def" }
+
+func MatchRe(s, r string) bool {
+	re := regexp.MustCompile(r)
+	return re.MatchString(s)
+}
+
+// xyzzy - pre-allocate .Children to be max size so don't need re-alloc in 'append'
+
+//
+// use an interface{} with
+//	fn, buf := GetBuffer
+//	h.OpenBufferSource ( fn )
+//	h.CloseBufferSource()
+//
+// Value
+// { name : value ... }
+// [ vlaue ... ]
+//
+
+/*
+
+Fx() {
+	if Is A Value {
+		pull out value, return.
+	} else if "{" {
+		id
+		colon
+		Fx()
+	} else if "[" {
+		Consume Values()
+		if { then Fx()
+		if [ then Fx()
+	} else {
+		error
+	}
+}
+
+*/
+// xyzzy - need a "start"-token pos
+//	} else if IsValue(js, 0) && len(js.Toks) > 1 {	// js.ToksLeft > 1 && depth == 0 {
+//		rv = &JsonXParseTree{ThisNode: JsonToken{
+//			TokenNo:  TokenArray,
+//			LineNo:   js.Toks[0].LineNo,
+//			ColPos:   js.Toks[0].ColPos,
+//			FileName: js.Toks[0].FileName,
+//			ErrorMsg: "Error Recovery: Assuming this is an array with a missing [",
+//		}}
+//		for pt.curPos < pt.maxPos {
+//			rv.Children = append(rv.Children, pt.parseJsonXInternal(js, depth+1))
+//			pt.AdvTok()
+//		}
+//		return
+// Xyzzy - merge this with a JsonToken type - so can have a recursive set of token (Xyzzy80801)
+// type JsonXParseTree struct {
+// 	ThisNode JsonToken
+// 	Children []JsonToken
+// }

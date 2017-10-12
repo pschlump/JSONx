@@ -1,0 +1,7 @@
+{
+	"ColPos": 10,
+	"FileName": "testdata/test0008.jx",
+	"IncB": "bb bbb b\nbb       b\nbb       b\nbb bbb b\nbb\nbb bbb b\nbb       b\nbb       b\nbb bbb b  \n",
+	"LineNo": 2,
+	"This is Me": "Yes it is"
+}

@@ -1,0 +1,905 @@
+4. Documentation
+
+
+{
+	Name: "Type"
+	Name: { "type": "Type", "..." }
+	
+	s : "String"
+	a : { "type": "Array", "of": "BobType" 
+		}
+	h : { "type": "Hash", "of": "BobType" 
+		}
+}
+
+User would need to supply a type factory
+	func TypeFactory ( TypeName string ) *interface{} {
+	{
+		switch ( TypeName ) {
+		case "BobType":
+			rv := &BobType{...}
+			// xyzzy - initialize *rv
+			return rv
+		}
+	}
+See ./tf
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{
+	topic_group: [
+		q_tf: [
+			{
+				Stmt: "Is the sun bright?"
+			}
+		]
+	]
+}
+
+
+Plan
+	1. If in array and find a name:, then treate as a value and continue to end of array, the ":" should be treated as a comma.
+	2. Recover from error
+	3. A test case in the parser test that verifies that this works
+	4. Very an error message
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Test/Validate/Implement - functions for environment variables
+
+	// rv.Funcs["__envVars__"] = fxEnvVars			// xyzzy
+	// rv.Funcs["__env__"] = fxEnv					// xyzzy
+
+Also for access to redis-hash values
+
+-- See note.2
+
+
+
+
+
+
+
+
+Check procesisng of "quoted" values to functions 
+	Look into possiblity of "options" on functions {{ __include__ --str Fn1 Fn2 ... }}
+	Look into possiblity of "options" on functions {{ __include__ --redis Key1 Key2 ... }}
+	Look into possiblity of "options" on functions {{ __include__ --env Key1 Key2 ... }}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+consider adding __include_ from Redis
+
+setData.go: func OptSetField(jNname, name string, from *JsonToken, jNopt []string, val reflect.Value) { -- Around line 1790
+	...
+						f.SetBool(true)
+					} else {
+						fmt.Printf("%sError -- %s -- is not a bool type, setField in options, %s%s\n", MiscLib.ColorRed, fieldName, godebug.LF(), MiscLib.ColorReset) // xyzzy
+					}
+				} else {
+					fmt.Printf("%sError -- %s -- is not a correct field name, setField in options, %s%s\n", MiscLib.ColorRed, fieldName, godebug.LF(), MiscLib.ColorReset) // xyzzy
+				}
+				return
+			}
+		}
+		fmt.Printf("%sError -- -- did not find setField in options, %s%s\n", MiscLib.ColorRed, godebug.LF(), MiscLib.ColorReset) // xyzzy - return -- error
+	Error:
+		Error -- XmmSet -- is not a correct field name, setField in options, File: /Users/corwin/go/src/www.2c-why.com/JsonX/setData.go LineNo:1791
+		Error -- JmmSet -- is not a bool type, setField in options, File: /Users/corwin/go/src/www.2c-why.com/JsonX/setData.go LineNo:1788
+
+
+
+
+
+
+
+
+1. Need test to validate line numbers with """, ''', ``` etc.
+2. Need tests that check that "..." can be across lines and works
+3. Need tests with \t \v etc.
+4. Need spec as JSON - to read in for map[string]interface{} -- 
+
+
+
+
+
+
+
+
+
+
+
+
+
++0. Go-FTL (new version) -> www.2c-why.com
+	1. Switch to using JsonX
+	2. Clean up validation/config for all
+
+	cfg.ReadConfigFile2(s)							-- Top Level of --
+	file, err := sizlib.ReadJSONDataWithComments(fn) --- Read File
+		/Users/corwin/go/src/github.com/pschlump/Go-FTL/server/cfg/cfg.go
+
+	1. LineNo - how it is handled -- FileName too!		
+		See: /Users/corwin/go/src/github.com/pschlump/Go-FTL/server/cfg/cfg.go:226 
+		LineNo   int    `gfDefault:"{{.LineNo}}"`
+		FileName string `gfDefault:"{{.FileName}}"`			// Template the values - using mdata that reflects current file/line/col etc.
+		xyzzyTmplDefault
+		-- structDefault.go
+		-- setData.go
+
+
+
+------------------ today ----------------------------------------------------------------------------------------------
+
+0. Final Form
+	*1. set/valid - merged in with JsonX - so can call each other
+	*3. config for set, valid, required
+	2. topTag - converted to JsonX data, __top__ (use JSON for now until merged)
+		1. single system for pulling "tags" from combined top/JSON/`tags`
+
+0. Publish
+	*1. www.2c-why.com project for this (JsonX)
+	++6. README.md
+	2. github.com/pschlump/JsonX - project for this. -- Strip godebug.Printf(...) out. --
+		dependency on "www.2c-why.com/tools" - move this out to github.com also.
+
+0. Error reporing all over needs to end up in "meta"
+1. tests of scanner with nested __include__/__require__
+1. tests of scanner with recursive __require__
+instead of "-" for no JSON, we need -i, -o, - -- for no Input, no Output and NONE
+should honor "json" tag in this?   Option
+
+0. Need to clean up "meta"
+
+4. Json/Math Rm 314 Project - 307-766-2209 | jwillif1@uwyo.edu
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+0. Array/Slice initialization from gfDefault:"[...]" array.  Similar for map gfDefault:"{abc:'def'}"
+	if gfDefault starts with '[' or '{' then it is JsonX and will be used that way.
+	Same for topTag
+
+0. Ongoing Development
+	1. test and validation of this stuff... Validation
+	2. test and validation of this stuff... Error Reporing
+
+1. Output -> .jx [ sort the keys if map[string] so that we get them in a fixed order!
+	- Make this a "config" option when imlementing "output"
+	1. Implement searilizer -- data to string
+
+2. Output -> Go Format (Data Dumper) -g -go 
+	1. Quick way to test map[string]int v.s. map[string]interface{}
+
+
+0. Validatetion 
+	+0. full set of tests for validation
+	+1. gfIgnore - only applies to "validate" -- implement
+	+2. minLen, maxLen on array/slice -- Still need to test.
+	+3. Output errors
+
+	1. How do you validate an entirely dynamic structure, i.e., "var Out interface{}"
+		1. A JsonX-Esc validation type with all the "tags" in it.
+			{
+				A: [ { "type": [ "string" "email" ] },
+					 { "min": "aaa" },
+					 { "max": "zzz" }
+					 { "minLen": 3 },
+					 { "maxLen": 3 },
+					 { "re": "[a-z]{3,3}" }
+					 { "list": [ "aaa", "bbb", "ccc" ] }
+					 { "ignoreDefaults": true }
+					 { "name": "A" }
+					],
+				H: [ { "type": [ "slice" ]
+					 { "minLen": 1 },
+					 { "maxLen": 5 },
+					 { "subType": {
+							"S2_A": [ 	// validate struct-sub-elements field "S2_A" with this.
+									... more stuff to validate in sub-type ...
+									],
+							"*": [ 			// validate every element with this.
+									... more stuff to validate in sub-type ...
+									],
+						} },
+					],
+				N: [ { "type": [ "map" ]
+					 { "minLen": 1 },
+					 { "maxLen": 5 },
+					 { "subType": {
+							"__key__": [ 	// Validate the map's key with this.
+									],
+							"__field__": [ "typeIs": "AbcType" ]
+							"S2_A": [ 
+									... more stuff to validate in sub-type ...
+									],
+						} },
+					],
+			}
+			{ "__top__": [ ... ] }
+			{ "__type__": [ { "typename": "AbcType" }
+						] 
+			}
+
+		!!!. What about "Recursive" types
+
+		1. Use "topTag" as a Parsable JsonX value.
+		2. Have a "config" structure that is passed along with the data from this.
+		3. If "struct" then merge in `tags`
+
+		Matching Tags:
+
+			typ_s = GetTopTag(topTag, "gfType")
+			minV_s = GetTopTag(topTag, "gfMinValue")
+			maxV_s = GetTopTag(topTag, "gfMaxValue")
+			minLen_s = GetTopTag(topTag, "gfMinLen")
+			maxLen_s = GetTopTag(topTag, "gfMaxLen")
+			list_s = GetTopTag(topTag, "gfListValue")
+			valRe_s = GetTopTag(topTag, "gfValidRE")
+			ignoreDefault_s := GetTopTag(topTag, "gfIgnoreDefault")
+
+	1. Validate "meta" in tests.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+==========================================================================================================================================================================
+==========================================================================================================================================================================
+==========================================================================================================================================================================
+fx called for post procesisng of each one.
+
+Type Conversions  - Enum, etc.
+
+
+0. Parsing error "{map:[1,2,3" -- Error Recovery in Parser
+	if missing ], then assume and continue
+	if missing }, then assume and continue
+	0. Test using JxCli:
+
+4. Circularly referental data structures and gfAlloc - should result in an error
+
+5. ../set/ -- General TODO
+	// TODO -------------------------------------------------------------------------------------------------------------------
+	// +4. Complete Tests
+	// 4. Documentation, README.md, ./doc, comments.
+	// 5. Add in top-level functions to do the initial calls
+	// 6. Pick a better package name
+	// ------------------------------------------------------------------------------------------------------------------------
+
+(Types) (Scanner, Parser)
+1. InterfaceTyeps
+	0. Add "time" and "duration" types
+	0. Add inteface based conversion types
+		Use this to implement ENUMs
+		0. for enum - ABC shold be string "ABC" that then gets checked for a interface{} to un-marshal it based on type.
+		0. create a bunch of un-marshal interfaces that are string-to-string like SSN, CC etc.
+
+1. Implement other macros __file_timestamp__ etc.
+		See: scan.go:200
+			// {{ __file_timestamp__ fn }} -- to get last mod of file, v.s. __now__
+			// {{ __set_path__ ... }}	// xyzzy - TODO
+			// {{ __path__ }			// array of string -- xyzzy TODO
+			// {{ __now__ with format! for date }				// xyzzy TODO
+			// {{ __rename__ from to }}
+			// {{ __delete__ ... }}
+			// {{__files_included__}} 	-> str
+			// {{__show_path__}} 		-> str
+			// {{__show_path_for_file__ ... }} 		-> str -- what was resovled path for file
+			// {{__show_search_for_file__ ... }} 		-> str -- what was searerced for file
+			// 6. Predefined tokens __date__ __time__ __now__
+			! output to console __put__ Args...
+	// xyzzy - scan.go:190 / "fns" Pick up path from Environent?
+
+2. Sort of "struct" names into alpha order so can compare values easily.
+
+// TODO - xyzzy - allow nested evaluation of "calls"
+
+// xyzzy scan:go - lock in JsonScanner - add lock to prevent concurency problms on map-s
+
+! path prcoessing for file names !
+	./;./inc;...		( colon on *nix, ; on winderz )
+
+
+! add GenerateAt for all tokens. -- and error messages in scan.go
+	* preserve this in (parse.go) for errors GenerateAt for all tokens.
+
+(parse.go)
+	// xyzzy0001 - if tokens are left, then do an error or use them up!
+
+1. Interface to Etcd, and Redis, and PostgreSQL - examples.
+
+
+
+
+Possibley Add
+=============
+
+1. Implement {{__line_no__}} -- Uset Templates to do this -- for inside strings???
+
+//
+// Goals
+// 	3. Enums - how? as convert from ID -> Number?
+//
+
+
+/*
+
+***
+-- Convert from AST -> Go Data structure
+	Extra__ map[string]interface{}	`gfExtra:"*"`
+	Extra__Str map[string]string	`gfExtra:"string"`
+
+	Aaa__string		stirng			`gfTyped:"Aaa,string"`
+	Aaa__string		stirng			`gfTyped:"Aaa,[]string"`
+	Aaa__float 		float64			`gfTyped:"Aaa,float64"`
+	Aaa__int64 		int64			`gfTyped:"Aaa,int64"`
+	Aaa__int 		int				`gfTyped:"Aaa,int"`
+	Aaa__bool 		bool			`gfTyped:"Aaa,bool"`
+	Aaa__found		bool			`gfTyped:"Aaa,found"`
+	Aaa__typeof		bool			`gfTyped:"Aaa,typeof"`
+	
+-- add an "enum" type?
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Done
+=====================================================================================================================
+(Probaby fixed - left xyzzy-ts2 in code - in parse.go -- but seems to work now)
+Fri Sep  1 10:09:55 MDT 2017
+Fatal rosError - Note teh array with "tag-names" inside the array - Syntax error
+-- Should have been a hash - inseat we get an AbEnd !
+	parse.go:356 fmt.Printf("%sError at line %s, invalid token %s %s\n", MiscLib.ColorRed, godebug.LF(), SVar(js.Toks[IntMin(pt.CurPos, pt.MaxPos-1)]), MiscLib.ColorReset)
+	// xyzzy-ts2
+1. Improve tests from 37...42 down - check the AST that is returned
+
+
+
+
+
+
+xyzzyErr1
++0. Add errors to AST - validate auto -
+	+1. Parse Errors
+	+2. Scan Errors
+
+0. Validate line#s in parser -- add some line specific tests
+
+
+(Scanner)
+
+0. Get ``` to work
+	``` is literal
+	""" translates \n ->
+0. Validate \n works
+
+// xyzzyMultiQuote TODO - add ``` ... ``` processing to this
+			// xyzzyBackslash TODO - add in '\' processing
+
+//	0. ``` string ``` - remove leading spaces - skip first line if blank.
+// 1. comments
+
+
+*1. Push Input
+
+>> 2. Pop Input
+>> 3. if have chars left - change to scanner -
+	Adv - if no chars left in current buffer, then check stack and pop.
+
+{{__path__ p1 p2 ...}}		{{ Id Str... }}
+
+
+
+
+
+
+
+
+
+
+
+*1. File/IO Interface
+*2. Flat interface
+*3. String interface
+
+*4. Mod scanner to pick up {{...}}
+*5. Call based on a "map[string]fx(Arr...)"
+
+*5. use "words" to split up the {{ ... }}
+
+*6. Pass in stuff so can mapi current 'state'
+
+
+
+
+(Scanner)
+0. Implement include/require
+	{{__include__ fn}}			{{ Id Str }}
+	{{__require__ fn}}			{{ Id Str }}
+
+{
+	abc: 123,
+	{{ include bob }}
+}
+
+{
+	{{ extend bob }}
+	abc: 123,
+}
+
+[
+	"abc", 123,
+	{{ include bob }}
+]
+
+[
+	{{ extend bob }}
+	'abc', 123,
+]
+
+	1. All in the scanner
+	2. New Syntax {{ ... }}
+	3. Not inside strings/id's/flots/bools
+	4. Just states 1, 2, 3 - can recognized
+		{ abc: {{include}} } -- not appropriate!
+		state 21 - value?
+
+
+// 	4. Includes/Requires
+// 	5. Exit Points $include name$, $require name$, }, ]
+0. implement ''' ... ''' -- as "Raw"
+
+2. scan.go:
+	_ = err                    // xyzzyError -------------------------- Report Error -------------------------------------
+	+0. Allow "_" in numbers as sep's  -- need test cases for this
+	+0. add 0x, 0o and 0b for binary/octal/hex data 
+	+0. Get flaot -11e-4 to work -- test
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	+0. Get flaot +11e-4 to work -- test
+0. Change Float -- add Int - type add for integers
+* fmt.Printf("xyzzy - not implemented yet! #00001\n")  -- 3 cases --
+*1. Get Arrays to Default Values
+*2. Tests for this
+*3. Add to JsonX Arrays with default values
+*4. Add in JSON to set X elements
+*5. Test with too many values in the JSON - error
+*6. Compare both sides and validate.
+
+7. Move on to Slices
+
+(Top)
++0. Implent JsonXToken -0> -0> go Struct/Inteface
+	*reflect.Ptr in ../set/structDefaults.go:322 needs work
+	*reflect.Ptr add tests
+
+	+1. Walk data structure - taking each "named" item and looking at it's tags.  Match to input data.
+
+	0. Implement a JsonXTop - that will allow for values/arrays/hash as top level
+	0. Implement a data->output string with indententation
+// Duplicated field values in input -- should result in an error/warning
+	{ abc: 12,
+	  abc: 22
+	}
+
+// *x. Using this as a replacemnet/upgrade to JSON for config files in Go-FTL and others.
+// *1. (0) sections left in Validate
+// *2. "meta" in set defaults for sub-types XYzzy-meta
+// *3. Required
+JxCli:
+	-i <fn> 	input
+	-j <fn>  	Dump output using JSON 
+	-s			Setter for each field
+	-l			Line number where field set
+	-e 			Errors/Warnings
+	
+// test with map[string]interface{}
+// test with map[string]SomeType
+// test with []map[string]interface{} -- input dat [ { ... } ... ]
+	1. turn on/off -D debug flags
+	Makefile:
+		test0002:
+			./JxCli -i testdata/test0002.jx -j out/test0002.json -m out/test0002.meta
+			echo validate results of out/test0002.json
+			../CmpJson/CmpJson -t out/test0002.json -e ./ref/test0002.json
+	2. How to use for testing
+		-i -j + Diff
+		-m Dump meta + Grep?
+
+
+	1. Uniform "debug" flag system
+		-D "ax,bx,cx"
+		- Cleanup and use it.
+
+3. Test_Set11 -- Change so returns map[stirng]int instead of map[string]interface{}
+	0. Add base64 conversion types
+// TODO - xyzzy - change processing of StartMarker to EndMarker so it can nest.
+// 	2. Hex constants, binary constants
+0. test with Extra__.... (xyzzyExtra)
+	1. What are unused in a "hash" or "array"
+	2. Put these into a "Extra" field gfJxonX:"...,extra" -- Must be map[string]interface{} type
+	3.
+// xyzzyToDo - interface -- Recursive call xyzzyInterface01 :setData.go:766 -- !important!
+	type MMM struct {
+		Abc int
+		Def interface{}
+	}
+	jx := JsonX.New()
+	jx.ConfigXXX ( ... )
+	meta, err := jx.Unmarshal ( ... )
+
+	0. Options passed to this -
+		var FirstInWins = false -- remove global
+// // // options other than "extra" // // // ----------------------------- get list going !
+	0. ''is-set'' - boolean to indicate that a value was set.
+	+?2. ''type'' specific matching of values
+		,isSet,setField:fieldName
+
++0. Configuraiton 
+	+0. Pass in "name" "Out" -> meta is correct??
+	+	0. add a TopTag of 'gfName' - to pass in names for un-named things?
+	+	1. This is for "top" level items.
+	+2. test it.
+
+
+	+-- Implemented in JxCli
+	+1. -v --validate -- option on JxCli 
+0. ValidateRequired needs to validte the tag names
+	1. Add minLen/maxLen to "string" for chekcing length of string -- xyzzyStrLenMinMax
+0. Single Config
+0. Include "path" search
+	template before RE match with files.
+		/abc/def/{{.dirs}}/.*_site_config.jx
+		./ -- gets replaced with {{.curPath}}/
+		all matches are on FULL file names with RE
+	works! JxCli - "make test0007"
+		{
+			LineNo: {{ __line_no__ }},
+			FileName: {{ __file_name__ }},
+			ColPos: {{ __col_pos__ }},
+		}
+
+
+Fri Jun 16 07:27:19 MDT 2017
+(+) Include as String
+	include_str -- take entire file and include as a a "string" -- quote the file.
+	sinclude_str -- take entire file and include as a a "string" -- quote the file.
+	srequire_str -- take entire file and include as a a "string" -- quote the file.
+{{ __include__ a b c }} -- test include of multiple files.
+scan.go:1277
+		// xyzzy - problem "}}" is a word not an end marker and will process as an end marker
+
+test0017 -- in JxCli - if remove "," in hash get error - missing close } - some sort of scanner error
+	1. Find/Fix.
+	2. Add scanner tests specifically for this.

@@ -1,0 +1,14 @@
+[
+	{ abc: 123123123, def: 4 }
+	{ ghi: false, jkl: true }
+	{ ttm: 123123123, yyv: true }
+	{ ttm: 1.2, yyv: 1.2 }
+	{ ttm: 1, yyv: 1.1, mmu: 2 }
+	{ ttm: 1, yyv: 1.0, mmu: 2 }
+	{
+		aMapKey01: 11
+		aMapKey02: 22
+		aMapKey03: 33
+		aMapKey02: 99999999
+	}
+]

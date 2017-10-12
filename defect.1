@@ -1,0 +1,118 @@
+
+
+
+
+
+0. Tabs inside "tags" fail - without error - 
+			dv := typeOfT.Field(i).Tag.Get("gfDefault")
+		-- inspect source - replace with working code - issue defect on Go language
+		Try:	name Type `tag: "value"`		// extra space, no value
+		Try:	name Type `tag:"value`			// not tag at all - no error message
+
+1. floats with exponents seem to fail
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- fixed -- -- fixed -- -- fixed -- -- fixed -- -- fixed -- -- fixed --
+
+Wed Sep 20 13:28:04 MDT 2017
+	Tests 35, 36, 37, 69 -- 69 is new test for ```str``` with no \n at all in it.
+	*1. if you have input (ex4) for examle of
+		// Defet: 1000000 - scan.go:995
+		{
+			bob2 's12'
+			bob ```1000```
+			moe "5000"
+		}
+
+		Then the field bob will be read in with a value of:
+			"Extra": {
+				"bob": "1000\n"
+			}
+
+		Not the \n
+
+
+		var get3QuoteString = func(st byte, t TokenType) {
+
+
+Wed Sep 20 15:43:08 MDT 2017
+	*2. Extra fields - errros in "meta"
+		line 942 - setData
+			metaName := "**extra**"

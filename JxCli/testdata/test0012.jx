@@ -1,0 +1,7 @@
+		{
+			LineNo: {{ __line_no__ }},
+			FileName: {{ __file_name__ }},
+			ColPos: {{ __col_pos__ }},
+			{{ __include__ "0012.a.jx" }},
+			"This is Me": "Yes it is",
+		}

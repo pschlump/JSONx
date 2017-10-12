@@ -1,0 +1,475 @@
+
+ ------------------------------------------ Parse0 Tests - Parse JsonX code (Full Parser) --------------------------------------- 
+TOP: js.Pos=  0, js.State= 0, StateSt=--><-- buf-->[36;40m{ abc: { def: "xxx", "ghi": 12 } }[0m<--, c={
+    emit: TokenObjectStart (11) ->{<- called from, 448, 99
+TOP: js.Pos=  1, js.State= 2, StateSt=-->{<-- buf-->[36;40m abc: { def: "xxx", "ghi": 12 } }[0m<--, c= 
+TOP: js.Pos=  2, js.State= 2, StateSt=-->{<-- buf-->[36;40mabc: { def: "xxx", "ghi": 12 } }[0m<--, c=a
+    emit: TokenId (4) ->abc<- called from, 346, 493
+    emit: TokenColon (15) ->:<- called from, 348, 493
+TOP: js.Pos=  6, js.State=20, StateSt=-->{<-- buf-->[36;40m { def: "xxx", "ghi": 12 } }[0m<--, c= 
+TOP: js.Pos=  7, js.State=20, StateSt=-->{<-- buf-->[36;40m{ def: "xxx", "ghi": 12 } }[0m<--, c={
+    emit: TokenObjectStart (11) ->{<- called from, 570, 99
+TOP: js.Pos=  8, js.State= 2, StateSt=-->{{<-- buf-->[36;40m def: "xxx", "ghi": 12 } }[0m<--, c= 
+TOP: js.Pos=  9, js.State= 2, StateSt=-->{{<-- buf-->[36;40mdef: "xxx", "ghi": 12 } }[0m<--, c=d
+    emit: TokenId (4) ->def<- called from, 346, 493
+    emit: TokenColon (15) ->:<- called from, 348, 493
+TOP: js.Pos= 13, js.State=20, StateSt=-->{{<-- buf-->[36;40m "xxx", "ghi": 12 } }[0m<--, c= 
+TOP: js.Pos= 14, js.State=20, StateSt=-->{{<-- buf-->[36;40m"xxx", "ghi": 12 } }[0m<--, c="
+    emit: TokenString (3) ->xxx<- called from, 336, 587
+TOP: js.Pos= 19, js.State=20, StateSt=-->{{<-- buf-->[36;40m, "ghi": 12 } }[0m<--, c=,
+TOP: js.Pos= 20, js.State= 2, StateSt=-->{{<-- buf-->[36;40m "ghi": 12 } }[0m<--, c= 
+TOP: js.Pos= 21, js.State= 2, StateSt=-->{{<-- buf-->[36;40m"ghi": 12 } }[0m<--, c="
+    emit: TokenId (4) ->ghi<- called from, 336, 490
+TOP: js.Pos= 26, js.State=20, StateSt=-->{{<-- buf-->[36;40m: 12 } }[0m<--, c=:
+    emit: TokenColon (15) ->:<- called from, 560, 99
+TOP: js.Pos= 27, js.State=21, StateSt=-->{{<-- buf-->[36;40m 12 } }[0m<--, c= 
+TOP: js.Pos= 28, js.State=21, StateSt=-->{{<-- buf-->[36;40m12 } }[0m<--, c=1
+      ! In Loop [1] js.Pos=28 -->12 } }<--
+      ! In Loop [2] js.Pos=29 -->2 } }<--
+    emit: TokenFloat (8) ->12<- called from, 403, 632
+TOP: js.Pos= 31, js.State= 2, StateSt=-->{{<-- buf-->[36;40m} }[0m<--, c=}
+    emit: TokenObjectEnd (13) ->}<- called from, 523, 99
+TOP: js.Pos= 32, js.State= 2, StateSt=-->{<-- buf-->[36;40m }[0m<--, c= 
+TOP: js.Pos= 33, js.State= 2, StateSt=-->{<-- buf-->[36;40m}[0m<--, c=}
+    emit: TokenObjectEnd (13) ->}<- called from, 523, 99
+End: js.Pos= 34, js.State= 2, StateSt=--><-- buf--><--, c= 
+
+Scan Returns: {
+	"State": 2,
+	"Pos": 34,
+	"StateSt": "",
+	"LineNo": 1,
+	"ColPos": 35,
+	"FileName": "./test5.jsonx",
+	"Toks": [
+		{
+			"Number": 0,
+			"TokenNo": 11,
+			"TokenNoValue": 0,
+			"Name": "",
+			"Value": "{",
+			"NValue": 0,
+			"FValue": 0,
+			"BValue": false,
+			"LineNo": 1,
+			"ColPos": 1,
+			"FileName": "./test5.jsonx",
+			"ErrorMsg": "",
+			"Children": null
+		},
+		{
+			"Number": 1,
+			"TokenNo": 4,
+			"TokenNoValue": 0,
+			"Name": "",
+			"Value": "abc",
+			"NValue": 0,
+			"FValue": 0,
+			"BValue": false,
+			"LineNo": 1,
+			"ColPos": 3,
+			"FileName": "./test5.jsonx",
+			"ErrorMsg": "",
+			"Children": null
+		},
+		{
+			"Number": 2,
+			"TokenNo": 15,
+			"TokenNoValue": 0,
+			"Name": "",
+			"Value": ":",
+			"NValue": 0,
+			"FValue": 0,
+			"BValue": false,
+			"LineNo": 1,
+			"ColPos": 6,
+			"FileName": "./test5.jsonx",
+			"ErrorMsg": "",
+			"Children": null
+		},
+		{
+			"Number": 3,
+			"TokenNo": 11,
+			"TokenNoValue": 0,
+			"Name": "",
+			"Value": "{",
+			"NValue": 0,
+			"FValue": 0,
+			"BValue": false,
+			"LineNo": 1,
+			"ColPos": 8,
+			"FileName": "./test5.jsonx",
+			"ErrorMsg": "",
+			"Children": null
+		},
+		{
+			"Number": 4,
+			"TokenNo": 4,
+			"TokenNoValue": 0,
+			"Name": "",
+			"Value": "def",
+			"NValue": 0,
+			"FValue": 0,
+			"BValue": false,
+			"LineNo": 1,
+			"ColPos": 10,
+			"FileName": "./test5.jsonx",
+			"ErrorMsg": "",
+			"Children": null
+		},
+		{
+			"Number": 5,
+			"TokenNo": 15,
+			"TokenNoValue": 0,
+			"Name": "",
+			"Value": ":",
+			"NValue": 0,
+			"FValue": 0,
+			"BValue": false,
+			"LineNo": 1,
+			"ColPos": 13,
+			"FileName": "./test5.jsonx",
+			"ErrorMsg": "",
+			"Children": null
+		},
+		{
+			"Number": 6,
+			"TokenNo": 3,
+			"TokenNoValue": 0,
+			"Name": "",
+			"Value": "xxx",
+			"NValue": 0,
+			"FValue": 0,
+			"BValue": false,
+			"LineNo": 1,
+			"ColPos": 16,
+			"FileName": "./test5.jsonx",
+			"ErrorMsg": "",
+			"Children": null
+		},
+		{
+			"Number": 7,
+			"TokenNo": 4,
+			"TokenNoValue": 0,
+			"Name": "",
+			"Value": "ghi",
+			"NValue": 0,
+			"FValue": 0,
+			"BValue": false,
+			"LineNo": 1,
+			"ColPos": 23,
+			"FileName": "./test5.jsonx",
+			"ErrorMsg": "",
+			"Children": null
+		},
+		{
+			"Number": 8,
+			"TokenNo": 15,
+			"TokenNoValue": 0,
+			"Name": "",
+			"Value": ":",
+			"NValue": 0,
+			"FValue": 0,
+			"BValue": false,
+			"LineNo": 1,
+			"ColPos": 27,
+			"FileName": "./test5.jsonx",
+			"ErrorMsg": "",
+			"Children": null
+		},
+		{
+			"Number": 9,
+			"TokenNo": 8,
+			"TokenNoValue": 0,
+			"Name": "",
+			"Value": "12",
+			"NValue": 0,
+			"FValue": 12,
+			"BValue": false,
+			"LineNo": 1,
+			"ColPos": 29,
+			"FileName": "./test5.jsonx",
+			"ErrorMsg": "",
+			"Children": null
+		},
+		{
+			"Number": 10,
+			"TokenNo": 13,
+			"TokenNoValue": 0,
+			"Name": "",
+			"Value": "}",
+			"NValue": 0,
+			"FValue": 0,
+			"BValue": false,
+			"LineNo": 1,
+			"ColPos": 32,
+			"FileName": "./test5.jsonx",
+			"ErrorMsg": "",
+			"Children": null
+		},
+		{
+			"Number": 11,
+			"TokenNo": 13,
+			"TokenNoValue": 0,
+			"Name": "",
+			"Value": "}",
+			"NValue": 0,
+			"FValue": 0,
+			"BValue": false,
+			"LineNo": 1,
+			"ColPos": 34,
+			"FileName": "./test5.jsonx",
+			"ErrorMsg": "",
+			"Children": null
+		}
+	],
+	"Options": {
+		"StarMarker": "$",
+		"EndMarker": "$",
+		"IncludeOK": true,
+		"CommentsNest": true,
+		"EmitAllTokens": false
+	}
+}
+
+[33;40m 	At Top {"CurPos":0,"MaxPos":12,"NErrors":0}, File: /Users/corwin/Projects/reflect1/JsonX/parse.go LineNo:139 [0m
+[33;40m 	At Top {"CurPos":3,"MaxPos":12,"NErrors":0}, File: /Users/corwin/Projects/reflect1/JsonX/parse.go LineNo:139 [0m
+[33;40m 	At Top {"CurPos":6,"MaxPos":12,"NErrors":0}, File: /Users/corwin/Projects/reflect1/JsonX/parse.go LineNo:139 [0m
+[36;40m 	Before Return {"CurPos":7,"MaxPos":12,"NErrors":0}, File: /Users/corwin/Projects/reflect1/JsonX/parse.go LineNo:143 [0m
+[31;40mError at line ?, in soruce: File: /Users/corwin/Projects/reflect1/JsonX/parse.go LineNo:185, unknown token={"Number":8,"TokenNo":15,"TokenNoValue":0,"Name":"","Value":":","NValue":0,"FValue":0,"BValue":false,"LineNo":1,"ColPos":27,"FileName":"./test5.jsonx","ErrorMsg":"","Children":null} [0m
+[31;40mError at line ?, in soruce: File: /Users/corwin/Projects/reflect1/JsonX/parse.go LineNo:178, unknown token={"Number":9,"TokenNo":8,"TokenNoValue":0,"Name":"","Value":"12","NValue":0,"FValue":12,"BValue":false,"LineNo":1,"ColPos":29,"FileName":"./test5.jsonx","ErrorMsg":"","Children":null} [0m
+[36;40m 	Before Return {"CurPos":11,"MaxPos":12,"NErrors":2}, File: /Users/corwin/Projects/reflect1/JsonX/parse.go LineNo:197 [0m
+[31;40mError at line ?, in soruce: File: /Users/corwin/Projects/reflect1/JsonX/parse.go LineNo:194, missing close hash at end of tokens pt={"CurPos":12,"MaxPos":12,"NErrors":2} [0m
+[36;40m 	Before Return {"CurPos":12,"MaxPos":12,"NErrors":3}, File: /Users/corwin/Projects/reflect1/JsonX/parse.go LineNo:197 [0m
+
+ ------------------------------------------ test 5 (nest=true) (input >{ abc: { def: "xxx", "ghi": 12 } }<) ---------------------------------------
+Results: {
+	"Number": 0,
+	"TokenNo": 11,
+	"TokenNoValue": 0,
+	"Name": "",
+	"Value": "{",
+	"NValue": 0,
+	"FValue": 0,
+	"BValue": false,
+	"LineNo": 1,
+	"ColPos": 1,
+	"FileName": "./test5.jsonx",
+	"ErrorMsg": "",
+	"Children": [
+		{
+			"Number": 3,
+			"TokenNo": 17,
+			"TokenNoValue": 11,
+			"Name": "abc",
+			"Value": "{",
+			"NValue": 0,
+			"FValue": 0,
+			"BValue": false,
+			"LineNo": 1,
+			"ColPos": 8,
+			"FileName": "./test5.jsonx",
+			"ErrorMsg": "",
+			"Children": [
+				{
+					"Number": 6,
+					"TokenNo": 17,
+					"TokenNoValue": 3,
+					"Name": "def",
+					"Value": "xxx",
+					"NValue": 0,
+					"FValue": 0,
+					"BValue": false,
+					"LineNo": 1,
+					"ColPos": 16,
+					"FileName": "./test5.jsonx",
+					"ErrorMsg": "",
+					"Children": null
+				}
+			]
+		}
+	]
+}
+[31;40m
+FAIL: n_err=1
+[0m
+--- FAIL: Test_Parse0 (0.00s)
+	parse_test.go:60: [5] got an error when non-expected, NErrors= 3
+FAIL
+exit status 1
+FAIL	_/Users/corwin/Projects/reflect1/JsonX	0.007s
+func Test_Set11(t *testing.T) {
+
+	fmt.Printf("\n%sTest11 ----------------------------------------------------------------------------------------- %s\n", MiscLib.ColorYellow, MiscLib.ColorReset)
+
+	In := `
+		{ def: false }
+	`
+	var Out interface{}
+
+	meta, err := UnmarshalString(godebug.FILE(), In, &Out)
+	if err != nil {
+		t.Errorf("Set11: Error returned from UnmarshalString: %s\n", err)
+	}
+
+	fmt.Printf("meta=%s\n", SVarI(meta))
+	fmt.Printf("Out=%s\n", SVarI(Out))
+
+}
+
+func Test_Set12(t *testing.T) {
+
+	fmt.Printf("\n%sTest12 ----------------------------------------------------------------------------------------- %s\n", MiscLib.ColorYellow, MiscLib.ColorReset)
+
+	In := ` false `
+	var Out interface{}
+
+	meta, err := UnmarshalString(godebug.FILE(), In, &Out)
+	if err != nil {
+		t.Errorf("Set12: Error returned from UnmarshalString: %s\n", err)
+	}
+
+	fmt.Printf("meta=%s\n", SVarI(meta))
+	fmt.Printf("Out=%s\n", SVarI(Out))
+
+}
+// Mooved into Set11
+//func Test_Set05(t *testing.T) {
+//
+//	fmt.Printf("\n%sTest05 ----------------------------------------------------------------------------------------- %s\n", MiscLib.ColorYellow, MiscLib.ColorReset)
+//
+//	In := `{
+//		def: 921,
+//		ghi: "yep",
+//		abc: "bob",
+//	}`
+//	var Out map[string]interface{}
+//
+//	meta, err := UnmarshalString(godebug.FILE(), In, &Out)
+//	if err != nil {
+//		t.Errorf("Set05: Error returned from UnmarshalString: %s\n", err)
+//	}
+//
+//	fmt.Printf("meta=%s\n", SVarI(meta))
+//	fmt.Printf("Out=%s\n", SVarI(Out))
+//
+//}
+//type JsonXStructSet struct {
+//	TopName string
+//}
+//
+//var defaultSetDefaults JsonXStructSet
+//
+//func init() {
+//	// defaultValidConfig.something = someting
+//}
+//
+//func NewJsonXStructSet() (rv *JsonXStructSet) {
+//	return &JsonXStructSet{}
+//}
+//
+//// chainable
+//func (sd *JsonXStructSet) SetTopName(s string) *JsonXStructSet {
+//	sd.TopName = s
+//	return sd
+//}
+//
+//type JsonXValidate struct {
+//	TopName string
+//}
+//
+//var defaultValidConfig JsonXValidate
+//
+//func init() {
+//	// defaultValidConfig.something = someting
+//}
+//
+//func NewJsonXValidate() (rv *JsonXValidate) {
+//	return &JsonXValidate{}
+//}
+//
+//// chainable
+//func (jx *JsonXValidate) SetTopName(s string) *JsonXValidate {
+//	jx.TopName = s
+//	return jx
+//}
+//- func (jx *JsonXConfig) GetVv(xName, path string, meta map[string]MetaInfo, topTag string) (req bool, typ_s, minV_s, maxV_s, minLen_s, maxLen_s, list_s, valRe_s string, ignoreDefault bool, name, metaName string) {
+//- 	godebug.Printf(db3, "%sAT: %s%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), MiscLib.ColorReset)
+//- 	name = xName
+//- 	metaName = name
+//- 	if len(path) > 0 {
+//- 		metaName = path + "." + name
+//- 	}
+//- 	meta[metaName] = MetaInfo{SetBy: NotSet, DataFrom: FromTag}
+//- 	// f := val.Field(i)
+//- 	godebug.Printf(db3, "%sAT: %s%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), MiscLib.ColorReset)
+//-
+//- 	if ok, etag := CheckGfNamesValid(topTag); !ok {
+//- 		godebug.Printf(db1, "%sInvalid gf* tag %s will be ignored.%s\n", MiscLib.ColorRed, etag, MiscLib.ColorReset)
+//- 		AppendError(meta, metaName, fmt.Sprintf("Invalid gf* tag %s will be ignored.", etag))
+//- 	}
+//-
+//- 	typ_s = GetTopTag(topTag, "gfType")
+//- 	minV_s = GetTopTag(topTag, "gfMinValue")
+//- 	maxV_s = GetTopTag(topTag, "gfMaxValue")
+//- 	minLen_s = GetTopTag(topTag, "gfMinLen")
+//- 	maxLen_s = GetTopTag(topTag, "gfMaxLen")
+//- 	list_s = GetTopTag(topTag, "gfListValue")
+//- 	valRe_s = GetTopTag(topTag, "gfValidRE")
+//- 	ignoreDefault_s := GetTopTag(topTag, "gfIgnoreDefault")
+//-
+//- 	ignoreDefault, err := strconv.ParseBool(ignoreDefault_s)
+//- 	if err != nil {
+//- 		ignoreDefault = false
+//- 	}
+//-
+//- 	reqS := GetTopTag(topTag, "gfRequired")
+//- 	req, err = strconv.ParseBool(reqS)
+//- 	if err != nil {
+//- 		req = false
+//- 	}
+//-
+//- 	godebug.Printf(db3, "\tTop tag value : %q\n", topTag)
+//- 	godebug.Printf(db3, "%sAT: %s, req = %v typ_s = %s minV_s = %s maxV_s = %s list_s = %s valRe_s = %s ignoreDefault = %v name = %s metaName = %s %s\n", MiscLib.ColorBlueOnWhite, godebug.LF(),
+//- 		req, typ_s, minV_s, maxV_s, list_s, valRe_s, ignoreDefault, name, metaName, MiscLib.ColorReset)
+//-
+//- 	return
+//- }
+//func GetDv(xName, path string, meta map[string]MetaInfo, topTag string) (dv, name, metaName string) {
+//	godebug.Printf(db241, "%sAT: %s%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), MiscLib.ColorReset)
+//	name = xName
+//	metaName = name
+//	if len(path) > 0 {
+//		metaName = path + "." + name
+//	}
+//	meta[metaName] = MetaInfo{SetBy: NotSet, DataFrom: FromTag}
+//	// f := val.Field(i)
+//	godebug.Printf(db241, "%sAT: %s%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), MiscLib.ColorReset)
+//
+//	if ok, etag := CheckGfNamesValid(topTag); !ok {
+//		godebug.Printf(db201, "%sInvalid gf* tag %s will be ignored.%s\n", MiscLib.ColorRed, etag, MiscLib.ColorReset)
+//		AppendError(meta, metaName, fmt.Sprintf("Invalid gf* tag %s will be ignored.", etag))
+//	}
+//
+//	dv = GetTopTag(topTag, "gfDefault")
+//	godebug.Printf(db241, "%sAT: %s, dv = ->%s<-%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), dv, MiscLib.ColorReset)
+//
+//	e := GetTopTag(topTag, "gfDefaultEnv") // pull default values from !env! -- for things like passwords, connection info
+//	if e != "" {
+//		ev := os.Getenv(e)
+//		if ev != "" {
+//			dv = ev
+//			SetDataSource(meta, metaName, FromEnv)
+//		}
+//	}
+//
+//	if PullFromDefault != nil { // pull from Redis, Etcd
+//		p := GetTopTag(topTag, "gfDefaultFromKey") // pull default values from !env! -- for things like passwords, connection info
+//		use, val := PullFromDefault(p)
+//		if use {
+//			dv = val
+//			SetDataSource(meta, metaName, FromFunc)
+//		}
+//	}
+//	return
+//}

@@ -1,0 +1,4 @@
+			{{ __include__ "0012.b.jx" }}
+			LineNo: {{ __line_no__ }},
+			FileName: {{ __file_name__ }},
+			ColPos: {{ __col_pos__ }},

@@ -1,0 +1,9 @@
+{
+	topic_group: [
+		q_tf: [
+			{
+				Stmt: "Is the sun bright?"
+			}
+		]
+	]
+}

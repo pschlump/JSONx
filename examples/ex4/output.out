@@ -1,0 +1,103 @@
+Data: {
+	"Bob": "s12",
+	"BobSet": true,
+	"Jane": "s101",
+	"JaneSet": true,
+	"Tim": "s102",
+	"TimIsSet": false,
+	"Larry": "s103",
+	"LarryIsSet": true,
+	"Moe": "5000",
+	"MoeIsSet": true,
+	"Extra": {
+		"bob": "1000"
+	}
+}
+Meta: {
+	"Bob": {
+		"LineNo": 2,
+		"FileName": "simple.jsonx",
+		"ErrorMsg": null,
+		"SetBy": 8,
+		"DataFrom": 0
+	},
+	"BobSet": {
+		"LineNo": 0,
+		"FileName": "",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 0
+	},
+	"Extra": {
+		"LineNo": 0,
+		"FileName": "",
+		"ErrorMsg": [
+			"Note: Allocated Map (2)"
+		],
+		"SetBy": 5,
+		"DataFrom": 0
+	},
+	"Extra[\"bob\"]": {
+		"LineNo": 3,
+		"FileName": "simple.jsonx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"Jane": {
+		"LineNo": 0,
+		"FileName": "",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 2
+	},
+	"JaneSet": {
+		"LineNo": 0,
+		"FileName": "",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 0
+	},
+	"Larry": {
+		"LineNo": 0,
+		"FileName": "",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 2
+	},
+	"LarryIsSet": {
+		"LineNo": 0,
+		"FileName": "",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 0
+	},
+	"Moe": {
+		"LineNo": 4,
+		"FileName": "simple.jsonx",
+		"ErrorMsg": null,
+		"SetBy": 8,
+		"DataFrom": 0
+	},
+	"MoeIsSet": {
+		"LineNo": 0,
+		"FileName": "",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 0
+	},
+	"Tim": {
+		"LineNo": 0,
+		"FileName": "",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 2
+	},
+	"TimIsSet": {
+		"LineNo": 0,
+		"FileName": "",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 0
+	}
+}

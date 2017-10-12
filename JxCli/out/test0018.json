@@ -1,0 +1,11 @@
+{
+	"ColPos": 10,
+	"FileName": "testdata/test0018.jx",
+	"IncC": [
+		"a",
+		"b",
+		"c"
+	],
+	"LineNo": 2,
+	"This is Me": "Yes it is"
+}

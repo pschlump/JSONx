@@ -1,0 +1,139 @@
+{
+	"": {
+		"LineNo": 0,
+		"FileName": "",
+		"ErrorMsg": [
+			"Note: Allocated Slice"
+		],
+		"SetBy": 5,
+		"DataFrom": 0
+	},
+	"[0][\"abc\"]": {
+		"LineNo": 2,
+		"FileName": "testdata/test0006.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[0][\"def\"]": {
+		"LineNo": 2,
+		"FileName": "testdata/test0006.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[1][\"ghi\"]": {
+		"LineNo": 3,
+		"FileName": "testdata/test0006.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[1][\"jkl\"]": {
+		"LineNo": 3,
+		"FileName": "testdata/test0006.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[2][\"ttm\"]": {
+		"LineNo": 4,
+		"FileName": "testdata/test0006.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[2][\"yyv\"]": {
+		"LineNo": 4,
+		"FileName": "testdata/test0006.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[3][\"ttm\"]": {
+		"LineNo": 5,
+		"FileName": "testdata/test0006.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[3][\"yyv\"]": {
+		"LineNo": 5,
+		"FileName": "testdata/test0006.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[4][\"mmu\"]": {
+		"LineNo": 6,
+		"FileName": "testdata/test0006.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[4][\"ttm\"]": {
+		"LineNo": 6,
+		"FileName": "testdata/test0006.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[4][\"yyv\"]": {
+		"LineNo": 6,
+		"FileName": "testdata/test0006.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[5][\"mmu\"]": {
+		"LineNo": 7,
+		"FileName": "testdata/test0006.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[5][\"ttm\"]": {
+		"LineNo": 7,
+		"FileName": "testdata/test0006.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[5][\"yyv\"]": {
+		"LineNo": 7,
+		"FileName": "testdata/test0006.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[6]": {
+		"LineNo": 0,
+		"FileName": "",
+		"ErrorMsg": [
+			"Warning: Duplicate key [aMapKey02] File Name: testdata/test0006.jx Line No: 12 and 10 - last one seen has been used."
+		],
+		"SetBy": 0,
+		"DataFrom": 0
+	},
+	"[6][\"aMapKey01\"]": {
+		"LineNo": 9,
+		"FileName": "testdata/test0006.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[6][\"aMapKey02\"]": {
+		"LineNo": 12,
+		"FileName": "testdata/test0006.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[6][\"aMapKey03\"]": {
+		"LineNo": 11,
+		"FileName": "testdata/test0006.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	}
+}

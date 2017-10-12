@@ -1,0 +1,11 @@
+{
+	"ColPos": 10,
+	"FileName": "testdata/0012.a.jx",
+	"InnerColPos": 13,
+	"InnerFileName": "testdata/0012.b.jx",
+	"InnerLineNo": 3,
+	"LineNo": 2,
+	"This is Me": "Yes it is",
+	"b": "b",
+	"file": "this is testdata/0012.b.jx - correct file"
+}

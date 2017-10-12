@@ -1,0 +1,119 @@
+Defects:
+	test0009
+	test0011 -- both involving __include__
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Feature / Maybee Defect:
+
+	1. New Feature?? Why did this not work -- test0009 --
+		2. Should be able to IncA: {{ incldue File }}
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- Fixed -- Done -- -- Fixed -- Done -- -- Fixed -- Done -- -- Fixed -- Done --
++0. Missing __include__ file - failed to show error message
+		+jay.go - is a CLI - should report to Stderr and have an option to tourn off colored output.
+		*Missing file is by default a RED flaged item.
+		*Option for ignoring missing files
+		*__include_if_found__ -- should be a silent include if not found (sinclude)
+			*sinclude
+			*srequire
+		*fmt.Printf ( "%sFailed to find file %s%s\n", MiscLib.ColorRed, afn, MiscLib.ColorReset ) // xyzzyReportError
+		*1. Should have a Debug flag that turns off reprting of errors from inside code
+		*2. Should have a flag that turn off colored reporing
+		*3. Should have a "error check" test caase that verifies that an error occured.
+	*4. Should be able to {{ __include__ "bad file name" }}			- test0010
+	*1. Show "include path" info - with -D="show-include-files"
+		Every file and how searches for incldue/require were resolved.
+	1. Failure to open file - for input cause core dump
+	3. How to nested "include" with directoies work?
+		-- if {{ __include__ A/b.txt }}
+		-- Then if b.txt
+			== {{ __include__ c.txt }}
+		c.txt should be relative to home directory of "b.txt"

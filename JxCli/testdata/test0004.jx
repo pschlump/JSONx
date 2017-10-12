@@ -1,0 +1,36 @@
+{
+	def: 921,
+	ghi: "yep",		// Test a comment
+	abc: "bob",
+	xyz: "yep"		/* Test a 2nd Comment */
+	uuu: "uuu"
+	bt: true
+	f4: 1.1
+	sub1: {
+		aaa: 4
+		bbb: 8
+		}
+	sub2: {
+		aaa: 44
+		bbb: 88.0
+		}
+	sub3: {
+		aaa: 444
+		bbb: 888.0
+		}
+	Arr3: [ 2121, 3121, 4141 ],
+	Arr4: [ 2121, 3121, 4141, 5151, 6161 ],
+	Arr5: [ 2121, 3121, 4141, 5151, 6161, 7171 ],
+	Sli2: [ 55, , ]
+	Sli3: [ 55, 66, ]
+	Sli4: [ 55, 66, 77 ]
+	Sli5: [ 55, , ]
+	Sli6: [ 55, 11, ]
+	Sli7: [ 55, 66, 77, 88, 11, 22 ]
+	Map01: {
+		aMapKey01: 11
+		aMapKey02: 22
+		aMapKey03: 33
+		aMapKey02: 99999999
+		}
+}

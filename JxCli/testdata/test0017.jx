@@ -1,0 +1,3 @@
+{
+	IncC : {{ __include_str__ ./0017.md }},
+}

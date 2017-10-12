@@ -1,0 +1,55 @@
+{
+	title: "Questions True/False Test set"
+	debug: "dump-red"
+	unit_type: "q-tf"
+	topic_group: [
+		q_tf: [
+			{
+				Stmt: "Is the sun bright?"
+				Points: 1
+				Answer: "true"
+			}
+			, {
+				Stmt: "Jupiter is a planet?"
+				Points: 1
+				Answer: "true"
+			}
+			, {
+				Stmt: "Pluto is a planet?"
+				Points: 1
+				Answer: "false"
+			}
+		]
+		q_multi: [
+			{
+				Choice: [
+					"The sun is mostly solid rock"
+					"The sun is mostly hydrogen"
+					"The sun is red"
+					"The sun is hot"
+					"2 and 4 are corect"
+				]
+				Points: [
+					0, 3, 0, 2, 5
+				]
+			}
+			{
+				Instruction: "Check all that are correct"
+				Choice: [
+					"The pluto may have a liquid ocean"
+					"The earth is the only planet or moon with a liquid ocean on it"
+					"The jupiter is a gass giant"
+					"The sun is hot"
+					"Venus orbits the sun"
+					"Venus orbits jupiter"
+					"Venus is a planet"
+					"Venus is a moon"
+					"Check this and loose a point"
+				]
+				Points: [
+					1, 0, 1, 1, 1, 0, 1, 0, -1
+				]
+			}
+		]
+	]
+}

@@ -1,0 +1,4 @@
+test.t2
+{{ __include__ test.t2.pt1 }}
+{{ __include__ test.t2.pt2 }}
+after

@@ -1,0 +1,407 @@
+{
+	"[\"Arr3\"]": {
+		"LineNo": 0,
+		"FileName": "",
+		"ErrorMsg": [
+			"Note: Allocated Slice"
+		],
+		"SetBy": 5,
+		"DataFrom": 0
+	},
+	"[\"Arr3\"][0]": {
+		"LineNo": 21,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"Arr3\"][1]": {
+		"LineNo": 21,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"Arr3\"][2]": {
+		"LineNo": 21,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"Arr4\"]": {
+		"LineNo": 0,
+		"FileName": "",
+		"ErrorMsg": [
+			"Note: Allocated Slice"
+		],
+		"SetBy": 5,
+		"DataFrom": 0
+	},
+	"[\"Arr4\"][0]": {
+		"LineNo": 22,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"Arr4\"][1]": {
+		"LineNo": 22,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"Arr4\"][2]": {
+		"LineNo": 22,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"Arr4\"][3]": {
+		"LineNo": 22,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"Arr4\"][4]": {
+		"LineNo": 22,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"Arr5\"]": {
+		"LineNo": 0,
+		"FileName": "",
+		"ErrorMsg": [
+			"Note: Allocated Slice"
+		],
+		"SetBy": 5,
+		"DataFrom": 0
+	},
+	"[\"Arr5\"][0]": {
+		"LineNo": 23,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"Arr5\"][1]": {
+		"LineNo": 23,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"Arr5\"][2]": {
+		"LineNo": 23,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"Arr5\"][3]": {
+		"LineNo": 23,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"Arr5\"][4]": {
+		"LineNo": 23,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"Arr5\"][5]": {
+		"LineNo": 23,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"Map01\"]": {
+		"LineNo": 0,
+		"FileName": "",
+		"ErrorMsg": [
+			"Warning: Duplicate key [aMapKey02] File Name: testdata/test0004.jx Line No: 34 and 32 - last one seen has been used."
+		],
+		"SetBy": 0,
+		"DataFrom": 0
+	},
+	"[\"Map01\"][\"aMapKey01\"]": {
+		"LineNo": 31,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"Map01\"][\"aMapKey02\"]": {
+		"LineNo": 34,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"Map01\"][\"aMapKey03\"]": {
+		"LineNo": 33,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"Sli2\"]": {
+		"LineNo": 0,
+		"FileName": "",
+		"ErrorMsg": [
+			"Note: Allocated Slice"
+		],
+		"SetBy": 5,
+		"DataFrom": 0
+	},
+	"[\"Sli2\"][0]": {
+		"LineNo": 24,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"Sli3\"]": {
+		"LineNo": 0,
+		"FileName": "",
+		"ErrorMsg": [
+			"Note: Allocated Slice"
+		],
+		"SetBy": 5,
+		"DataFrom": 0
+	},
+	"[\"Sli3\"][0]": {
+		"LineNo": 25,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"Sli3\"][1]": {
+		"LineNo": 25,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"Sli4\"]": {
+		"LineNo": 0,
+		"FileName": "",
+		"ErrorMsg": [
+			"Note: Allocated Slice"
+		],
+		"SetBy": 5,
+		"DataFrom": 0
+	},
+	"[\"Sli4\"][0]": {
+		"LineNo": 26,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"Sli4\"][1]": {
+		"LineNo": 26,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"Sli4\"][2]": {
+		"LineNo": 26,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"Sli5\"]": {
+		"LineNo": 0,
+		"FileName": "",
+		"ErrorMsg": [
+			"Note: Allocated Slice"
+		],
+		"SetBy": 5,
+		"DataFrom": 0
+	},
+	"[\"Sli5\"][0]": {
+		"LineNo": 27,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"Sli6\"]": {
+		"LineNo": 0,
+		"FileName": "",
+		"ErrorMsg": [
+			"Note: Allocated Slice"
+		],
+		"SetBy": 5,
+		"DataFrom": 0
+	},
+	"[\"Sli6\"][0]": {
+		"LineNo": 28,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"Sli6\"][1]": {
+		"LineNo": 28,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"Sli7\"]": {
+		"LineNo": 0,
+		"FileName": "",
+		"ErrorMsg": [
+			"Note: Allocated Slice"
+		],
+		"SetBy": 5,
+		"DataFrom": 0
+	},
+	"[\"Sli7\"][0]": {
+		"LineNo": 29,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"Sli7\"][1]": {
+		"LineNo": 29,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"Sli7\"][2]": {
+		"LineNo": 29,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"Sli7\"][3]": {
+		"LineNo": 29,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"Sli7\"][4]": {
+		"LineNo": 29,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"Sli7\"][5]": {
+		"LineNo": 29,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"abc\"]": {
+		"LineNo": 4,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"bt\"]": {
+		"LineNo": 7,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"def\"]": {
+		"LineNo": 2,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"f4\"]": {
+		"LineNo": 8,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"ghi\"]": {
+		"LineNo": 3,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"sub1\"][\"aaa\"]": {
+		"LineNo": 10,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"sub1\"][\"bbb\"]": {
+		"LineNo": 11,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"sub2\"][\"aaa\"]": {
+		"LineNo": 14,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"sub2\"][\"bbb\"]": {
+		"LineNo": 15,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"sub3\"][\"aaa\"]": {
+		"LineNo": 18,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"sub3\"][\"bbb\"]": {
+		"LineNo": 19,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"uuu\"]": {
+		"LineNo": 6,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"xyz\"]": {
+		"LineNo": 5,
+		"FileName": "testdata/test0004.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	}
+}

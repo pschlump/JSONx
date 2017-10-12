@@ -1,0 +1,60 @@
+{
+	"[\"ColPos\"]": {
+		"LineNo": 1,
+		"FileName": "__col_pos__:macro",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"FileName\"]": {
+		"LineNo": 1,
+		"FileName": "__file_name__:macro",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"IncC\"]": {
+		"LineNo": 0,
+		"FileName": "",
+		"ErrorMsg": [
+			"Note: Allocated Slice"
+		],
+		"SetBy": 5,
+		"DataFrom": 0
+	},
+	"[\"IncC\"][0]": {
+		"LineNo": 1,
+		"FileName": "testdata/0018b",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"IncC\"][1]": {
+		"LineNo": 2,
+		"FileName": "testdata/0018b",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"IncC\"][2]": {
+		"LineNo": 3,
+		"FileName": "testdata/0018b",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"LineNo\"]": {
+		"LineNo": 1,
+		"FileName": "__line_no__:macro",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"This is Me\"]": {
+		"LineNo": 6,
+		"FileName": "testdata/test0018.jx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	}
+}

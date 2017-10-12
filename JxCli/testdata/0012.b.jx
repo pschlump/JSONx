@@ -1,0 +1,5 @@
+	"b" : "b" ,
+	file : "this is testdata/0012.b.jx - correct file",
+	InnerLineNo: {{ __line_no__ }},
+	InnerFileName: {{ __file_name__ }},
+	InnerColPos: {{ __col_pos__ }},

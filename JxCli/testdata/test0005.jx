@@ -1,0 +1,10 @@
+[
+	{ abc: 123444 }
+	{ def: false }
+	{
+		aMapKey01: 11
+		aMapKey02: 22
+		aMapKey03: 33
+		aMapKey02: 99999999
+	}
+]
