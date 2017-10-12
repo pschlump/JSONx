@@ -8,8 +8,7 @@ import (
 
 	"github.com/pschlump/MiscLib"
 
-	// JsonXScanner "www.2c-why.com/JsonX"
-	"www.2c-why.com/JsonX"
+	JsonX "github.com/pschlump/JSONx"
 )
 
 //
