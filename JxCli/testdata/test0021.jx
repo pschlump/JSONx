@@ -1,0 +1,3 @@
+{
+	IncC : """before {{ __env__ DB_NAME }} after""" ,
+}
