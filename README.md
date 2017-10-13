@@ -187,7 +187,7 @@ Pulling Defaults/Values from Environemnt
 -----------------------------------------
 
 ```
-{{ __envVars__ Name Name Name }}
+{{ __env__ Name Name Name }}
 ```
 
 Pulls in values from the environment so that you can substitute them into your
@@ -202,10 +202,12 @@ $ export DB_PASS=mypassword
 Then
 
 ```
-{{ __envVars__ DB_PASS }}{{.DB_PASS}}
+{{ __env__ DB_PASS }}
 ```
 
-Will substitute in the database password, `mypassword`.
+Will substitute in the database password, `mypassword`.  If you need to substitute
+this into a string then use """ quotes.   See JxCli/testdata/test0021.jx for example.
+
 
 Default From Environment
 --------------------------

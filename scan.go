@@ -225,10 +225,10 @@ func NewScan(fn string) (rv *JsonXScanner) {
 	rv.Funcs["__require_str__"] = fxIncludeStr
 	rv.Funcs["__srequire_str__"] = fxIncludeStr
 
-	// xyzzy - consider adding __include_ from Redis
+	// xyzzy - consider adding __include__ from Redis
 
-	// rv.Funcs["__envVars__"] = fxEnvVars			// xyzzy
-	// rv.Funcs["__env__"] = fxEnv					// xyzzy
+	rv.Funcs["__envVars__"] = fxEnvVars // xyzzy
+	rv.Funcs["__env__"] = fxEnv
 
 	// xyzzy - how do these 2 get set? by user/config
 	rv.Data["path"] = []string{"./"}
@@ -236,6 +236,26 @@ func NewScan(fn string) (rv *JsonXScanner) {
 
 	rv.Data["fns"] = []string{""}
 
+	return
+}
+
+// This may not be correct - use fxEnv instead
+func fxEnvVars(js *JsonXScanner, args []string) (rv string) {
+	fmt.Printf("fxEnvVars: args=%s\n", args)
+	for _, vv := range args {
+		val := os.Getenv(vv)
+		js.Data[vv] = val
+	}
+	return
+}
+
+func fxEnv(js *JsonXScanner, args []string) (rv string) {
+	// fmt.Printf("fxEnv: args=%s\n", args)
+	for _, vv := range args {
+		val := os.Getenv(vv)
+		// rv += "\"" + val + "\""
+		rv += val
+	}
 	return
 }
 
@@ -741,6 +761,8 @@ func (js *JsonXScanner) scan() {
 
 	js.EmitNo = 0
 
+	var processFunction func()
+
 	var Adv = func() {
 		for (js.Pos+1) >= len(js.Buf) && len(js.pushedInput) > 0 { // if we are out of input, and we have stuff on the stack
 			top := len(js.pushedInput) - 1
@@ -935,7 +957,17 @@ func (js *JsonXScanner) scan() {
 				} else {
 					js.ColPos++
 				}
-				if c == '\\' {
+				if haveStr(js.Options.StartMarker) {
+					AdvN(len(js.Options.EndMarker) - 1)
+					if db300 {
+						fmt.Printf("%sJust before processFunction (new inside string), c=%s%s\n", MiscLib.ColorCyan, string(c), MiscLib.ColorReset)
+					}
+					processFunction()
+					Adv()
+					if db300 {
+						fmt.Printf("%sJust after processFunction (new inside string), c=%s%s\n", MiscLib.ColorCyan, string(c), MiscLib.ColorReset)
+					}
+				} else if c == '\\' {
 					Adv()
 					if c == '\n' {
 						js.LineNo++
@@ -1242,7 +1274,7 @@ func (js *JsonXScanner) scan() {
 		return
 	}
 
-	var processFunction = func() {
+	processFunction = func() {
 
 		godebug.Printf(Db["fx1"], "\n%sStart of 'function' call Rest of Input: -->%s<--, called from %s.%s\n", MiscLib.ColorBlue, js.Buf[js.Pos:], godebug.LF(2), MiscLib.ColorReset)
 
@@ -1834,5 +1866,6 @@ const db200 = false     //
 const db208 = false     //
 const db212 = false     // Debug new __include_str__ stuff.
 const db214 = false     // Problem with scan requiring ',' after {{ function }}
+const db300 = false     // Process function/macro call inside string """ string """
 
 /* vim: set noai ts=4 sw=4: */

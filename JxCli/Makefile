@@ -114,7 +114,13 @@ test0019: build
 	@./JxCli -i testdata/test0019.jx -j out/test0019.json -m out/test0019.meta
 	@../CmpJson/CmpJson -a out/test0019.json -e ./ref/test0019.json | grep Passed >/dev/null
 
+test0020: build
+	@./JxCli -i testdata/test0020.jx -j out/test0020.json -m out/test0020.meta
+	@../CmpJson/CmpJson -a out/test0020.json -e ./ref/test0020.json | grep Passed >/dev/null
 
+test0021: build
+	@./JxCli -i testdata/test0021.jx -j out/test0021.json -m out/test0021.meta
+	@../CmpJson/CmpJson -a out/test0021.json -e ./ref/test0021.json | grep Passed >/dev/null
 
 
 
