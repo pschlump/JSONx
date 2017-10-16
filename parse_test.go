@@ -1168,6 +1168,7 @@ const db24 = false // show main test results in JSON
 const db26 = false
 const db27 = false
 
+// PJS Mon Oct 16 10:01:19 MDT 2017 -- changed --
 const dbTestShowOutput = false
 
 /* vim: set noai ts=4 sw=4: */
