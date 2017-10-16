@@ -313,7 +313,9 @@ func (pt *ParserType) parseJsonXInternal(js *JsonXScanner, depth int) (rv *JsonT
 			}
 			tmp := pt.parseJsonXInternal(js, depth+1)
 			if tmp == nil {
-				fmt.Printf("%sParse returnd a NIL! - pt=%s %s\n", MiscLib.ColorRed, SVar(pt), MiscLib.ColorReset)
+				if printErrorMsgs {
+					fmt.Printf("%sParse returnd a NIL! - pt=%s %s\n", MiscLib.ColorRed, SVar(pt), MiscLib.ColorReset)
+				}
 			} else {
 				if tmp.TokenNo == TokenId {
 					tmp.TokenNo = TokenString
@@ -363,6 +365,7 @@ const db23 = false
 const db28 = false // print out error messages
 const dbInternalNote = false
 
-var printErrorMsgs = true
+// PJS Mon Oct 16 09:56:21 MDT 2017 -- chagned for release -- // var printErrorMsgs = true
+var printErrorMsgs = false
 
 /* vim: set noai ts=4 sw=4: */

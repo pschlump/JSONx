@@ -53,4 +53,6 @@ func Test_ProcessPath1(t *testing.T) {
 }
 
 const dbt4 = false
-const dbt5 = true
+
+// PJS Mon Oct 16 09:53:58 MDT 2017 - changed // const dbt5 = false
+const dbt5 = false

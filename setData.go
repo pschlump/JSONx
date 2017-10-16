@@ -1816,12 +1816,16 @@ func OptSetField(jNname, name string, from *JsonToken, jNopt []string, val refle
 			if f.Kind() == reflect.Bool {
 				f.SetBool(true)
 			} else {
-				// xyzzy - should have meta to save error info!
-				fmt.Printf("%sError -- %s -- is not a bool type, setField in options, %s%s\n", MiscLib.ColorRed, fieldName, godebug.LF(), MiscLib.ColorReset) // xyzzy
+				if db444 {
+					// xyzzy - should have meta to save error info!
+					fmt.Printf("%sError -- %s -- is not a bool type, setField in options, %s%s\n", MiscLib.ColorRed, fieldName, godebug.LF(), MiscLib.ColorReset) // xyzzy
+				}
 			}
 		} else {
-			// xyzzy - should have meta to save error info!
-			fmt.Printf("%sError -- %s -- is not a correct field name, setField in options, %s%s\n", MiscLib.ColorRed, fieldName, godebug.LF(), MiscLib.ColorReset) // xyzzy
+			if db444 {
+				// xyzzy - should have meta to save error info!
+				fmt.Printf("%sError -- %s -- is not a correct field name, setField in options, %s%s\n", MiscLib.ColorRed, fieldName, godebug.LF(), MiscLib.ColorReset) // xyzzy
+			}
 		}
 	}
 }
@@ -1846,5 +1850,7 @@ var db124 = false //
 
 var db301 = false // 1st attempt at putting "extra" fields into META with error
 var db302 = false // 2nd attempt at putting "extra" fields into META with error -- this one is mostly working - error message needs fixing
+
+var db444 = false // Mon Oct 16 09:55:09 MDT 2017 - changed for release
 
 /* vim: set noai ts=4 sw=4: */

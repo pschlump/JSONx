@@ -1004,7 +1004,9 @@ func Test_Parse0(t *testing.T) {
 					t.Errorf("Error: [%d] Got invalid number of errros expected %d got %d \n", ii, dv.ExpectedNErrors, NErrors)
 					n_err++
 				}
-				fmt.Printf("NErrors = %d, ast = %s\n", NErrors, godebug.SVarI(ast))
+				if dbTestShowOutput {
+					fmt.Printf("NErrors = %d, ast = %s\n", NErrors, godebug.SVarI(ast))
+				}
 			}
 
 		}
@@ -1165,5 +1167,7 @@ func CmpResultsAST(ast *JsonToken, expected []ResultsParse, depth int) (ok bool,
 const db24 = false // show main test results in JSON
 const db26 = false
 const db27 = false
+
+const dbTestShowOutput = false
 
 /* vim: set noai ts=4 sw=4: */
