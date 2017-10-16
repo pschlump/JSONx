@@ -43,12 +43,13 @@ In Go code
 Then to read in a JsonX file and unmarsal it:
 
 ```go
+	fn := "file.jsonx"
 	meta, err := JsonX.UnmarshalFile(fn, &TheDataConverted)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "An error in reading or unmarshaling the file %s as JsonX: %s", fn, err )
 		os.Exit(1)
 	}
-	_ = meta // need to validate and check for missing values!
+	_ = meta // needed to validate and check for missing values!
 ```
 
 Exampel 1
@@ -79,14 +80,14 @@ func ReadClsCfg(cfg *CfgType, fn string) (clsCfg ClsCfgType, err error) {
 
 	err = JsonX.ValidateValues(&clsCfg, meta, "", "", "")
 	if err != nil {
-		// xyzzy
+		// print out some useful error message at this point includeing "err"
 		return
 	}
 
 	// Test ValidateRequired - both success and fail, nested, in arrays
 	errReq := JsonX.ValidateRequired(&clsCfg, meta)
 	if errReq != nil {
-		// xyzzy
+		// print out some useful error message including errReq
 		fmt.Printf("err=%s meta=%s\n", err, JsonX.SVarI(meta))
 		msg, err := JsonX.ErrorSummary("text", &clsCfg, meta)
 		if err != nil {
@@ -110,7 +111,7 @@ The configuration file
 }
 ```
 
-Note that "tags" inside the has need not be quoted and that commans are optional.
+Note that "tags" inside the has need not be quoted and that commons are optional.
 
 
 
@@ -122,10 +123,6 @@ Comments
 
 Comments start with a `//` to end of line or a `/*` until the next `*/`.
 You can configure the multi-line comments to nest. 
-
-TODO- How to configure.
-
-TODO- How to configure using a built in function - incline.
 
 
 File inclusion
@@ -139,20 +136,13 @@ You can include files from the .jx (JsonX) files.  For Example:
 }
 ```
 
-Where the directory ./dir contains a.file.  the {{...}} will be replaced with the contents of the include file.
-Note: The paths are relative to where the file is, so ./ for the top file, then if a.file includes another file,
+Where the directory `./dir` contains a.file.  the `{{...}}` will be replaced with the contents of the include file.
+Note: The paths are relative to where the file is, so `./` for the top file, then if a.file includes another file,
 say b.file it will be relative to the location of a.file. 
 
-File inclusion is processed at a low level, below the level of the scanner.  This means that you should be albe
+File inclusion is processed at a low level, below the level of the scanner.  This means that you should be able
 to include files at any location in the input.
 
-TODO - include search path!
-
-TODO - include relative to home directory!
-
-TODO - include relative to a named home directory, `~bob/` for example.
-
-TODO -- Include of "dirctory/Pattern" or "direcoty" - all files in a directory - converted to -- verify this works -- { filename: data, filename2: data2 }
 
 Buitin Functions
 -----------------
@@ -172,13 +162,10 @@ From: scan.go:
 	rv.Funcs["__start_end_marker__"] = fxStartEndMarker
 	rv.Funcs["__comment__"] = fxComment
 	rv.Funcs["__comment_nest__"] = fxCommentNest
-
-	// xyzzy - how do these 2 get set? by user/config
-	rv.Data["path"] = []string{"./"}
-	rv.Data["envVars"] = []string{}
-
-	rv.Data["fns"] = []string{""}
+	rv.Funcs["__env__"] = fxEnv
 ```
+
+TODO - document each of the builtin functions
 
 Template processing
 --------------------
@@ -269,13 +256,18 @@ To pull a value from the environment:
 Reading in JsonX Data
 ---------------------
 
+TODO
+
 Data Validation Using Tags
 --------------------------
+
+TODO
 
 Validation of Interface Data
 ----------------------------
 
 
+TODO
 TODO:
 	1. Document example with "is-set" stuff
 		set1_test.go:		Mmm    string         `gfJsonX:"mmm,isSet,setField:MmmSet"`
