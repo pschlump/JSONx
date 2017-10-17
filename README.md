@@ -258,71 +258,28 @@ Reading in JsonX Data
 
 TODO
 
-Data Validation Using Tags
+JsonX Tags
 --------------------------
 
-TODO
+The following tags are supported.
 
-Validation of Interface Data
-----------------------------
-
-
-TODO
-TODO:
-	1. Document example with "is-set" stuff
-		set1_test.go:		Mmm    string         `gfJsonX:"mmm,isSet,setField:MmmSet"`
-		                    MmmSet bool           `gfJsonX:"-"`
-	2. Document use of interface{} - with a JsonX spec for validation and defaults
-	3. Document/Implement "output"
-
-
-Note:
-	Options for gfJsonX - "template" indicates substitution for {{.LineNo}} and {{.FileName}} in string value
-
-	Need to have {{.LineNo}} {{.ColPos}} and {{.FileName}} acted on in "scanner"
-
-```
-// TODO:
-//	1. Add in an external "JsonX" "spec" that specifies the data layout/validation.
-//
-
-//
-// Tags Are:
-//    	gfDefault				The default value
-//		gfDefaultEnv			If the speicifed environemnt variable is set then use that instead of gfDefault (gfDefault must be set)
-//		gfDefaultFromKey		If this is set and a PullFromDefault function is supplied then call that function to get the value.  Overfides dfDefaultEnv
-//		gfIgnore				Ignore setting of deaults for the underlying structure/slice/array - only partially implemnented.
-//		gfAlloc					For slice alocate this number of entries and initialize them.  For map allocate a map so you do not have a nil pointer.
-//								A Slice 2,10 would be alloacate and initialize 2 with a cap of 10.  For pointers "y" indicates a NIL is to be replace with
-//								an pointer to an element.
-// Added:
-//		gfPromptPassword		Take value from stdin - read as a password without echo.
-//		gfPrompt				Take value from stdin
-// Note: need to be able to prompt for and validate stuff that is in "Extra" or map[string]interface! -- Meta spec --
-//
-//
-//
-//		gfType					(ValidateValues) The type-checking data type, int, money, email, url, filepath, filename, fileexists etc
-//		gfMinValue				(ValidateValues) Minimum value
-//		gfMaxValue				(ValidateValues) Minimum value
-//		gfListValue				(ValidateValues) Value (string) must be one of list of possible values
-//		gfValidRE				(ValidateValues) Value will be checked agains a regular expression, match is valid
-//		gfIgnoreDefault			(ValidateValues) If value is a default (if mm.SetBy == NotSet) then it will not be validated by above rules.
-//
-//		gfRequired				(ValidateRequired) Will check that the user supplied a value - not SetBy == NotSet at end
-//
-//
-//		gfTag					(hjson) Tag name for hjson
-//		gfNoSet					(hjson) "-" to not set a value, not searialize it. (hjson)
-//
-// PreCreate, PostCreate - functions to be added -- as an interface/lookup based on type.
-//
-// Notes:
-// 		See: http://intogooglego.blogspot.com/2015/06/day-17-using-reflection-to-write-into.html
-// 		See: https://gist.github.com/hvoecking/10772475 -- Looks like a reflection based deep copy
-// 		From: http://stackoverflow.com/questions/12753805/type-converting-slices-of-interfaces-in-go
-// 		http://stackoverflow.com/questions/18091562/how-to-get-underlying-value-from-a-reflect-value-in-golang
-```
+| Tag                   | Description                                                               |
+| :-------------------- | :------------------------------------------------------------------------ |
+| gfDefault             | Default value for field.                                                  |
+| gfDefaultEnv          | Name of environment variable to use for default if not set.               |
+| gfDefaultFromKey      | Key passed to PullFromDefault to get default value if not set             |
+| gfAlloc               | Allocate a minimum of N items in a slice.                                 |
+| gfPromptPassword      | Prompt stdin for a password to fill in field.                             |
+| gfPromp               | Prompt stdin for a value to fill in field.                                |
+| gfType                | A validation type, int, money, email, url, filepath, filename, fileexists |
+| gfMinValue            | Inclusive minimum value for field, int, float or string.                  |
+| gfMaxValue            | Inclusive maximum value for field, int, float or string.                  |
+| gfListValue           | Value must come from list supplied.                                       |
+| gfValieRE             | Regular expression must match value to be valid.                          |
+| gfIgnoreDefault       | If a default value is used then validation will not be applied.           |
+| gfRequired            | Must be supplied, can not be left empty.                                  |
+| gfTag                 | Match name for field.                                                     |
+| gfNoSet               | If "-" then will not be set. Like 1st item in `json` tag.                 |
 
 
 
@@ -330,21 +287,4 @@ Note:
 
 
 
-
-
-
-
-TODO
-
-isSet v.s. isSetNoDefault - Default name is {Name}IsSet
-
-TODO
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-1. How is the search "PATH" set for include in scan.
-2. Listing of included files (tree form listing?)
-3. 
-
-
-http://sosedoff.com/2016/07/16/golang-struct-tags.html -- Validation with Struct Tags
 
