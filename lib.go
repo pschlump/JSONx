@@ -42,8 +42,6 @@ func Exists(name string) bool {
 	return true
 }
 
-// "www.2c-why.com/parse-words"             // pw // "../go-lib/pw"     // passed
-
 func ParseLineIntoWords(line string) []string {
 	Pw := pw.NewParseWords()
 	Pw.SetOptions("C", false, true)

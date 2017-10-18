@@ -4,9 +4,8 @@ import (
 	"fmt"
 	"os"
 
+	JsonX "github.com/pschlump/JSONx"
 	"github.com/pschlump/godebug"
-
-	"www.2c-why.com/JsonX"
 )
 
 // xyzzy - gfDefault: 100 - no error
