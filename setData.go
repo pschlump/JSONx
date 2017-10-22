@@ -332,19 +332,27 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 		ExtraFieldPos := -1
 		ExtraFieldLineNo := -1
 		for i := 0; i < val.NumField(); i++ {
-			godebug.Printf(db124, "%sAT: %s%s\n", MiscLib.ColorCyan, godebug.LF(), MiscLib.ColorReset)
+			godebug.Printf(db445, "%sAT: %s%s\n", MiscLib.ColorCyan, godebug.LF(), MiscLib.ColorReset)
 			name := typeOfT.Field(i).Name
+			godebug.Printf(db445, "%sname = ->%s<- AT: %s%s\n", MiscLib.ColorCyan, name, godebug.LF(), MiscLib.ColorReset)
+			if len(name) > 0 && name[0] >= 'a' && name[0] <= 'z' {
+				godebug.Printf(db445, "%sname = ->%s<- IS Unexported! AT: %s%s\n\n", MiscLib.ColorCyan, name, godebug.LF(), MiscLib.ColorReset)
+				continue
+			}
 			metaName := name
 			if path != "" {
 				metaName = path + "." + name
 			}
+			godebug.Printf(db445, "%sname = %s AT: %s%s\n", MiscLib.ColorCyan, name, godebug.LF(), MiscLib.ColorReset)
 			meta[metaName] = MetaInfo{SetBy: NotSet, DataFrom: FromTag}
 			// AppendError(meta, metaName, fmt.Sprintf("%s", err))
+			godebug.Printf(db445, "%sname = %s AT: %s%s\n", MiscLib.ColorCyan, name, godebug.LF(), MiscLib.ColorReset)
 			f := val.Field(i)
-			godebug.Printf(db124, "%d: %s %s = %v\n", i, name, f.Type(), f.Interface())
-			godebug.Printf(db124, "\tWhole tag value : %q\n", typeOfT.Field(i).Tag)
-			godebug.Printf(db124, "\tValue           : %q\n", typeOfT.Field(i).Tag.Get("gfType"))
-			godebug.Printf(db124, "\tDefault value   : %q\n", typeOfT.Field(i).Tag.Get("gfDefault"))
+			godebug.Printf(db445, "%sname = %s AT: %s%s\n", MiscLib.ColorCyan, name, godebug.LF(), MiscLib.ColorReset)
+			godebug.Printf(db445, "%d: %s %s = %v\n", i, name, f.Type(), f.Interface())
+			godebug.Printf(db445, "\tWhole tag value : %q\n", typeOfT.Field(i).Tag)
+			godebug.Printf(db445, "\tValue           : %q\n", typeOfT.Field(i).Tag.Get("gfType"))
+			godebug.Printf(db445, "\tDefault value   : %q\n", typeOfT.Field(i).Tag.Get("gfDefault"))
 
 			if ok, etag := CheckGfNamesValid(string(typeOfT.Field(i).Tag)); !ok {
 				godebug.Printf(db124, "%sInvalid gf* tag %s will be ignored.%s\n", MiscLib.ColorRed, etag, MiscLib.ColorReset)
@@ -356,7 +364,13 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 			// xyzzyTmplDefault -- template it
 			jN := typeOfT.Field(i).Tag.Get("gfJsonX")
 			jNname, jNopt := ParseGfJsonX(jN)
-			godebug.Printf(db21, "jNname [%s] opt [%s]\n", jNname, jNopt)
+			godebug.Printf(db21, "jN = [%s] jNname [%s] opt [%s]\n", jN, jNname, jNopt)
+			godebug.Printf(db445, "%sjN = [%s] jNname [%s] opt [%s], %s%s\n", MiscLib.ColorYellow, jN, jNname, jNopt, godebug.LF(), MiscLib.ColorReset)
+
+			// xyzzy ===============================================================================================
+			// xyzzy - if jNname == "-" - then, continue Sun Oct 22 16:54:39 MDT 2017
+			// xyzzy - if jNname == "-" - then, continue Sun Oct 22 16:54:39 MDT 2017
+			// xyzzy ===============================================================================================
 
 			// _ = jNopt -- First use of jNopt is below
 			// fmt.Printf("jNopt=%s\n", jNopt)
@@ -1852,5 +1866,6 @@ var db301 = false // 1st attempt at putting "extra" fields into META with error
 var db302 = false // 2nd attempt at putting "extra" fields into META with error -- this one is mostly working - error message needs fixing
 
 var db444 = false // Mon Oct 16 09:55:09 MDT 2017 - changed for release
+var db445 = false // Sun Oct 22 16:42:53 MDT 2017 - fix related to unexpoted fields
 
 /* vim: set noai ts=4 sw=4: */
