@@ -210,8 +210,12 @@ func NewScan(fn string) (rv *JsonXScanner) {
 	rv.Funcs["__sinclude__"] = fxInclude
 	rv.Funcs["__require__"] = fxInclude
 	rv.Funcs["__srequire__"] = fxInclude
-	rv.Funcs["__file_name__"] = fxFileName
-	rv.Funcs["__line_no__"] = fxLineNo
+	rv.Funcs["__file_name__"] = fxFileName      // xyzzy - __FILE__ - new
+	rv.Funcs["__file_name_nq__"] = fxFileNameNq // xyzzy - __FILE__ - new
+	rv.Funcs["__line_no__"] = fxLineNo          // xyzzy - __LINE__ - new
+	rv.Funcs["__FILE__"] = fxFileName           // xyzzy - __FILE__ - new
+	rv.Funcs["__FILE_NQ__"] = fxFileNameNq      // xyzzy - __FILE__ - new
+	rv.Funcs["__LINE__"] = fxLineNo             // xyzzy - __LINE__ - new
 	rv.Funcs["__col_pos__"] = fxColPos
 	rv.Funcs["__now__"] = fxNow // the current date time samp
 	rv.Funcs["__q__"] = fxQ     // return a quoted empty string
@@ -286,10 +290,20 @@ func fxStartEndMarker(js *JsonXScanner, args []string) (rv string) {
 	return
 }
 
+// fxFileNameNq injects the current file name
 func fxFileName(js *JsonXScanner, args []string) (rv string) {
 	p := len(js.Toks) - 1
 	if p >= 0 {
 		rv = "\"" + js.Toks[p].FileName + "\""
+	}
+	return
+}
+
+// fxFileNameNq injects the current file name without quote marks
+func fxFileNameNq(js *JsonXScanner, args []string) (rv string) {
+	p := len(js.Toks) - 1
+	if p >= 0 {
+		rv = js.Toks[p].FileName
 	}
 	return
 }

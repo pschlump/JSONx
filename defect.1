@@ -1,21 +1,22 @@
-with """ {{ ... }} """ seem to need a "," at end of line
+1. with """ {{ ... }} """ seem to need a "," at end of line
+		{
+			debug_flags: [ "TabServer2/192.168.0.157:8088/db_SQL.*" ]
+			trace_flags: [ "*" ]
+			server_name: "Federated Auth Server"
+			RedisConnectHost: """{{ __env__ REDIS_HOST }}""" ,
+			RedisConnectAuth: """{{ __env__ REDIS_AUTH }}""" ,
+			PGConn: """user=pschlump password={{ __env__ DB_PASS }} sslmode=disable dbname=pschlump port=5432 host=192.168.0.139""" ,
+			DBType: "postgres"
+			DBName: "pschlump"
+			LoggingConfig: {
+				FileOn: "yes"
+				RedisOn: "yes"
+			}
+		}
 
-{
-	debug_flags: [ "TabServer2/192.168.0.157:8088/db_SQL.*" ]
-	trace_flags: [ "*" ]
-	server_name: "Federated Auth Server"
-	RedisConnectHost: """{{ __env__ REDIS_HOST }}""" ,
-	RedisConnectAuth: """{{ __env__ REDIS_AUTH }}""" ,
-	PGConn: """user=pschlump password={{ __env__ DB_PASS }} sslmode=disable dbname=pschlump port=5432 host=192.168.0.139""" ,
-	DBType: "postgres"
-	DBName: "pschlump"
-	LoggingConfig: {
-		FileOn: "yes"
-		RedisOn: "yes"
-	}
-}
 
-Difference between gfJxonX and gfJsonX
+1. Difference between gfJxonX and gfJsonX
+	0. gfJxonX - did not raise an error
 	ServerName       string                         `gfJxonX:"server_name" gfDefault:"Go-FTL Server"`  //
 
 
@@ -25,12 +26,15 @@ Difference between gfJxonX and gfJsonX
 		Try:	name Type `tag: "value"`		// extra space, no value
 		Try:	name Type `tag:"value`			// not tag at all - no error message
 
+
 1. floats with exponents seem to fail
 
 
+1. Feature Addition: Should be a gfDefaultFunc:"name" - name of function that returns a string - to use as default value.
 
 
-
+1. Should be a way to validate __env__!
+	{{ __env__ NAME | notEmpty }}
 
 
 
