@@ -29,7 +29,7 @@ type Unmarshaler interface {
 func Unmarshal(Src string, In []byte, Out interface{}) (meta map[string]MetaInfo, err error) {
 	ns := NewScan(Src)
 	ast, NErrors := ParseJsonX(In, ns)
-	godebug.Printf(db71, "AT: %s NErrors=%d ast=%s\n", godebug.LF(), NErrors, SVarI(ast))
+	godebug.Db2Printf(db71, "AT: %s NErrors=%d ast=%s\n", godebug.LF(), NErrors, SVarI(ast))
 	if NErrors == 0 {
 		meta = make(map[string]MetaInfo)
 		err = AssignParseTreeToData(Out, meta, ast, "", "", "")
@@ -40,7 +40,7 @@ func Unmarshal(Src string, In []byte, Out interface{}) (meta map[string]MetaInfo
 		} else if err != nil || err2 != nil {
 			err = fmt.Errorf("Combined Errors: %s\n%s\n%s\n", err, err2, msg)
 		}
-		godebug.Printf(db71, "AT: %s meta=%s Out=%s\n", godebug.LF(), SVarI(meta), SVarI(Out))
+		godebug.Db2Printf(db71, "AT: %s meta=%s Out=%s\n", godebug.LF(), SVarI(meta), SVarI(Out))
 	} else {
 		ee := TokenToErrorMsg(ast) // take erros from ast -> "err"
 		err = fmt.Errorf("%d Errors in JsonX.Unmarshal, File:%s\n%s\n", NErrors, Src, ee)

@@ -21,14 +21,14 @@ func ValidateRequired(f interface{}, meta map[string]MetaInfo) (err error) {
 
 // ValidateRequired is a final check - after other processing that required values are set.
 func (vr *JsonXConfig) ValidateRequired(f interface{}, meta map[string]MetaInfo) (err error) {
-	godebug.Printf(db202, "%sAT %s%s\n", MiscLib.ColorCyan, godebug.LF(), MiscLib.ColorReset)
+	godebug.Db2Printf(db202, "%sAT %s%s\n", MiscLib.ColorCyan, godebug.LF(), MiscLib.ColorReset)
 	val := reflect.ValueOf(f).Elem()
 	typeOfT := val.Type()
-	godebug.Printf(db202, "val=%v typeOfT=%v\n", val, typeOfT)
+	godebug.Db2Printf(db202, "val=%v typeOfT=%v\n", val, typeOfT)
 	for name, mm := range meta {
 		if mm.req {
 			if mm.SetBy == NotSet {
-				godebug.Printf(db202, "%s Required %s %s %s\n", MiscLib.ColorRed, name, godebug.LF(), MiscLib.ColorReset)
+				godebug.Db2Printf(db202, "%s Required %s %s %s\n", MiscLib.ColorRed, name, godebug.LF(), MiscLib.ColorReset)
 				err = ErrMissingRequiredValues
 				mm.SetBy = Error
 				mm.ErrorMsg = append(mm.ErrorMsg, fmt.Sprintf("Required value is missing, Field:%s\n", name))

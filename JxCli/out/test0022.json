@@ -1,0 +1,18 @@
+{
+	"DBName": "pschlump",
+	"DBType": "postgres",
+	"LoggingConfig": {
+		"FileOn": "yes",
+		"RedisOn": "yes"
+	},
+	"PGConn": "user=pschlump password=f1ref0x2 sslmode=disable dbname=pschlump port=5432 host=192.168.0.139",
+	"RedisConnectAuth": "lLJSmkccYJiVEwskr1RM4MWIaBM",
+	"RedisConnectHost": "192.168.0.139",
+	"debug_flags": [
+		"TabServer2/192.168.0.157:8088/db_SQL.*"
+	],
+	"server_name": "Federated Auth Server",
+	"trace_flags": [
+		"*"
+	]
+}

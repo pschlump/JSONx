@@ -60,10 +60,10 @@ func AssignParseTreeToData(f interface{}, meta map[string]MetaInfo, from *JsonTo
 // on the top level - overwrite data in it as we assing data to stuff in 'f'.
 func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]MetaInfo, from *JsonToken, xName, topTag, path string) (err error) {
 
-	godebug.Printf(db1, "\n%sTOP OF FUNC CALL ! AT %s %s ---------------------------------- %s\n\n", MiscLib.ColorCyan, godebug.LF(), SVarI(from), MiscLib.ColorReset)
+	godebug.Db2Printf(db1, "\n%sTOP OF FUNC CALL ! AT %s %s ---------------------------------- %s\n\n", MiscLib.ColorCyan, godebug.LF(), SVarI(from), MiscLib.ColorReset)
 	val := reflect.ValueOf(f).Elem()
 	typeOfT := val.Type()
-	godebug.Printf(db1, "TOP OF ... val=%v typeOfT=%v, kind=%s, %s\n", val, typeOfT, val.Kind(), godebug.LF())
+	godebug.Db2Printf(db1, "TOP OF ... val=%v typeOfT=%v, kind=%s, %s\n", val, typeOfT, val.Kind(), godebug.LF())
 	typeOfValKind := fmt.Sprintf("%s", val.Kind())
 
 	//	var TemplateDv = func(dvs string, jNopt []string, fn string, ln int) (rv string) {
@@ -81,14 +81,14 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 	case reflect.String:
 
 		dv, name, metaName := jx.GetDv(xName, path, meta, topTag)
-		godebug.Printf(db1, "%s %s = %v\n\tTop tag value : %q\n", name, typeOfValKind, f, topTag)
-		godebug.Printf(db21, "%sAT: %s, dv = ->%s<-%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), dv, MiscLib.ColorReset)
+		godebug.Db2Printf(db1, "%s %s = %v\n\tTop tag value : %q\n", name, typeOfValKind, f, topTag)
+		godebug.Db2Printf(db21, "%sAT: %s, dv = ->%s<-%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), dv, MiscLib.ColorReset)
 
 		if dv != "" {
-			godebug.Printf(db21, "%sAT: %s, dv = %s %s\n", MiscLib.ColorBlue, godebug.LF(), dv, MiscLib.ColorReset)
+			godebug.Db2Printf(db21, "%sAT: %s, dv = %s %s\n", MiscLib.ColorBlue, godebug.LF(), dv, MiscLib.ColorReset)
 			// Xyzzy - check for overflow!
 			if p, ok := f.(*string); ok {
-				godebug.Printf(db21, "%sAT: %s, dv = %s %s\n", MiscLib.ColorBlue, godebug.LF(), dv, MiscLib.ColorReset)
+				godebug.Db2Printf(db21, "%sAT: %s, dv = %s %s\n", MiscLib.ColorBlue, godebug.LF(), dv, MiscLib.ColorReset)
 				*p = dv
 			}
 			SetDataSource(meta, metaName, IsDefault)
@@ -97,14 +97,14 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 		// jN := typeOfT.Field(i).Tag.Get("gfJsonX")
 		jN := GetTopTag(topTag, "gfJsonX") // pull default values from !env! -- for things like passwords, connection info
 		jNname, jNopt := ParseGfJsonX(jN)
-		godebug.Printf(db21, "(from topTag - jNname [%s] opt [%s]\n", jNname, jNopt)
+		godebug.Db2Printf(db21, "(from topTag - jNname [%s] opt [%s]\n", jNname, jNopt)
 
 		if jNname != "-" { // a name of "-" will disable this field and make it non-settable from the JsonX
 			dvs, ok, fn, ln := SearchStringTop(jNname, name, from)
 			// dvs = TemplateDv(dvs, jNopt, fn, ln)
 			if ok { // it was found
 				if p, ok := f.(*string); ok {
-					godebug.Printf(db21, "%sAT: %s, dv = -->%s<<-%s\n", MiscLib.ColorBlue, godebug.LF(), dv, MiscLib.ColorReset)
+					godebug.Db2Printf(db21, "%sAT: %s, dv = -->%s<<-%s\n", MiscLib.ColorBlue, godebug.LF(), dv, MiscLib.ColorReset)
 					*p = dvs
 				}
 				SetDataSourceFnLn(meta, metaName, ByJsonX, fn, ln)
@@ -114,9 +114,9 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
 
 		dv, name, metaName := jx.GetDv(xName, path, meta, topTag)
-		godebug.Printf(db1, "%s %s = %v\n\tTop tag value : %q\n", name, typeOfValKind, f, topTag)
+		godebug.Db2Printf(db1, "%s %s = %v\n\tTop tag value : %q\n", name, typeOfValKind, f, topTag)
 
-		godebug.Printf(db19, "%sAT: %s, dv = ->%s<-%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), dv, MiscLib.ColorReset)
+		godebug.Db2Printf(db19, "%sAT: %s, dv = ->%s<-%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), dv, MiscLib.ColorReset)
 
 		if dv != "" {
 			dvi, err := strconv.ParseInt(dv, 10, 64)
@@ -124,22 +124,22 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 				err = ErrDefaultsNotSet
 				AppendError(meta, metaName, fmt.Sprintf("%s", err))
 			} else {
-				godebug.Printf(db21, "%sAT: %s, dvi = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvi, MiscLib.ColorReset)
+				godebug.Db2Printf(db21, "%sAT: %s, dvi = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvi, MiscLib.ColorReset)
 				// Xyzzy - check for overflow!
 				if p, ok := f.(*int); ok {
-					godebug.Printf(db21, "%sAT: %s, dvi = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvi, MiscLib.ColorReset)
+					godebug.Db2Printf(db21, "%sAT: %s, dvi = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvi, MiscLib.ColorReset)
 					*p = int(dvi)
 				} else if p, ok := f.(*int64); ok {
-					godebug.Printf(db21, "%sAT: %s, dvi = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvi, MiscLib.ColorReset)
+					godebug.Db2Printf(db21, "%sAT: %s, dvi = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvi, MiscLib.ColorReset)
 					*p = dvi
 				} else if p, ok := f.(*int32); ok {
-					godebug.Printf(db21, "%sAT: %s, dvi = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvi, MiscLib.ColorReset)
+					godebug.Db2Printf(db21, "%sAT: %s, dvi = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvi, MiscLib.ColorReset)
 					*p = int32(dvi)
 				} else if p, ok := f.(*int16); ok {
-					godebug.Printf(db21, "%sAT: %s, dvi = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvi, MiscLib.ColorReset)
+					godebug.Db2Printf(db21, "%sAT: %s, dvi = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvi, MiscLib.ColorReset)
 					*p = int16(dvi)
 				} else if p, ok := f.(*int8); ok {
-					godebug.Printf(db21, "%sAT: %s, dvi = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvi, MiscLib.ColorReset)
+					godebug.Db2Printf(db21, "%sAT: %s, dvi = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvi, MiscLib.ColorReset)
 					*p = int8(dvi)
 				}
 				// else case! Xyzzy - add error
@@ -150,29 +150,29 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 		// jN := typeOfT.Field(i).Tag.Get("gfJsonX")
 		jN := GetTopTag(topTag, "gfJsonX") // pull default values from !env! -- for things like passwords, connection info
 		jNname, jNopt := ParseGfJsonX(jN)
-		godebug.Printf(db21, "(from topTag - jNname [%s] opt [%s]\n", jNname, jNopt)
+		godebug.Db2Printf(db21, "(from topTag - jNname [%s] opt [%s]\n", jNname, jNopt)
 
 		if jNname != "-" { // a name of "-" will disable this field and make it non-settable from the JsonX
 			dvi, ok, fn, ln := SearchIntTop(jNname, name, from)
 			if ok { // it was found
 				// Xyzzy - check for overflow!
 				if p, ok := f.(*int); ok {
-					godebug.Printf(db21, "%sAT: %s, dvi = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvi, MiscLib.ColorReset)
+					godebug.Db2Printf(db21, "%sAT: %s, dvi = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvi, MiscLib.ColorReset)
 					*p = int(dvi)
 				} else if p, ok := f.(*int64); ok {
-					godebug.Printf(db21, "%sAT: %s, dvi = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvi, MiscLib.ColorReset)
+					godebug.Db2Printf(db21, "%sAT: %s, dvi = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvi, MiscLib.ColorReset)
 					*p = dvi
 				} else if p, ok := f.(*int32); ok {
-					godebug.Printf(db21, "%sAT: %s, dvi = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvi, MiscLib.ColorReset)
+					godebug.Db2Printf(db21, "%sAT: %s, dvi = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvi, MiscLib.ColorReset)
 					*p = int32(dvi)
 				} else if p, ok := f.(*int16); ok {
-					godebug.Printf(db21, "%sAT: %s, dvi = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvi, MiscLib.ColorReset)
+					godebug.Db2Printf(db21, "%sAT: %s, dvi = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvi, MiscLib.ColorReset)
 					*p = int16(dvi)
 				} else if p, ok := f.(*int8); ok {
-					godebug.Printf(db21, "%sAT: %s, dvi = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvi, MiscLib.ColorReset)
+					godebug.Db2Printf(db21, "%sAT: %s, dvi = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvi, MiscLib.ColorReset)
 					*p = int8(dvi)
 				}
-				godebug.Printf(db20, "%sAt: %s -- Just before SetDataSourceFnLn metaName=%s fn=%s ln=%d%s\n", MiscLib.ColorYellow, godebug.LF(), metaName, fn, ln, MiscLib.ColorReset)
+				godebug.Db2Printf(db20, "%sAt: %s -- Just before SetDataSourceFnLn metaName=%s fn=%s ln=%d%s\n", MiscLib.ColorYellow, godebug.LF(), metaName, fn, ln, MiscLib.ColorReset)
 				SetDataSourceFnLn(meta, metaName, ByJsonX, fn, ln)
 			}
 		}
@@ -180,9 +180,9 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
 
 		dv, name, metaName := jx.GetDv(xName, path, meta, topTag)
-		godebug.Printf(db1, "%s %s = %v\n\tTop tag value : %q\n", name, typeOfValKind, f, topTag)
+		godebug.Db2Printf(db1, "%s %s = %v\n\tTop tag value : %q\n", name, typeOfValKind, f, topTag)
 
-		godebug.Printf(db21, "%sAT: %s, dv = ->%s<-%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), dv, MiscLib.ColorReset)
+		godebug.Db2Printf(db21, "%sAT: %s, dv = ->%s<-%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), dv, MiscLib.ColorReset)
 
 		if dv != "" {
 			dvu, err := strconv.ParseUint(dv, 10, 64)
@@ -190,22 +190,22 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 				err = ErrDefaultsNotSet
 				AppendError(meta, metaName, fmt.Sprintf("%s", err))
 			} else {
-				godebug.Printf(db21, "%sAT: %s, dvu = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvu, MiscLib.ColorReset)
+				godebug.Db2Printf(db21, "%sAT: %s, dvu = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvu, MiscLib.ColorReset)
 				// Xyzzy - check for overflow!
 				if p, ok := f.(*uint); ok {
-					godebug.Printf(db21, "%sAT: %s, dvu = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvu, MiscLib.ColorReset)
+					godebug.Db2Printf(db21, "%sAT: %s, dvu = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvu, MiscLib.ColorReset)
 					*p = uint(dvu)
 				} else if p, ok := f.(*uint64); ok {
-					godebug.Printf(db21, "%sAT: %s, dvu = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvu, MiscLib.ColorReset)
+					godebug.Db2Printf(db21, "%sAT: %s, dvu = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvu, MiscLib.ColorReset)
 					*p = dvu
 				} else if p, ok := f.(*uint32); ok {
-					godebug.Printf(db21, "%sAT: %s, dvu = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvu, MiscLib.ColorReset)
+					godebug.Db2Printf(db21, "%sAT: %s, dvu = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvu, MiscLib.ColorReset)
 					*p = uint32(dvu)
 				} else if p, ok := f.(*uint16); ok {
-					godebug.Printf(db21, "%sAT: %s, dvu = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvu, MiscLib.ColorReset)
+					godebug.Db2Printf(db21, "%sAT: %s, dvu = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvu, MiscLib.ColorReset)
 					*p = uint16(dvu)
 				} else if p, ok := f.(*uint8); ok {
-					godebug.Printf(db21, "%sAT: %s, dvu = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvu, MiscLib.ColorReset)
+					godebug.Db2Printf(db21, "%sAT: %s, dvu = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvu, MiscLib.ColorReset)
 					*p = uint8(dvu)
 				}
 				SetDataSource(meta, metaName, IsDefault)
@@ -214,26 +214,26 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 
 		jN := GetTopTag(topTag, "gfJsonX") // pull default values from !env! -- for things like passwords, connection info
 		jNname, jNopt := ParseGfJsonX(jN)
-		godebug.Printf(db21, "(from topTag - jNname [%s] opt [%s]\n", jNname, jNopt)
+		godebug.Db2Printf(db21, "(from topTag - jNname [%s] opt [%s]\n", jNname, jNopt)
 
 		if jNname != "-" { // a name of "-" will disable this field and make it non-settable from the JsonX
 			dvu, ok, fn, ln := SearchIntTop(jNname, name, from)
 			if ok { // it was found
 				// Xyzzy - check for overflow!
 				if p, ok := f.(*uint); ok {
-					godebug.Printf(db21, "%sAT: %s, dvu = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvu, MiscLib.ColorReset)
+					godebug.Db2Printf(db21, "%sAT: %s, dvu = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvu, MiscLib.ColorReset)
 					*p = uint(dvu)
 				} else if p, ok := f.(*uint64); ok {
-					godebug.Printf(db21, "%sAT: %s, dvu = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvu, MiscLib.ColorReset)
+					godebug.Db2Printf(db21, "%sAT: %s, dvu = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvu, MiscLib.ColorReset)
 					*p = uint64(dvu)
 				} else if p, ok := f.(*uint32); ok {
-					godebug.Printf(db21, "%sAT: %s, dvu = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvu, MiscLib.ColorReset)
+					godebug.Db2Printf(db21, "%sAT: %s, dvu = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvu, MiscLib.ColorReset)
 					*p = uint32(dvu)
 				} else if p, ok := f.(*uint16); ok {
-					godebug.Printf(db21, "%sAT: %s, dvu = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvu, MiscLib.ColorReset)
+					godebug.Db2Printf(db21, "%sAT: %s, dvu = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvu, MiscLib.ColorReset)
 					*p = uint16(dvu)
 				} else if p, ok := f.(*uint8); ok {
-					godebug.Printf(db21, "%sAT: %s, dvu = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvu, MiscLib.ColorReset)
+					godebug.Db2Printf(db21, "%sAT: %s, dvu = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvu, MiscLib.ColorReset)
 					*p = uint8(dvu)
 				}
 				// fmt.Printf("%sAt: %s -- Just before SetDataSourceFnLn metaName=%s fn=%s ln=%d%s\n", MiscLib.ColorYellow, godebug.LF(), metaName, fn, ln, MiscLib.ColorReset)
@@ -244,9 +244,9 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 	case reflect.Bool:
 
 		dv, name, metaName := jx.GetDv(xName, path, meta, topTag)
-		godebug.Printf(db1, "%s %s = %v\n\tTop tag value : %q\n", name, typeOfValKind, f, topTag)
+		godebug.Db2Printf(db1, "%s %s = %v\n\tTop tag value : %q\n", name, typeOfValKind, f, topTag)
 
-		godebug.Printf(db21, "%sAT: %s, dv = ->%s<-%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), dv, MiscLib.ColorReset)
+		godebug.Db2Printf(db21, "%sAT: %s, dv = ->%s<-%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), dv, MiscLib.ColorReset)
 
 		if dv != "" {
 			dvb, err := strconv.ParseBool(dv)
@@ -254,9 +254,9 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 				err = ErrDefaultsNotSet
 				AppendError(meta, metaName, fmt.Sprintf("%s", err))
 			} else {
-				godebug.Printf(db21, "%sAT: %s, dvb = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvb, MiscLib.ColorReset)
+				godebug.Db2Printf(db21, "%sAT: %s, dvb = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvb, MiscLib.ColorReset)
 				if p, ok := f.(*bool); ok {
-					godebug.Printf(db21, "%sAT: %s, dvb = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvb, MiscLib.ColorReset)
+					godebug.Db2Printf(db21, "%sAT: %s, dvb = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvb, MiscLib.ColorReset)
 					*p = dvb
 				}
 				SetDataSource(meta, metaName, IsDefault)
@@ -266,13 +266,13 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 		// jN := typeOfT.Field(i).Tag.Get("gfJsonX")
 		jN := GetTopTag(topTag, "gfJsonX") // pull default values from !env! -- for things like passwords, connection info
 		jNname, jNopt := ParseGfJsonX(jN)
-		godebug.Printf(db21, "(from topTag - jNname [%s] opt [%s]\n", jNname, jNopt)
+		godebug.Db2Printf(db21, "(from topTag - jNname [%s] opt [%s]\n", jNname, jNopt)
 
 		if jNname != "-" { // a name of "-" will disable this field and make it non-settable from the JsonX
 			dvb, ok, fn, ln := SearchBoolTop(jNname, name, from)
 			if ok { // it was found
 				if p, ok := f.(*bool); ok {
-					godebug.Printf(db21, "%sAT: %s, dvb = %v %s\n", MiscLib.ColorBlue, godebug.LF(), dvb, MiscLib.ColorReset)
+					godebug.Db2Printf(db21, "%sAT: %s, dvb = %v %s\n", MiscLib.ColorBlue, godebug.LF(), dvb, MiscLib.ColorReset)
 					*p = bool(dvb)
 				}
 				SetDataSourceFnLn(meta, metaName, ByJsonX, fn, ln)
@@ -282,9 +282,9 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 	case reflect.Float32, reflect.Float64:
 
 		dv, name, metaName := jx.GetDv(xName, path, meta, topTag)
-		godebug.Printf(db1, "%s %s = %v\n\tTop tag value : %q\n", name, typeOfValKind, f, topTag)
+		godebug.Db2Printf(db1, "%s %s = %v\n\tTop tag value : %q\n", name, typeOfValKind, f, topTag)
 
-		godebug.Printf(db21, "%sAT: %s, dv = ->%s<-%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), dv, MiscLib.ColorReset)
+		godebug.Db2Printf(db21, "%sAT: %s, dv = ->%s<-%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), dv, MiscLib.ColorReset)
 
 		if dv != "" {
 			dvf, err := strconv.ParseFloat(dv, 64)
@@ -292,13 +292,13 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 				err = ErrDefaultsNotSet
 				AppendError(meta, metaName, fmt.Sprintf("%s", err))
 			} else {
-				godebug.Printf(db21, "%sAT: %s, dvf = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvf, MiscLib.ColorReset)
+				godebug.Db2Printf(db21, "%sAT: %s, dvf = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvf, MiscLib.ColorReset)
 				// Xyzzy - check for overflow!
 				if p, ok := f.(*float64); ok {
-					godebug.Printf(db21, "%sAT: %s, dvf = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvf, MiscLib.ColorReset)
+					godebug.Db2Printf(db21, "%sAT: %s, dvf = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvf, MiscLib.ColorReset)
 					*p = dvf
 				} else if p, ok := f.(*float32); ok {
-					godebug.Printf(db21, "%sAT: %s, dvf = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvf, MiscLib.ColorReset)
+					godebug.Db2Printf(db21, "%sAT: %s, dvf = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvf, MiscLib.ColorReset)
 					*p = float32(dvf)
 				}
 				SetDataSource(meta, metaName, IsDefault)
@@ -308,54 +308,54 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 		// jN := typeOfT.Field(i).Tag.Get("gfJsonX")
 		jN := GetTopTag(topTag, "gfJsonX") // pull default values from !env! -- for things like passwords, connection info
 		jNname, jNopt := ParseGfJsonX(jN)
-		godebug.Printf(db21, "(from topTag - jNname [%s] opt [%s]\n", jNname, jNopt)
+		godebug.Db2Printf(db21, "(from topTag - jNname [%s] opt [%s]\n", jNname, jNopt)
 
 		if jNname != "-" { // a name of "-" will disable this field and make it non-settable from the JsonX
 			dvf, ok, fn, ln := SearchFloatTop(jNname, name, from)
 			if ok { // it was found
 				// Xyzzy - check for overflow!
 				if p, ok := f.(*float64); ok {
-					godebug.Printf(db21, "%sAT: %s, dvf = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvf, MiscLib.ColorReset)
+					godebug.Db2Printf(db21, "%sAT: %s, dvf = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvf, MiscLib.ColorReset)
 					*p = dvf
 				} else if p, ok := f.(*float32); ok {
-					godebug.Printf(db21, "%sAT: %s, dvf = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvf, MiscLib.ColorReset)
+					godebug.Db2Printf(db21, "%sAT: %s, dvf = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvf, MiscLib.ColorReset)
 					*p = float32(dvf)
 				}
-				godebug.Printf(db21, "%sAt: %s -- Just before SetDataSourceFnLn metaName=%s fn=%s ln=%d%s\n", MiscLib.ColorYellow, godebug.LF(), metaName, fn, ln, MiscLib.ColorReset)
+				godebug.Db2Printf(db21, "%sAt: %s -- Just before SetDataSourceFnLn metaName=%s fn=%s ln=%d%s\n", MiscLib.ColorYellow, godebug.LF(), metaName, fn, ln, MiscLib.ColorReset)
 				SetDataSourceFnLn(meta, metaName, ByJsonX, fn, ln)
 			}
 		}
 
 	case reflect.Struct:
-		godebug.Printf(db124, "AT: %s\n", godebug.LF())
+		godebug.Db2Printf(db124, "AT: %s\n", godebug.LF())
 		ExtraField := ""
 		ExtraFieldPos := -1
 		ExtraFieldLineNo := -1
 		for i := 0; i < val.NumField(); i++ {
-			godebug.Printf(db445, "%sAT: %s%s\n", MiscLib.ColorCyan, godebug.LF(), MiscLib.ColorReset)
+			godebug.Db2Printf(db445, "%sAT: %s%s\n", MiscLib.ColorCyan, godebug.LF(), MiscLib.ColorReset)
 			name := typeOfT.Field(i).Name
-			godebug.Printf(db445, "%sname = ->%s<- AT: %s%s\n", MiscLib.ColorCyan, name, godebug.LF(), MiscLib.ColorReset)
+			godebug.Db2Printf(db445, "%sname = ->%s<- AT: %s%s\n", MiscLib.ColorCyan, name, godebug.LF(), MiscLib.ColorReset)
 			if len(name) > 0 && name[0] >= 'a' && name[0] <= 'z' {
-				godebug.Printf(db445, "%sname = ->%s<- IS Unexported! AT: %s%s\n\n", MiscLib.ColorCyan, name, godebug.LF(), MiscLib.ColorReset)
+				godebug.Db2Printf(db445, "%sname = ->%s<- IS Unexported! AT: %s%s\n\n", MiscLib.ColorCyan, name, godebug.LF(), MiscLib.ColorReset)
 				continue
 			}
 			metaName := name
 			if path != "" {
 				metaName = path + "." + name
 			}
-			godebug.Printf(db445, "%sname = %s AT: %s%s\n", MiscLib.ColorCyan, name, godebug.LF(), MiscLib.ColorReset)
+			godebug.Db2Printf(db445, "%sname = %s AT: %s%s\n", MiscLib.ColorCyan, name, godebug.LF(), MiscLib.ColorReset)
 			meta[metaName] = MetaInfo{SetBy: NotSet, DataFrom: FromTag}
 			// AppendError(meta, metaName, fmt.Sprintf("%s", err))
-			godebug.Printf(db445, "%sname = %s AT: %s%s\n", MiscLib.ColorCyan, name, godebug.LF(), MiscLib.ColorReset)
+			godebug.Db2Printf(db445, "%sname = %s AT: %s%s\n", MiscLib.ColorCyan, name, godebug.LF(), MiscLib.ColorReset)
 			f := val.Field(i)
-			godebug.Printf(db445, "%sname = %s AT: %s%s\n", MiscLib.ColorCyan, name, godebug.LF(), MiscLib.ColorReset)
-			godebug.Printf(db445, "%d: %s %s = %v\n", i, name, f.Type(), f.Interface())
-			godebug.Printf(db445, "\tWhole tag value : %q\n", typeOfT.Field(i).Tag)
-			godebug.Printf(db445, "\tValue           : %q\n", typeOfT.Field(i).Tag.Get("gfType"))
-			godebug.Printf(db445, "\tDefault value   : %q\n", typeOfT.Field(i).Tag.Get("gfDefault"))
+			godebug.Db2Printf(db445, "%sname = %s AT: %s%s\n", MiscLib.ColorCyan, name, godebug.LF(), MiscLib.ColorReset)
+			godebug.Db2Printf(db445, "%d: %s %s = %v\n", i, name, f.Type(), f.Interface())
+			godebug.Db2Printf(db445, "\tWhole tag value : %q\n", typeOfT.Field(i).Tag)
+			godebug.Db2Printf(db445, "\tValue           : %q\n", typeOfT.Field(i).Tag.Get("gfType"))
+			godebug.Db2Printf(db445, "\tDefault value   : %q\n", typeOfT.Field(i).Tag.Get("gfDefault"))
 
 			if ok, etag := CheckGfNamesValid(string(typeOfT.Field(i).Tag)); !ok {
-				godebug.Printf(db124, "%sInvalid gf* tag %s will be ignored.%s\n", MiscLib.ColorRed, etag, MiscLib.ColorReset)
+				godebug.Db2Printf(db124, "%sInvalid gf* tag %s will be ignored.%s\n", MiscLib.ColorRed, etag, MiscLib.ColorReset)
 				AppendError(meta, metaName, fmt.Sprintf("Invalid gf* tag %s will be ignored.", etag))
 			}
 
@@ -364,8 +364,8 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 			// xyzzyTmplDefault -- template it
 			jN := typeOfT.Field(i).Tag.Get("gfJsonX")
 			jNname, jNopt := ParseGfJsonX(jN)
-			godebug.Printf(db21, "jN = [%s] jNname [%s] opt [%s]\n", jN, jNname, jNopt)
-			godebug.Printf(db445, "%sjN = [%s] jNname [%s] opt [%s], %s%s\n", MiscLib.ColorYellow, jN, jNname, jNopt, godebug.LF(), MiscLib.ColorReset)
+			godebug.Db2Printf(db21, "jN = [%s] jNname [%s] opt [%s]\n", jN, jNname, jNopt)
+			godebug.Db2Printf(db445, "%sjN = [%s] jNname [%s] opt [%s], %s%s\n", MiscLib.ColorYellow, jN, jNname, jNopt, godebug.LF(), MiscLib.ColorReset)
 
 			// xyzzy ===============================================================================================
 			// xyzzy - if jNname == "-" - then, continue Sun Oct 22 16:54:39 MDT 2017
@@ -383,10 +383,10 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 					meta[metaName] = MetaInfo{SetBy: Error, ErrorMsg: []string{"Duplicate 'extra' fields - last one used."}}
 					// var FirstInWins = false -- remove global
 					if jx.FirstInWins {
-						godebug.Printf(db18, "At: %s -- first in wins -- do nothing\n", godebug.LF())
+						godebug.Db2Printf(db18, "At: %s -- first in wins -- do nothing\n", godebug.LF())
 						AppendError(meta, metaName, fmt.Sprintf("Warning: Duplicate 'extra' key [%s] File Name: %s Line No: %d and %d - first one seen has been used.", name, from.FileName, from.LineNo, ExtraFieldLineNo))
 					} else {
-						godebug.Printf(db18, "At: %s -- last in wins -- overwrite it\n", godebug.LF())
+						godebug.Db2Printf(db18, "At: %s -- last in wins -- overwrite it\n", godebug.LF())
 						ExtraField = name
 						ExtraFieldPos = i
 						ExtraFieldLineNo = from.LineNo
@@ -397,9 +397,9 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 					ExtraFieldPos = i
 					// ExtraFieldLineNo = from.LineNo
 				}
-				godebug.Printf(db122, "%sHave Extra%s\n", MiscLib.ColorGreen, MiscLib.ColorReset)
+				godebug.Db2Printf(db122, "%sHave Extra%s\n", MiscLib.ColorGreen, MiscLib.ColorReset)
 			} // else {
-			// 	godebug.Printf(db301, "%sHave No Extra - %s - Use meta %s\n", MiscLib.ColorGreen, name, MiscLib.ColorReset)
+			// 	godebug.Db2Printf(db301, "%sHave No Extra - %s - Use meta %s\n", MiscLib.ColorGreen, name, MiscLib.ColorReset)
 			// }
 
 			e := typeOfT.Field(i).Tag.Get("gfDefaultEnv") // pull default values from !env! -- for things like passwords, connection info
@@ -532,18 +532,18 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 			case reflect.Bool:
 				if dv != "" {
 					dvb, err := strconv.ParseBool(dv)
-					// godebug.Printf(db124,"AT: %s\n", godebug.LF())
+					// godebug.Db2Printf(db124,"AT: %s\n", godebug.LF())
 					if err != nil {
-						// godebug.Printf(db124,"AT: %s\n", godebug.LF())
+						// godebug.Db2Printf(db124,"AT: %s\n", godebug.LF())
 						err = ErrDefaultsNotSet
 						meta[metaName] = MetaInfo{SetBy: Error, ErrorMsg: []string{fmt.Sprintf("%s", err)}}
 					} else if f.CanSet() {
-						// godebug.Printf(db124,"AT: %s\n", godebug.LF())
+						// godebug.Db2Printf(db124,"AT: %s\n", godebug.LF())
 						f.SetBool(dvb)
 						OptSetField(jNname, name, from, jNopt, val, IsDefault) // ,isSet,setField:fieldName
 						SetDataSource(meta, metaName, IsDefault)
 					} else {
-						// godebug.Printf(db124,"AT: %s unable to Set!\n", godebug.LF())
+						// godebug.Db2Printf(db124,"AT: %s unable to Set!\n", godebug.LF())
 						err = ErrDefaultsNotSet
 						meta[metaName] = MetaInfo{SetBy: Error, ErrorMsg: []string{"Unable to set"}}
 					}
@@ -596,24 +596,24 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 				}
 
 			case reflect.Struct: // Recursive call...
-				godebug.Printf(db124, "%s*** found a struct, type=%s , %s ***%s\n", MiscLib.ColorCyan, f.Type(), godebug.LF(), MiscLib.ColorReset)
+				godebug.Db2Printf(db124, "%s*** found a struct, type=%s , %s ***%s\n", MiscLib.ColorCyan, f.Type(), godebug.LF(), MiscLib.ColorReset)
 
 				if f.CanAddr() {
-					godebug.Printf(db124, "AT: %s\n", godebug.LF())
+					godebug.Db2Printf(db124, "AT: %s\n", godebug.LF())
 					newPath := GenStructPath(path, name)
 					if jNname != "-" { // a name of "-" will disable this field and make it non-settable from the JsonX
-						godebug.Printf(db124, "AT: %s\n", godebug.LF())
+						godebug.Db2Printf(db124, "AT: %s\n", godebug.LF())
 						var newFrom *JsonToken
 						newFrom, ok := SearchStruct(jNname, name, from)
 						if ok {
-							godebug.Printf(db124, "AT: %s\n", godebug.LF())
+							godebug.Db2Printf(db124, "AT: %s\n", godebug.LF())
 							err = jx.AssignParseTreeToData(f.Addr().Interface(), meta, newFrom, "", "", newPath)
 							// is this user set - different? -- No defautls for entire structs
 							OptSetField(jNname, name, from, jNopt, val, UserSet) // ,isSet,setField:fieldName
 						}
 					}
 				}
-				godebug.Printf(db124, "%sfrom=%s, %s%s\n", MiscLib.ColorBlue, SVarI(from), godebug.LF(), MiscLib.ColorReset)
+				godebug.Db2Printf(db124, "%sfrom=%s, %s%s\n", MiscLib.ColorBlue, SVarI(from), godebug.LF(), MiscLib.ColorReset)
 
 			case reflect.Ptr: // allocate and follow, or leave NIL for empty?  // Pointer to struct, or slice of pointers etc. ?
 
@@ -622,7 +622,7 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 				newFrom, ok := SearchStruct(jNname, name, from)
 				newPath := GenStructPath(path, name)
 				if va.IsNil() {
-					godebug.Printf(db14, "%s!!!!!!!!!!! nil pointer needs to be allocated!!!!!!!!!!!%s\n", MiscLib.ColorRed, MiscLib.ColorReset)
+					godebug.Db2Printf(db14, "%s!!!!!!!!!!! nil pointer needs to be allocated!!!!!!!!!!!%s\n", MiscLib.ColorRed, MiscLib.ColorReset)
 					if ok {
 						va = reflect.New(va.Type().Elem()) //   Create new element
 						f.Set(va)                          //   Assign element to variable
@@ -642,35 +642,35 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 
 			case reflect.Array:
 
-				// godebug.Printf(db15, "%s Got to an array! Yea, ArrayLen=%d %s\n", MiscLib.ColorGreen, f.Len(), MiscLib.ColorReset)
+				// godebug.Db2Printf(db15, "%s Got to an array! Yea, ArrayLen=%d %s\n", MiscLib.ColorGreen, f.Len(), MiscLib.ColorReset)
 
 				topTagArray := string(typeOfT.Field(i).Tag)
-				godebug.Printf(db15, "Top tag for Array: %s, %s\n", topTagArray, godebug.LF())
+				godebug.Db2Printf(db15, "Top tag for Array: %s, %s\n", topTagArray, godebug.LF())
 				for ii := 0; ii < f.Len(); ii++ {
-					godebug.Printf(db15, "AT: %s, ii=%d\n", godebug.LF(), ii)
+					godebug.Db2Printf(db15, "AT: %s, ii=%d\n", godebug.LF(), ii)
 					newFrom, ok := SearchArray(jNname, name, from, ii) // ok is false if array-subscript, 'ii' is out of range
 					newPath := GenArrayPath(path, name, ii)
-					godebug.Printf(db15, "AT: %s\n", godebug.LF())
+					godebug.Db2Printf(db15, "AT: %s\n", godebug.LF())
 					vv := f.Index(ii)
 					if db15 {
-						godebug.Printf(db15, "In Loop[%d] %v, %T, %s\n", ii, vv, vv, godebug.LF())
+						godebug.Db2Printf(db15, "In Loop[%d] %v, %T, %s\n", ii, vv, vv, godebug.LF())
 						vI := vv.Interface()
-						godebug.Printf(db15, "       [%d] %v, %T\n", ii, vI, vI)
+						godebug.Db2Printf(db15, "       [%d] %v, %T\n", ii, vI, vI)
 					}
-					godebug.Printf(db15, "AT: %s\n", godebug.LF())
+					godebug.Db2Printf(db15, "AT: %s\n", godebug.LF())
 					if ok {
 						err = jx.AssignParseTreeToData(vv.Addr().Interface(), meta, newFrom, newPath, topTagArray, "")
-						godebug.Printf(db15, "%sAT: %s %s ->%s<- %s\n", MiscLib.ColorGreenOnWhite, godebug.LF(), MiscLib.ColorReset, topTagArray, SVar(newFrom))
+						godebug.Db2Printf(db15, "%sAT: %s %s ->%s<- %s\n", MiscLib.ColorGreenOnWhite, godebug.LF(), MiscLib.ColorReset, topTagArray, SVar(newFrom))
 						OptSetField(jNname, name, from, jNopt, val, UserSet) // ,isSet,setField:fieldName
 					} else {
 						// if int, float, bool, string - then set default values based on parrent array, if struct, call SetDefaults.
 						err = jx.SetDefaults(vv.Addr().Interface(), meta, newPath, topTagArray, "") // Xyzzy - Take return value from this and merge into parent!
-						godebug.Printf(db15, "AT: %s\n", godebug.LF())
+						godebug.Db2Printf(db15, "AT: %s\n", godebug.LF())
 					}
 					if ii == 0 {
-						godebug.Printf(db15, "AT: %s\n", godebug.LF())
+						godebug.Db2Printf(db15, "AT: %s\n", godebug.LF())
 						if nSupp, ok := SearchArrayTooMany(jNname, name, from, f.Len()); !ok {
-							godebug.Printf(db15, "AT: %s\n", godebug.LF())
+							godebug.Db2Printf(db15, "AT: %s\n", godebug.LF())
 							AppendError(meta, newPath, fmt.Sprintf("Too much data was supplied for %s. Only %d elements allowed. %d supplied. Extra elements will be ignored.", name, f.Len(), nSupp))
 						}
 					}
@@ -679,33 +679,33 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 			case reflect.Slice: // default size gfAlloc:"0,22" "0", "1", "22"
 
 				topTagArray := string(typeOfT.Field(i).Tag)
-				godebug.Printf(db16, "Top tag for Slice(array): %s, %s\n", topTagArray, godebug.LF())
+				godebug.Db2Printf(db16, "Top tag for Slice(array): %s, %s\n", topTagArray, godebug.LF())
 
 				alloc := typeOfT.Field(i).Tag.Get("gfAlloc")
-				godebug.Printf(db16, "%sgfAlloc [%s]%s\n", MiscLib.ColorGreen, alloc, MiscLib.ColorReset)
+				godebug.Db2Printf(db16, "%sgfAlloc [%s]%s\n", MiscLib.ColorGreen, alloc, MiscLib.ColorReset)
 				va := reflect.ValueOf(f.Interface())
 				v2 := reflect.Indirect(va)
 				NChild, _ := SearchArrayTooMany(jNname, name, from, 0)
 				curLen := v2.Len()
-				godebug.Printf(db16, "Type = va=%T, v2=%T\nLen = %d, NChild=%d curLen=%d", va, v2, v2.Len(), NChild, curLen)
+				godebug.Db2Printf(db16, "Type = va=%T, v2=%T\nLen = %d, NChild=%d curLen=%d", va, v2, v2.Len(), NChild, curLen)
 				if (v2.Len() == 0 && alloc != "") || (v2.Len() < NChild) {
-					godebug.Printf(db16, "%sshould allocate [%s]%s\n", MiscLib.ColorGreen, alloc, MiscLib.ColorReset)
+					godebug.Db2Printf(db16, "%sshould allocate [%s]%s\n", MiscLib.ColorGreen, alloc, MiscLib.ColorReset)
 					tt := v2.Type()
 					used, cap := GetUsedCap(alloc)
 					meta[metaName] = MetaInfo{SetBy: Alloc, ErrorMsg: []string{"Note: Allocated Slice: " + alloc}}
 					newSlice := reflect.MakeSlice(tt, IntMax(used, NChild), IntMax(cap, NChild))
-					godebug.Printf(db16, "%s newSlice=%v %T %s\n", MiscLib.ColorGreen, newSlice, newSlice, MiscLib.ColorReset)
+					godebug.Db2Printf(db16, "%s newSlice=%v %T %s\n", MiscLib.ColorGreen, newSlice, newSlice, MiscLib.ColorReset)
 					for ii := 0; ii < IntMax(used, NChild); ii++ {
 						newFrom, ok := SearchArray(jNname, name, from, ii) // ok is false if array-subscript, 'ii' is out of range
 						newPath := GenArrayPath(path, name, ii)
 						vv := newSlice.Index(ii)
 						if ok {
 							err = jx.AssignParseTreeToData(vv.Addr().Interface(), meta, newFrom, newPath, topTagArray, "")
-							godebug.Printf(db16, "%sAT: %s %s ->%s<- %s\n", MiscLib.ColorGreenOnWhite, godebug.LF(), MiscLib.ColorReset, topTagArray, SVar(newFrom))
+							godebug.Db2Printf(db16, "%sAT: %s %s ->%s<- %s\n", MiscLib.ColorGreenOnWhite, godebug.LF(), MiscLib.ColorReset, topTagArray, SVar(newFrom))
 							OptSetField(jNname, name, from, jNopt, val, UserSet) // ,isSet,setField:fieldName
 						} else {
 							err = jx.SetDefaults(vv.Addr().Interface(), meta, newPath, topTagArray, "")
-							godebug.Printf(db16, "%sAT: %s %s ->%s<- %s\n", MiscLib.ColorGreenOnWhite, godebug.LF(), MiscLib.ColorReset, topTagArray, SVar(newFrom))
+							godebug.Db2Printf(db16, "%sAT: %s %s ->%s<- %s\n", MiscLib.ColorGreenOnWhite, godebug.LF(), MiscLib.ColorReset, topTagArray, SVar(newFrom))
 						}
 						if ii < curLen {
 							ww := f.Index(ii)
@@ -715,23 +715,23 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 							// OptSetField(jNname, name, from, jNopt, val) // ,isSet,setField:fieldName
 						}
 					}
-					godebug.Printf(db16, "%s newSlice=%v %T %s, %s\n", MiscLib.ColorGreen, newSlice, newSlice, godebug.LF(), MiscLib.ColorReset)
+					godebug.Db2Printf(db16, "%s newSlice=%v %T %s, %s\n", MiscLib.ColorGreen, newSlice, newSlice, godebug.LF(), MiscLib.ColorReset)
 				} else {
 					for ii := 0; ii < curLen; ii++ {
 						vv := v2.Index(ii)
-						godebug.Printf(db16, "In Loop[%d] %v, %T\n", ii, vv, vv)
+						godebug.Db2Printf(db16, "In Loop[%d] %v, %T\n", ii, vv, vv)
 						newFrom, ok := SearchArray(jNname, name, from, ii) // ok is false if array-subscript, 'ii' is out of range
 						vI := vv.Interface()
-						godebug.Printf(db16, "       [%d] %v, %T\n", ii, vI, vI)
+						godebug.Db2Printf(db16, "       [%d] %v, %T\n", ii, vI, vI)
 						newPath := GenArrayPath(path, name, ii)
 						// err = jx.SetDefaults(vv.Addr().Interface(), meta, newPath, topTagArray, "")
 						if ok {
 							err = jx.AssignParseTreeToData(vv.Addr().Interface(), meta, newFrom, newPath, topTagArray, "")
-							godebug.Printf(db16, "%sAT: %s %s ->%s<- %s\n", MiscLib.ColorGreenOnWhite, godebug.LF(), MiscLib.ColorReset, topTagArray, SVar(newFrom))
+							godebug.Db2Printf(db16, "%sAT: %s %s ->%s<- %s\n", MiscLib.ColorGreenOnWhite, godebug.LF(), MiscLib.ColorReset, topTagArray, SVar(newFrom))
 							OptSetField(jNname, name, from, jNopt, val, UserSet) // ,isSet,setField:fieldName
 						} else {
 							err = jx.SetDefaults(vv.Addr().Interface(), meta, newPath, topTagArray, "")
-							godebug.Printf(db16, "%sAT: %s %s ->%s<- %s\n", MiscLib.ColorGreenOnWhite, godebug.LF(), MiscLib.ColorReset, topTagArray, SVar(newFrom))
+							godebug.Db2Printf(db16, "%sAT: %s %s ->%s<- %s\n", MiscLib.ColorGreenOnWhite, godebug.LF(), MiscLib.ColorReset, topTagArray, SVar(newFrom))
 						}
 					}
 				}
@@ -803,10 +803,10 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 							saw[keyString] = rawValue.LineNo
 						} else {
 							if jx.FirstInWins {
-								godebug.Printf(db18, "At: %s -- first in wins -- do nothing\n", godebug.LF())
+								godebug.Db2Printf(db18, "At: %s -- first in wins -- do nothing\n", godebug.LF())
 								AppendError(meta, metaName, fmt.Sprintf("Warning: Duplicate key [%s] File Name: %s Line No: %d and %d - first one seen has been used.", key, rawValue.FileName, rawValue.LineNo, pln))
 							} else {
-								godebug.Printf(db18, "At: %s -- last in wins -- overwrite it\n", godebug.LF())
+								godebug.Db2Printf(db18, "At: %s -- last in wins -- overwrite it\n", godebug.LF())
 								f.SetMapIndex(key, mapElement)
 								// OptSetField(jNname, name, from, jNopt, val) // ,isSet,setField:fieldName
 								AppendError(meta, metaName, fmt.Sprintf("Warning: Duplicate key [%s] File Name: %s Line No: %d and %d - last one seen has been used.", key, rawValue.FileName, rawValue.LineNo, pln))
@@ -851,7 +851,7 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 		}
 		// 1. have ,extra
 		if ExtraFieldPos != -1 {
-			godebug.Printf(db121, "%sHave that extra field! %s %d, %s%s\n", MiscLib.ColorGreen, ExtraField, ExtraFieldPos, godebug.LF(), MiscLib.ColorReset)
+			godebug.Db2Printf(db121, "%sHave that extra field! %s %d, %s%s\n", MiscLib.ColorGreen, ExtraField, ExtraFieldPos, godebug.LF(), MiscLib.ColorReset)
 
 			f := val.Field(ExtraFieldPos)
 			name := ExtraField
@@ -867,7 +867,7 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 				if !vv.UsedData {
 					NInHash++
 					subs = append(subs, ii)
-					godebug.Printf(db121, "   Not Used: %s at %d\n", vv.Name, ii)
+					godebug.Db2Printf(db121, "   Not Used: %s at %d\n", vv.Name, ii)
 					vv.UsedData = true
 					vv.AssignedTo = append(vv.AssignedTo, name)
 					from.Children[ii] = vv
@@ -938,10 +938,10 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 						saw[keyString] = rawValue.LineNo
 					} else {
 						if jx.FirstInWins {
-							godebug.Printf(db121, "At: %s -- first in wins -- do nothing\n", godebug.LF())
+							godebug.Db2Printf(db121, "At: %s -- first in wins -- do nothing\n", godebug.LF())
 							AppendError(meta, metaName, fmt.Sprintf("Warning: Duplicate key [%s] File Name: %s Line No: %d and %d - first one seen has been used.", key, rawValue.FileName, rawValue.LineNo, pln))
 						} else {
-							godebug.Printf(db121, "At: %s -- last in wins -- overwrite it\n", godebug.LF())
+							godebug.Db2Printf(db121, "At: %s -- last in wins -- overwrite it\n", godebug.LF())
 							f.SetMapIndex(key, mapElement)
 							// OptSetField(jNname, name, from, jNopt, val) // ,isSet,setField:fieldName
 							AppendError(meta, metaName, fmt.Sprintf("Warning: Duplicate key [%s] File Name: %s Line No: %d and %d - last one seen has been used.", key, rawValue.FileName, rawValue.LineNo, pln))
@@ -960,7 +960,7 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 				if !vv.UsedData {
 					found = true
 					names = append(names, vv.Name)
-					godebug.Printf(db302, "   NewExtra: Not Used: %s at %d\n", vv.Name, ii)
+					godebug.Db2Printf(db302, "   NewExtra: Not Used: %s at %d\n", vv.Name, ii)
 					// vv.UsedData = true
 					// vv.AssignedTo = append(vv.AssignedTo, name)
 					// from.Children[ii] = vv
@@ -1024,7 +1024,7 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 		case from.TokenNo == TokenObjectStart || from.TokenNoValue == TokenObjectStart:
 			// mp := make(map[string]interface{})
 			dt := DeriveObjectType(from)
-			godebug.Printf(db120, "%s Could be of type %s, %s%s\n", MiscLib.ColorYellow, dt, godebug.LF(), MiscLib.ColorReset)
+			godebug.Db2Printf(db120, "%s Could be of type %s, %s%s\n", MiscLib.ColorYellow, dt, godebug.LF(), MiscLib.ColorReset)
 			switch dt {
 			case OnlyInt:
 				mp := make(map[string]int64)
@@ -1078,7 +1078,7 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 			nChild := len(from.Children)
 			// mp := make([]interface{}, 0, nChild)
 			dt := DeriveArrayType(from)
-			godebug.Printf(db120, "%s Could be of type %s, %s%s\n", MiscLib.ColorYellow, dt, godebug.LF(), MiscLib.ColorReset)
+			godebug.Db2Printf(db120, "%s Could be of type %s, %s%s\n", MiscLib.ColorYellow, dt, godebug.LF(), MiscLib.ColorReset)
 			// err = jx.AssignParseTreeToData(&mp, meta, from, xName, topTag, path)
 			switch dt {
 			case OnlyInt:
@@ -1133,13 +1133,13 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 		}
 
 	case reflect.Map:
-		godebug.Printf(db117, "%sType of %s newly implemented. AT:%s%s\n", MiscLib.ColorRed, val.Kind(), godebug.LF(), MiscLib.ColorReset)
+		godebug.Db2Printf(db117, "%sType of %s newly implemented. AT:%s%s\n", MiscLib.ColorRed, val.Kind(), godebug.LF(), MiscLib.ColorReset)
 		NInHash := len(from.Children)
-		godebug.Printf(db117, "HInHash = %d, data=%s, %s\n", NInHash, SVarI(from), godebug.LF())
+		godebug.Db2Printf(db117, "HInHash = %d, data=%s, %s\n", NInHash, SVarI(from), godebug.LF())
 
 		metaName := xName
 		if val.IsNil() {
-			godebug.Printf(db120, "%sAT: %s -- is nil, allocating a map, type =%s, %s%s\n", MiscLib.ColorCyan, godebug.LF(), val.Type(), godebug.LF(), MiscLib.ColorReset)
+			godebug.Db2Printf(db120, "%sAT: %s -- is nil, allocating a map, type =%s, %s%s\n", MiscLib.ColorCyan, godebug.LF(), val.Type(), godebug.LF(), MiscLib.ColorReset)
 			meta[metaName] = MetaInfo{SetBy: Alloc, ErrorMsg: []string{"Note: Allocated Map (1)"}}
 			val.Set(reflect.MakeMap(val.Type()))
 		}
@@ -1150,7 +1150,7 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 		case reflect.String:
 			isStrKey = true
 		default:
-			godebug.Printf(db117, "AT: %s -- key is incorrect type! type = %s, shoudl be string! %s\n", godebug.LF(), t.Key().Kind(), godebug.LF())
+			godebug.Db2Printf(db117, "AT: %s -- key is incorrect type! type = %s, shoudl be string! %s\n", godebug.LF(), t.Key().Kind(), godebug.LF())
 			AppendError(meta, metaName, fmt.Sprintf("Error: 'type' must be a string in map['type']..., found %s for a key type", t.Key().Kind()))
 		}
 
@@ -1186,10 +1186,10 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 					saw[keyString] = rawValue.LineNo
 				} else {
 					if jx.FirstInWins {
-						godebug.Printf(db117, "At: %s -- first in wins -- do nothing\n", godebug.LF())
+						godebug.Db2Printf(db117, "At: %s -- first in wins -- do nothing\n", godebug.LF())
 						AppendError(meta, metaName, fmt.Sprintf("Warning: Duplicate key [%s] File Name: %s Line No: %d and %d - first one seen has been used.", key, rawValue.FileName, rawValue.LineNo, pln))
 					} else {
-						godebug.Printf(db117, "At: %s -- last in wins -- overwrite it\n", godebug.LF())
+						godebug.Db2Printf(db117, "At: %s -- last in wins -- overwrite it\n", godebug.LF())
 						val.SetMapIndex(key, mapElement)
 						AppendError(meta, metaName, fmt.Sprintf("Warning: Duplicate key [%s] File Name: %s Line No: %d and %d - last one seen has been used.", key, rawValue.FileName, rawValue.LineNo, pln))
 					}
@@ -1202,7 +1202,7 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 		// fmt.Printf("%sType of %s new new imp. SLICE implemented. AT:%s%s\n", MiscLib.ColorRed, val.Kind(), godebug.LF(), MiscLib.ColorReset)
 
 		topTagArray := topTag
-		godebug.Printf(db16, "Top tag for Slice: %s, %s\n", topTagArray, godebug.LF())
+		godebug.Db2Printf(db16, "Top tag for Slice: %s, %s\n", topTagArray, godebug.LF())
 
 		metaName := xName
 		va := reflect.ValueOf(val.Interface())
@@ -1211,7 +1211,7 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 		// fmt.Printf("v2 Kind=%s, should be 'int'\n", v2.Kind())
 		NChild := len(from.Children)
 		curLen := v2.Len()
-		godebug.Printf(db116, "Type = va=%T, v2=%T\nLen = %d, NChild=%d curLen=%d", va, v2, v2.Len(), NChild, curLen)
+		godebug.Db2Printf(db116, "Type = va=%T, v2=%T\nLen = %d, NChild=%d curLen=%d", va, v2, v2.Len(), NChild, curLen)
 		if v2.Len() == 0 || v2.Len() < NChild {
 			tt := v2.Type()
 			// fmt.Printf("v2 Kind=%s, should be 'int', %s\n", v2.Kind(), godebug.LF())
@@ -1220,13 +1220,13 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 			// fmt.Printf("Called From: %s\n", godebug.LF(2))
 			meta[metaName] = MetaInfo{SetBy: Alloc, ErrorMsg: []string{"Note: Allocated Slice"}}
 			newSlice := reflect.MakeSlice(tt, NChild, NChild)
-			godebug.Printf(db116, "%s newSlice=%v %T %s\n", MiscLib.ColorGreen, newSlice, newSlice, MiscLib.ColorReset)
+			godebug.Db2Printf(db116, "%s newSlice=%v %T %s\n", MiscLib.ColorGreen, newSlice, newSlice, MiscLib.ColorReset)
 			for ii := 0; ii < NChild; ii++ {
 				newFrom := &from.Children[ii]
 				newPath := GenArrayPath(path, xName, ii)
 				vv := newSlice.Index(ii)
 				err = jx.AssignParseTreeToData(vv.Addr().Interface(), meta, newFrom, newPath, topTagArray, "")
-				godebug.Printf(db116, "%sAT: %s %s ->%s<- %s\n", MiscLib.ColorGreenOnWhite, godebug.LF(), MiscLib.ColorReset, topTagArray, SVar(newFrom))
+				godebug.Db2Printf(db116, "%sAT: %s %s ->%s<- %s\n", MiscLib.ColorGreenOnWhite, godebug.LF(), MiscLib.ColorReset, topTagArray, SVar(newFrom))
 				if ii < curLen {
 					ww := val.Index(ii)
 					ww.Set(vv)
@@ -1234,23 +1234,23 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 					val.Set(reflect.Append(val, vv))
 				}
 			}
-			godebug.Printf(db116, "%s newSlice=%v %T %s, %s\n", MiscLib.ColorGreen, newSlice, newSlice, godebug.LF(), MiscLib.ColorReset)
+			godebug.Db2Printf(db116, "%s newSlice=%v %T %s, %s\n", MiscLib.ColorGreen, newSlice, newSlice, godebug.LF(), MiscLib.ColorReset)
 		} else {
 			for ii := 0; ii < curLen; ii++ {
 				vv := v2.Index(ii)
 				newFrom := &from.Children[ii]
 				if db15 {
-					godebug.Printf(db116, "In Loop[%d] %v, %T\n", ii, vv, vv)
+					godebug.Db2Printf(db116, "In Loop[%d] %v, %T\n", ii, vv, vv)
 					vI := vv.Interface()
-					godebug.Printf(db116, "       [%d] %v, %T\n", ii, vI, vI)
+					godebug.Db2Printf(db116, "       [%d] %v, %T\n", ii, vI, vI)
 				}
 				newPath := GenArrayPath(path, xName, ii)
 				if ii < NChild {
 					err = jx.AssignParseTreeToData(vv.Addr().Interface(), meta, newFrom, newPath, topTagArray, "")
-					godebug.Printf(db116, "%sAT: %s %s ->%s<- %s\n", MiscLib.ColorGreenOnWhite, godebug.LF(), MiscLib.ColorReset, topTagArray, SVar(newFrom))
+					godebug.Db2Printf(db116, "%sAT: %s %s ->%s<- %s\n", MiscLib.ColorGreenOnWhite, godebug.LF(), MiscLib.ColorReset, topTagArray, SVar(newFrom))
 				} else {
 					err = jx.SetDefaults(vv.Addr().Interface(), meta, newPath, topTagArray, "")
-					godebug.Printf(db116, "%sAT: %s %s ->%s<- %s\n", MiscLib.ColorGreenOnWhite, godebug.LF(), MiscLib.ColorReset, topTagArray, SVar(newFrom))
+					godebug.Db2Printf(db116, "%sAT: %s %s ->%s<- %s\n", MiscLib.ColorGreenOnWhite, godebug.LF(), MiscLib.ColorReset, topTagArray, SVar(newFrom))
 				}
 			}
 		}
@@ -1258,24 +1258,24 @@ func (jx *JsonXConfig) AssignParseTreeToData(f interface{}, meta map[string]Meta
 	case reflect.Array:
 
 		topTagArray := topTag
-		godebug.Printf(db15, "Top tag for Array: %s, %s\n", topTagArray, godebug.LF())
+		godebug.Db2Printf(db15, "Top tag for Array: %s, %s\n", topTagArray, godebug.LF())
 		for ii := 0; ii < val.Len(); ii++ {
 			newPath := GenArrayPath(path, xName, ii)
 			if ii < len(from.Children) {
 				newFrom := &from.Children[ii]
 				vv := val.Index(ii)
 				if db15 {
-					godebug.Printf(db15, "In Loop[%d] %v, %T, %s\n", ii, vv, vv, godebug.LF())
+					godebug.Db2Printf(db15, "In Loop[%d] %v, %T, %s\n", ii, vv, vv, godebug.LF())
 					vI := vv.Interface()
-					godebug.Printf(db15, "       [%d] %v, %T\n", ii, vI, vI)
+					godebug.Db2Printf(db15, "       [%d] %v, %T\n", ii, vI, vI)
 				}
 				err = jx.AssignParseTreeToData(vv.Addr().Interface(), meta, newFrom, newPath, topTagArray, "")
-				godebug.Printf(db15, "%sAT: %s %s ->%s<- %s\n", MiscLib.ColorGreenOnWhite, godebug.LF(), MiscLib.ColorReset, topTagArray, SVar(newFrom))
+				godebug.Db2Printf(db15, "%sAT: %s %s ->%s<- %s\n", MiscLib.ColorGreenOnWhite, godebug.LF(), MiscLib.ColorReset, topTagArray, SVar(newFrom))
 			} else {
 				vv := val.Index(ii)
 				// if int, float, bool, string - then set default values based on parrent array, if struct, call SetDefaults.
 				err = jx.SetDefaults(vv.Addr().Interface(), meta, newPath, topTagArray, "") // Xyzzy - Take return value from this and merge into parent!
-				godebug.Printf(db15, "AT: %s\n", godebug.LF())
+				godebug.Db2Printf(db15, "AT: %s\n", godebug.LF())
 			}
 		}
 
@@ -1311,17 +1311,17 @@ func OptOmitEmpty(opt []string) bool {
 // colName 			The name of the data column in the structure
 // jsonXattrName	The name of the attribugte in the JSON dictionary
 func MatchName(jNname, colName, jsonXattrName string) bool {
-	godebug.Printf(db2, "jNmae [%s] colName [%s] jsonXattrName [%s]\n", jNname, colName, jsonXattrName)
+	godebug.Db2Printf(db2, "jNmae [%s] colName [%s] jsonXattrName [%s]\n", jNname, colName, jsonXattrName)
 	if jNname == "-" {
 		return false
 	}
-	godebug.Printf(db2, "%sAT: %s%s\n", MiscLib.ColorYellow, godebug.LF(), MiscLib.ColorReset)
+	godebug.Db2Printf(db2, "%sAT: %s%s\n", MiscLib.ColorYellow, godebug.LF(), MiscLib.ColorReset)
 	if jNname != "" && jNname != "*" {
-		godebug.Printf(db2, "%sAT: %s%s\n", MiscLib.ColorYellow, godebug.LF(), MiscLib.ColorReset)
+		godebug.Db2Printf(db2, "%sAT: %s%s\n", MiscLib.ColorYellow, godebug.LF(), MiscLib.ColorReset)
 		return (jNname == jsonXattrName)
 	}
 	rv := strings.ToLower(colName) == strings.ToLower(jsonXattrName)
-	godebug.Printf(db2, "%sAT: %s [%s]==[%s] is %v %s\n", MiscLib.ColorYellow, godebug.LF(), strings.ToLower(colName), strings.ToLower(jsonXattrName), rv, MiscLib.ColorReset)
+	godebug.Db2Printf(db2, "%sAT: %s [%s]==[%s] is %v %s\n", MiscLib.ColorYellow, godebug.LF(), strings.ToLower(colName), strings.ToLower(jsonXattrName), rv, MiscLib.ColorReset)
 	return rv
 }
 
@@ -1353,7 +1353,7 @@ func ParseGfJsonX(jN string) (name string, opt []string) {
 // Example Call:
 //		dv, ok := SearchString(jNname, from)
 func SearchString(jNname, colName string, from *JsonToken) (dv string, ok bool, fn string, ln int) {
-	godebug.Printf(db124, "AT: %s, %s\n", godebug.LF(), SVarI(from))
+	godebug.Db2Printf(db124, "AT: %s, %s\n", godebug.LF(), SVarI(from))
 	if from.TokenNo == TokenObjectStart || (from.TokenNo == TokenNameValue && from.TokenNoValue == TokenObjectStart) {
 		for ii, vv := range from.Children {
 			if vv.TokenNo == TokenNameValue && MatchName(jNname, colName, vv.Name) {
@@ -1393,7 +1393,7 @@ func SearchString(jNname, colName string, from *JsonToken) (dv string, ok bool, 
 }
 
 func SearchInt(jNname, colName string, from *JsonToken) (dv int64, ok bool, fn string, ln int) {
-	godebug.Printf(db124, "AT: %s\n", godebug.LF())
+	godebug.Db2Printf(db124, "AT: %s\n", godebug.LF())
 	if from.TokenNo == TokenObjectStart || (from.TokenNo == TokenNameValue && from.TokenNoValue == TokenObjectStart) {
 		for ii, vv := range from.Children {
 			if vv.TokenNo == TokenNameValue && MatchName(jNname, colName, vv.Name) {
@@ -1422,7 +1422,7 @@ func SearchInt(jNname, colName string, from *JsonToken) (dv int64, ok bool, fn s
 }
 
 func SearchBool(jNname, colName string, from *JsonToken) (dv bool, ok bool, fn string, ln int) {
-	godebug.Printf(db124, "AT: %s\n", godebug.LF())
+	godebug.Db2Printf(db124, "AT: %s\n", godebug.LF())
 	if from.TokenNo == TokenObjectStart || (from.TokenNo == TokenNameValue && from.TokenNoValue == TokenObjectStart) {
 		for ii, vv := range from.Children {
 			if vv.TokenNo == TokenNameValue && MatchName(jNname, colName, vv.Name) {
@@ -1446,7 +1446,7 @@ func SearchBool(jNname, colName string, from *JsonToken) (dv bool, ok bool, fn s
 }
 
 func SearchFloat(jNname, colName string, from *JsonToken) (dv float64, ok bool, fn string, ln int) {
-	godebug.Printf(db124, "AT: %s\n", godebug.LF())
+	godebug.Db2Printf(db124, "AT: %s\n", godebug.LF())
 	if from.TokenNo == TokenObjectStart || (from.TokenNo == TokenNameValue && from.TokenNoValue == TokenObjectStart) {
 		for ii, vv := range from.Children {
 			if vv.TokenNo == TokenNameValue && MatchName(jNname, colName, vv.Name) {
@@ -1473,7 +1473,7 @@ func SearchFloat(jNname, colName string, from *JsonToken) (dv float64, ok bool, 
 
 // newFrom, ok := SearchStruct(jNname, name, from)
 func SearchStruct(jNname, colName string, from *JsonToken) (dv *JsonToken, ok bool) {
-	godebug.Printf(db124, "AT: %s\n", godebug.LF())
+	godebug.Db2Printf(db124, "AT: %s\n", godebug.LF())
 	if from.TokenNo == TokenObjectStart || (from.TokenNo == TokenNameValue && from.TokenNoValue == TokenObjectStart) {
 		for ii, vv := range from.Children {
 			if vv.TokenNo == TokenNameValue && MatchName(jNname, colName, vv.Name) {
@@ -1498,7 +1498,7 @@ func SearchStruct(jNname, colName string, from *JsonToken) (dv *JsonToken, ok bo
 
 // newFrom, ok := SearchArray(jNname, name, from, ii) // ok is false if array-subscript, 'ii' is out of range
 func SearchArray(jNname, colName string, from *JsonToken, arrPos int) (dv *JsonToken, ok bool) {
-	godebug.Printf(db124, "AT: %s\n", godebug.LF())
+	godebug.Db2Printf(db124, "AT: %s\n", godebug.LF())
 	if from.TokenNo == TokenObjectStart || (from.TokenNo == TokenNameValue && from.TokenNoValue == TokenObjectStart) {
 		for ii, vv := range from.Children {
 			if vv.TokenNo == TokenNameValue && MatchName(jNname, colName, vv.Name) {
@@ -1523,19 +1523,19 @@ func SearchArray(jNname, colName string, from *JsonToken, arrPos int) (dv *JsonT
 // NChild := SearchArrayNChild(jNname, name, from)
 // if nSupp, ok := SearchArrayTooMany(jName, name, from, f.Len()); !ok {
 func SearchArrayTooMany(jNname, colName string, from *JsonToken, maxPos int) (nSupp int, ok bool) {
-	godebug.Printf(db124, "AT: %s\n", godebug.LF())
+	godebug.Db2Printf(db124, "AT: %s\n", godebug.LF())
 	ok = true
-	// godebug.Printf(db15, ">>> AT: %s\n", godebug.LF())
+	// godebug.Db2Printf(db15, ">>> AT: %s\n", godebug.LF())
 	if from.TokenNo == TokenObjectStart || (from.TokenNo == TokenNameValue && from.TokenNoValue == TokenObjectStart) {
-		// godebug.Printf(db15, ">>> AT: %s\n", godebug.LF())
+		// godebug.Db2Printf(db15, ">>> AT: %s\n", godebug.LF())
 		for ii, vv := range from.Children {
-			// godebug.Printf(db15, ">>> AT: %s\n", godebug.LF())
+			// godebug.Db2Printf(db15, ">>> AT: %s\n", godebug.LF())
 			if vv.TokenNo == TokenNameValue && MatchName(jNname, colName, vv.Name) {
-				// godebug.Printf(db15, ">>> AT: %s -- name match\n", godebug.LF())
+				// godebug.Db2Printf(db15, ">>> AT: %s -- name match\n", godebug.LF())
 				if vv.TokenNoValue == TokenArrayStart {
-					// godebug.Printf(db15, ">>> AT: %s -- it's an array maxPos=%d len()=%d\n", godebug.LF(), maxPos, len(from.Children[ii].Children))
+					// godebug.Db2Printf(db15, ">>> AT: %s -- it's an array maxPos=%d len()=%d\n", godebug.LF(), maxPos, len(from.Children[ii].Children))
 					if maxPos < len(from.Children[ii].Children) {
-						// godebug.Printf(db15, "%s>>> AT: %s -- too many%s\n", MiscLib.ColorRed, godebug.LF(), MiscLib.ColorReset)
+						// godebug.Db2Printf(db15, "%s>>> AT: %s -- too many%s\n", MiscLib.ColorRed, godebug.LF(), MiscLib.ColorReset)
 						nSupp = len(from.Children[ii].Children)
 						ok = false
 					}
@@ -1549,17 +1549,17 @@ func SearchArrayTooMany(jNname, colName string, from *JsonToken, maxPos int) (nS
 
 // NInHash := SearchHashLength(jNname, name, from)
 func SearchHashLength(jNname, colName string, from *JsonToken) (nSupp int, fromHash *JsonToken) {
-	godebug.Printf(db124, "AT: %s\n", godebug.LF())
+	godebug.Db2Printf(db124, "AT: %s\n", godebug.LF())
 	nSupp = -1
-	// godebug.Printf(db15, "+++ AT: %s\n", godebug.LF())
+	// godebug.Db2Printf(db15, "+++ AT: %s\n", godebug.LF())
 	if from.TokenNo == TokenObjectStart || (from.TokenNo == TokenNameValue && from.TokenNoValue == TokenObjectStart) {
-		// godebug.Printf(db15, "+++ AT: %s\n", godebug.LF())
+		// godebug.Db2Printf(db15, "+++ AT: %s\n", godebug.LF())
 		for ii, vv := range from.Children {
-			// godebug.Printf(db15, "+++ AT: %s\n", godebug.LF())
+			// godebug.Db2Printf(db15, "+++ AT: %s\n", godebug.LF())
 			if vv.TokenNo == TokenNameValue && MatchName(jNname, colName, vv.Name) {
-				// godebug.Printf(db15, "+++ AT: %s -- name match\n", godebug.LF())
+				// godebug.Db2Printf(db15, "+++ AT: %s -- name match\n", godebug.LF())
 				if vv.TokenNoValue == TokenObjectStart {
-					// godebug.Printf(db15, "%s+++ AT: %s -- too many%s\n", MiscLib.ColorRed, godebug.LF(), MiscLib.ColorReset)
+					// godebug.Db2Printf(db15, "%s+++ AT: %s -- too many%s\n", MiscLib.ColorRed, godebug.LF(), MiscLib.ColorReset)
 					nSupp = len(from.Children[ii].Children)
 					fromHash = &from.Children[ii]
 					fromHash.UsedData = true
@@ -1576,14 +1576,14 @@ func SearchHashLength(jNname, colName string, from *JsonToken) (nSupp int, fromH
 // SearchHashLength must be run first to pick out 'from' from the original data.
 //// func SearchHashValue(jNname, colName string, from *JsonToken, ii int) (ok bool, key string, rawValue *JsonToken) {
 func SearchHashValue(from *JsonToken, ii int) (ok bool, key string, rawValue *JsonToken) {
-	godebug.Printf(db124, "AT: %s\n", godebug.LF())
+	godebug.Db2Printf(db124, "AT: %s\n", godebug.LF())
 	ok = false
-	godebug.Printf(db124, "****** from=%s, from.TokenNoValue=%s from.TokenNo=%s\n", SVarI(from), from.TokenNoValue, from.TokenNo)
+	godebug.Db2Printf(db124, "****** from=%s, from.TokenNoValue=%s from.TokenNo=%s\n", SVarI(from), from.TokenNoValue, from.TokenNo)
 	if from.TokenNoValue == TokenObjectStart || from.TokenNo == TokenObjectStart {
 		if ii >= 0 && ii < len(from.Children) {
 			vv := &from.Children[ii]
 			if vv.TokenNoValue == TokenNameValue || vv.TokenNo == TokenNameValue {
-				godebug.Printf(db124, "%sAT: %s%s\n", MiscLib.ColorGreen, godebug.LF(), MiscLib.ColorReset)
+				godebug.Db2Printf(db124, "%sAT: %s%s\n", MiscLib.ColorGreen, godebug.LF(), MiscLib.ColorReset)
 				ok = true
 				key = vv.Name
 				vv.UsedData = true
@@ -1599,7 +1599,7 @@ func SearchHashValue(from *JsonToken, ii int) (ok bool, key string, rawValue *Js
 }
 
 func SearchIntTop(jNname, colName string, from *JsonToken) (dv int64, ok bool, fn string, ln int) {
-	godebug.Printf(db124, "AT: %s\n", godebug.LF())
+	godebug.Db2Printf(db124, "AT: %s\n", godebug.LF())
 	// fmt.Printf("SearchIntTop called from %s\n", godebug.LF(2))
 	if from.TokenNoValue == TokenInt || from.TokenNo == TokenInt {
 		dv, ok, fn, ln = from.IValue, true, from.FileName, from.LineNo
@@ -1620,7 +1620,7 @@ func SearchIntTop(jNname, colName string, from *JsonToken) (dv int64, ok bool, f
 }
 
 func SearchStringTop(jNname, colName string, from *JsonToken) (dv string, ok bool, fn string, ln int) {
-	godebug.Printf(db124, "AT: %s\n", godebug.LF())
+	godebug.Db2Printf(db124, "AT: %s\n", godebug.LF())
 	if from.TokenNoValue == TokenString || from.TokenNo == TokenString || from.TokenNoValue == TokenId || from.TokenNo == TokenId {
 		dv, ok, fn, ln = from.Value, true, from.FileName, from.LineNo
 		from.UsedData = true
@@ -1646,7 +1646,7 @@ func SearchStringTop(jNname, colName string, from *JsonToken) (dv string, ok boo
 
 // dvb, ok, fn, ln := SearchBoolTop(jNname, name, from)
 func SearchBoolTop(jNname, colName string, from *JsonToken) (dv bool, ok bool, fn string, ln int) {
-	godebug.Printf(db124, "AT: %s\n", godebug.LF())
+	godebug.Db2Printf(db124, "AT: %s\n", godebug.LF())
 	if from.TokenNoValue == TokenBool || from.TokenNo == TokenBool {
 		dv, ok, fn, ln = from.BValue, true, from.FileName, from.LineNo
 		from.UsedData = true
@@ -1659,7 +1659,7 @@ func SearchBoolTop(jNname, colName string, from *JsonToken) (dv bool, ok bool, f
 }
 
 func SearchFloatTop(jNname, colName string, from *JsonToken) (dv float64, ok bool, fn string, ln int) {
-	godebug.Printf(db124, "AT: %s\n", godebug.LF())
+	godebug.Db2Printf(db124, "AT: %s\n", godebug.LF())
 	if from.TokenNoValue == TokenInt || from.TokenNo == TokenInt {
 		dv, ok, fn, ln = float64(from.IValue), true, from.FileName, from.LineNo
 		from.UsedData = true
@@ -1703,7 +1703,7 @@ func (ct ChildType) String() (rv string) {
 	return
 }
 
-// godebug.Printf(db120, "%s Could be of type %s, %s%s\n", MiscLib.ColorYellow, DeriveObjectType(from), godebug.LF(), MiscLib.ColorReset)
+// godebug.Db2Printf(db120, "%s Could be of type %s, %s%s\n", MiscLib.ColorYellow, DeriveObjectType(from), godebug.LF(), MiscLib.ColorReset)
 func DeriveObjectType(from *JsonToken) (dType ChildType) {
 	ln := len(from.Children)
 	it := TokenInt
@@ -1729,14 +1729,14 @@ func DeriveObjectType(from *JsonToken) (dType ChildType) {
 	for ii := 1; ii < ln; ii++ {
 		vv := &from.Children[ii]
 		if it == TokenFloat && (vv.TokenNo == TokenNameValue && vv.TokenNoValue == TokenInt || vv.TokenNo == TokenInt) {
-			godebug.Printf(db120, "%s   Int accepted as Float, %s%s\n", MiscLib.ColorYellow, godebug.LF(), MiscLib.ColorReset)
+			godebug.Db2Printf(db120, "%s   Int accepted as Float, %s%s\n", MiscLib.ColorYellow, godebug.LF(), MiscLib.ColorReset)
 		} else if it == TokenInt && (vv.TokenNo == TokenNameValue && vv.TokenNoValue == TokenFloat || vv.TokenNo == TokenFloat) {
 			if vv.FValue == float64(int64(vv.FValue)) {
-				godebug.Printf(db120, "%s   Int is Float - no fractional part, %s%s\n", MiscLib.ColorYellow, godebug.LF(), MiscLib.ColorReset)
+				godebug.Db2Printf(db120, "%s   Int is Float - no fractional part, %s%s\n", MiscLib.ColorYellow, godebug.LF(), MiscLib.ColorReset)
 			} else {
 				it = TokenFloat
 				dType = OnlyFloat
-				godebug.Printf(db120, "%s   Int *upgraded to* Float, %s%s\n", MiscLib.ColorYellow, godebug.LF(), MiscLib.ColorReset)
+				godebug.Db2Printf(db120, "%s   Int *upgraded to* Float, %s%s\n", MiscLib.ColorYellow, godebug.LF(), MiscLib.ColorReset)
 			}
 		} else if vv.TokenNo == TokenNameValue && vv.TokenNoValue == it || vv.TokenNo == it {
 		} else {
@@ -1747,13 +1747,13 @@ func DeriveObjectType(from *JsonToken) (dType ChildType) {
 	return
 }
 
-// godebug.Printf(db120, "%s Could be of type %s, %s%s\n", MiscLib.ColorYellow, DeriveArrayType(from), godebug.LF(), MiscLib.ColorReset)
+// godebug.Db2Printf(db120, "%s Could be of type %s, %s%s\n", MiscLib.ColorYellow, DeriveArrayType(from), godebug.LF(), MiscLib.ColorReset)
 func DeriveArrayType(from *JsonToken) (dType ChildType) {
 	return DeriveObjectType(from)
 }
 
 func (jx *JsonXConfig) GetDv(xName, path string, meta map[string]MetaInfo, topTag string) (dv, name, metaName string) {
-	godebug.Printf(db41, "%sAT: %s%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), MiscLib.ColorReset)
+	godebug.Db2Printf(db41, "%sAT: %s%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), MiscLib.ColorReset)
 	name = xName
 	if name == "" && jx.TopName != "" {
 		name = jx.TopName
@@ -1764,15 +1764,15 @@ func (jx *JsonXConfig) GetDv(xName, path string, meta map[string]MetaInfo, topTa
 	}
 	meta[metaName] = MetaInfo{SetBy: NotSet, DataFrom: FromTag}
 	// f := val.Field(i)
-	godebug.Printf(db41, "%sAT: %s%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), MiscLib.ColorReset)
+	godebug.Db2Printf(db41, "%sAT: %s%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), MiscLib.ColorReset)
 
 	if ok, etag := CheckGfNamesValid(topTag); !ok {
-		godebug.Printf(db124, "%sInvalid gf* tag %s will be ignored.%s\n", MiscLib.ColorRed, etag, MiscLib.ColorReset)
+		godebug.Db2Printf(db124, "%sInvalid gf* tag %s will be ignored.%s\n", MiscLib.ColorRed, etag, MiscLib.ColorReset)
 		AppendError(meta, metaName, fmt.Sprintf("Invalid gf* tag %s will be ignored.", etag))
 	}
 
 	dv = GetTopTag(topTag, "gfDefault")
-	godebug.Printf(db41, "%sAT: %s, dv = ->%s<-%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), dv, MiscLib.ColorReset)
+	godebug.Db2Printf(db41, "%sAT: %s, dv = ->%s<-%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), dv, MiscLib.ColorReset)
 	// xyzzyTmplDefault -- template it
 
 	e := GetTopTag(topTag, "gfDefaultEnv") // pull default values from !env! -- for things like passwords, connection info
@@ -1803,7 +1803,7 @@ func (jx *JsonXConfig) GetDv(xName, path string, meta map[string]MetaInfo, topTa
 // true and "MyName".
 func FindOptPrefix(prefix string, jNopt []string) (rv string, found bool) {
 	for _, vv := range jNopt {
-		godebug.Printf(db122, "%sAT: %s vv->%s<-%s\n", MiscLib.ColorGreen, godebug.LF(), vv, MiscLib.ColorReset)
+		godebug.Db2Printf(db122, "%sAT: %s vv->%s<-%s\n", MiscLib.ColorGreen, godebug.LF(), vv, MiscLib.ColorReset)
 		if strings.HasPrefix(vv, prefix) {
 			rv = vv[len(prefix):]
 			found = true
@@ -1815,10 +1815,10 @@ func FindOptPrefix(prefix string, jNopt []string) (rv string, found bool) {
 
 func OptSetField(jNname, name string, from *JsonToken, jNopt []string, val reflect.Value, source SetByType) {
 	// ,isSet,setField:fieldName
-	godebug.Printf(db122, "%sjNname=%s name=%s jNopt=%s AT: %s%s\n", MiscLib.ColorGreen, jNname, name, godebug.SVar(jNopt), godebug.LF(), MiscLib.ColorReset)
-	godebug.Printf(db122, "%sjNname=%s name=%s jNopt=%s AT: %s%s\n", MiscLib.ColorYellow, jNname, name, godebug.SVar(jNopt), godebug.LF(2), MiscLib.ColorReset)
+	godebug.Db2Printf(db122, "%sjNname=%s name=%s jNopt=%s AT: %s%s\n", MiscLib.ColorGreen, jNname, name, godebug.SVar(jNopt), godebug.LF(), MiscLib.ColorReset)
+	godebug.Db2Printf(db122, "%sjNname=%s name=%s jNopt=%s AT: %s%s\n", MiscLib.ColorYellow, jNname, name, godebug.SVar(jNopt), godebug.LF(2), MiscLib.ColorReset)
 	if InArray("isSet", jNopt) || (InArray("isSetNoDefault", jNopt) && source != IsDefault) {
-		godebug.Printf(db122, "%sAT: %s%s\n", MiscLib.ColorGreen, godebug.LF(), MiscLib.ColorReset)
+		godebug.Db2Printf(db122, "%sAT: %s%s\n", MiscLib.ColorGreen, godebug.LF(), MiscLib.ColorReset)
 		fieldName, found := FindOptPrefix("setField:", jNopt)
 		if !found {
 			// defauilt to "Field"+"IsSet"
@@ -1826,7 +1826,7 @@ func OptSetField(jNname, name string, from *JsonToken, jNopt []string, val refle
 		}
 		f := val.FieldByName(fieldName)
 		if f.CanSet() {
-			godebug.Printf(db122, "%sAT: %s%s\n", MiscLib.ColorGreen, godebug.LF(), MiscLib.ColorReset)
+			godebug.Db2Printf(db122, "%sAT: %s%s\n", MiscLib.ColorGreen, godebug.LF(), MiscLib.ColorReset)
 			if f.Kind() == reflect.Bool {
 				f.SetBool(true)
 			} else {

@@ -337,7 +337,7 @@ func fxQ(js *JsonXScanner, args []string) (rv string) {
 
 func ProcessPath(js *JsonXScanner, fn string) (outFn []string, found bool) {
 
-	godebug.Printf(dbA100, "AT: %s fn=-->%s<--\n", godebug.LF(), fn)
+	godebug.Db2Printf(dbA100, "AT: %s fn=-->%s<--\n", godebug.LF(), fn)
 
 	found = false
 	var pathSet2, fns, dirs []string
@@ -358,7 +358,7 @@ func ProcessPath(js *JsonXScanner, fn string) (outFn []string, found bool) {
 	pathSet := getArrayFromData("path", []string{"./"})
 	envPull := getArrayFromData("envVars", []string{})
 
-	godebug.Printf(dbA100, "AT: %s pathSet=-->%s<--\n", godebug.LF(), SVar(pathSet))
+	godebug.Db2Printf(dbA100, "AT: %s pathSet=-->%s<--\n", godebug.LF(), SVar(pathSet))
 	// convert ./ int {{.curDir}} and template!
 	mdata := make(map[string]string)
 
@@ -369,12 +369,12 @@ func ProcessPath(js *JsonXScanner, fn string) (outFn []string, found bool) {
 		mdata["curDir"] = cwd
 	} else {
 		mdata["curDir"] = path.Join(cwd, pathOf)
-		godebug.Printf(db208, "%smdata[\"curDir\"] = [%s], %s%s\n", MiscLib.ColorCyan, mdata["curDir"], godebug.LF(), MiscLib.ColorReset)
+		godebug.Db2Printf(db208, "%smdata[\"curDir\"] = [%s], %s%s\n", MiscLib.ColorCyan, mdata["curDir"], godebug.LF(), MiscLib.ColorReset)
 	}
 	mdata["homeDir"] = os.Getenv("HOME")
 	mdata["hostname"] = GetHostName()
 	ps := string(os.PathSeparator)
-	godebug.Printf(dbA100, "AT: %s pathSep=-->%s<--\n", godebug.LF(), string(os.PathSeparator))
+	godebug.Db2Printf(dbA100, "AT: %s pathSep=-->%s<--\n", godebug.LF(), string(os.PathSeparator))
 	if ps == "/" {
 		mdata["isWindows"] = ""
 	} else {
@@ -385,7 +385,7 @@ func ProcessPath(js *JsonXScanner, fn string) (outFn []string, found bool) {
 		mdata[ee] = os.Getenv(ee)
 	}
 
-	godebug.Printf(dbA100, "AT: %s mdata=-->%s<--\n", godebug.LF(), SVar(mdata))
+	godebug.Db2Printf(dbA100, "AT: %s mdata=-->%s<--\n", godebug.LF(), SVar(mdata))
 
 	for _, aPath := range pathSet {
 		// if strings.HasPrefix(aPath, "./") { //// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< !!! {{.curDir}} if not "/" <<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -396,31 +396,31 @@ func ProcessPath(js *JsonXScanner, fn string) (outFn []string, found bool) {
 		if strings.HasPrefix(aPath, "~/") {
 			aPath = "{{.homeDir}}/" + aPath[2:]
 		}
-		godebug.Printf(dbA100, "AT: %s aPath=-->%s<--\n", godebug.LF(), aPath)
+		godebug.Db2Printf(dbA100, "AT: %s aPath=-->%s<--\n", godebug.LF(), aPath)
 		// xyzzy - what about ~name/ <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		aPath = tmplp.ExecuteATemplate(aPath, mdata)
-		godebug.Printf(dbA100, "AT: %s aPath=-->%s<--\n", godebug.LF(), aPath)
+		godebug.Db2Printf(dbA100, "AT: %s aPath=-->%s<--\n", godebug.LF(), aPath)
 		if strings.HasSuffix(aPath, "/...") {
 			aPath = aPath[:len(aPath)-4]
-			godebug.Printf(dbA100, "AT: %s aPath=-->%s<--\n", godebug.LF(), aPath)
+			godebug.Db2Printf(dbA100, "AT: %s aPath=-->%s<--\n", godebug.LF(), aPath)
 			if Exists(aPath) {
-				godebug.Printf(dbA100, "AT: %s aPath=-->%s<--\n", godebug.LF(), aPath)
+				godebug.Db2Printf(dbA100, "AT: %s aPath=-->%s<--\n", godebug.LF(), aPath)
 				pathSet2 = append(pathSet2, aPath)
 				fns, dirs = GetFilenames(aPath, true)
 				pathSet2 = append(pathSet2, dirs...)
 			} else {
-				godebug.Printf(dbA100, "AT: %s aPath=-->%s<--\n", godebug.LF(), aPath)
+				godebug.Db2Printf(dbA100, "AT: %s aPath=-->%s<--\n", godebug.LF(), aPath)
 				// ignore??? -- only report during testing!
 			}
 		} else {
 			// fns, _ = GetFilenames(aPath, false)
 			fns, _ = GetFilenames(aPath, true)
 			pathSet2 = append(pathSet2, aPath)
-			godebug.Printf(dbA100, "AT: %s dirs=-->%s<--\n", godebug.LF(), SVar(pathSet2))
+			godebug.Db2Printf(dbA100, "AT: %s dirs=-->%s<--\n", godebug.LF(), SVar(pathSet2))
 		}
 	}
-	godebug.Printf(dbA100, "AT: %s pathSet2=-->%s<--\n", godebug.LF(), SVar(pathSet2))
-	godebug.Printf(dbA100, "AT: %s fns=-->%s<-- %sfn=-->%s<--%s\n", godebug.LF(), SVar(fns), MiscLib.ColorYellow, fn, MiscLib.ColorReset)
+	godebug.Db2Printf(dbA100, "AT: %s pathSet2=-->%s<--\n", godebug.LF(), SVar(pathSet2))
+	godebug.Db2Printf(dbA100, "AT: %s fns=-->%s<-- %sfn=-->%s<--%s\n", godebug.LF(), SVar(fns), MiscLib.ColorYellow, fn, MiscLib.ColorReset)
 	// - check to see if directory exists -- Split
 	//		PATH /home/pschlmp/cfg/...
 	//		FN   .*_tab_server.jx
@@ -437,17 +437,17 @@ func ProcessPath(js *JsonXScanner, fn string) (outFn []string, found bool) {
 		} else {
 			aFn = aFn + "$" // xyzzy - optional -- should have flag for this
 		}
-		godebug.Printf(dbA100, "AT: %s aPath=-->%s<-- aFn=-->%s<--\n", godebug.LF(), aPath, aFn)
+		godebug.Db2Printf(dbA100, "AT: %s aPath=-->%s<-- aFn=-->%s<--\n", godebug.LF(), aPath, aFn)
 		re, err := regexp.Compile(aFn)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Error: Invalid regular expression: %s\n", err)
 		} else {
 			for _, aFile := range fns {
-				godebug.Printf(dbA100, "AT: %s aFile=-->%s<--\n", godebug.LF(), aFile)
+				godebug.Db2Printf(dbA100, "AT: %s aFile=-->%s<--\n", godebug.LF(), aFile)
 				if re.MatchString(aFile) {
-					godebug.Printf(dbA100, "AT: %s aFile=-->%s<--\n", godebug.LF(), aFile)
+					godebug.Db2Printf(dbA100, "AT: %s aFile=-->%s<--\n", godebug.LF(), aFile)
 					if Exists(aFile) {
-						godebug.Printf(dbA100, "AT: %s aFile=-->%s<--\n", godebug.LF(), aFile)
+						godebug.Db2Printf(dbA100, "AT: %s aFile=-->%s<--\n", godebug.LF(), aFile)
 						outFn = append(outFn, aFile)
 						found = true
 					}
@@ -455,7 +455,7 @@ func ProcessPath(js *JsonXScanner, fn string) (outFn []string, found bool) {
 			}
 		}
 	}
-	godebug.Printf(dbA100, "AT: %s outFn=-->%s<--\n", godebug.LF(), SVar(outFn))
+	godebug.Db2Printf(dbA100, "AT: %s outFn=-->%s<--\n", godebug.LF(), SVar(outFn))
 	// remove cwd from lead of files if possible.
 	cwd = cwd + "/"
 	for ii, fn := range outFn {
@@ -464,7 +464,7 @@ func ProcessPath(js *JsonXScanner, fn string) (outFn []string, found bool) {
 			outFn[ii] = fn
 		}
 	}
-	godebug.Printf(dbA100, "AT: %s outFn=-->%s<--\n", godebug.LF(), SVar(outFn))
+	godebug.Db2Printf(dbA100, "AT: %s outFn=-->%s<--\n", godebug.LF(), SVar(outFn))
 	return
 }
 
@@ -475,7 +475,7 @@ func ProcessPath(js *JsonXScanner, fn string) (outFn []string, found bool) {
 // and check the HASH to see if you have already read it - kind of extreme))
 func fxInclude(js *JsonXScanner, args []string) (rv string) {
 
-	godebug.Printf(db200, "top: ->%s<- %s\n", js.PathTop, godebug.LF())
+	godebug.Db2Printf(db200, "top: ->%s<- %s\n", js.PathTop, godebug.LF())
 
 	w0 := args[0]
 	for ii := len(args) - 1; ii >= 1; ii-- { // reverse walk through args
@@ -495,11 +495,11 @@ func fxInclude(js *JsonXScanner, args []string) (rv string) {
 		} // else - it will be empty from var declaration above
 		// process "fn" for path
 		fnSet, _ := ProcessPath(js, fn)
-		godebug.Printf(dbA100, "AT: %s fnSet=-->%s<-- Each of these is in the included file name.\n", godebug.LF(), SVar(fnSet))
+		godebug.Db2Printf(dbA100, "AT: %s fnSet=-->%s<-- Each of these is in the included file name.\n", godebug.LF(), SVar(fnSet))
 		fileFound := false
 
 		for _, afn := range fnSet {
-			godebug.Printf(db7, "Include ->%s<-, %s\n", afn, godebug.LF())
+			godebug.Db2Printf(db7, "Include ->%s<-, %s\n", afn, godebug.LF())
 			if w0 == "__include__" || w0 == "__sinclude__" || ((w0 == "__require__" || w0 == "__srequire__") && !InArray(afn, t1sa)) {
 				t1sa = append(t1sa, afn)
 				js.Data["fns"] = t1sa
@@ -556,7 +556,7 @@ func fxInclude(js *JsonXScanner, args []string) (rv string) {
 // and check the HASH to see if you have already read it - kind of extreme))
 func fxIncludeStr(js *JsonXScanner, args []string) (rv string) {
 
-	godebug.Printf(db212, "top: ->%s<- %s\n", js.PathTop, godebug.LF())
+	godebug.Db2Printf(db212, "top: ->%s<- %s\n", js.PathTop, godebug.LF())
 
 	w0 := args[0]
 	for ii := len(args) - 1; ii >= 1; ii-- { // reverse walk through args
@@ -576,11 +576,11 @@ func fxIncludeStr(js *JsonXScanner, args []string) (rv string) {
 		} // else - it will be empty from var declaration above
 		// process "fn" for path
 		fnSet, _ := ProcessPath(js, fn)
-		godebug.Printf(db212, "IncludeStr AT: %s fnSet=-->%s<-- Each of these is in the included file name.\n", godebug.LF(), SVar(fnSet))
+		godebug.Db2Printf(db212, "IncludeStr AT: %s fnSet=-->%s<-- Each of these is in the included file name.\n", godebug.LF(), SVar(fnSet))
 		fileFound := false
 
 		for _, afn := range fnSet {
-			godebug.Printf(db212, "IncludeStr ->%s<-, %s\n", afn, godebug.LF())
+			godebug.Db2Printf(db212, "IncludeStr ->%s<-, %s\n", afn, godebug.LF())
 			if w0 == "__include_str__" || w0 == "__sinclude_str__" || ((w0 == "__require_str__" || w0 == "__srequire_str__") && !InArray(afn, t1sa)) {
 				t1sa = append(t1sa, afn)
 				js.Data["fns"] = t1sa
@@ -706,7 +706,7 @@ func (js *JsonXScanner) emitAppend(t TokenType, v string, f float64, i int64, b 
 }
 
 func (js *JsonXScanner) emit(t TokenType, v string) {
-	godebug.Printf(db4, "    emit: %s ->%s<- called from, %s, %s\n", t, v, godebug.LINE(2), godebug.LINE(3))
+	godebug.Db2Printf(db4, "    emit: %s ->%s<- called from, %s, %s\n", t, v, godebug.LINE(2), godebug.LINE(3))
 	if t == TokenId || t == TokenString {
 		js.emitAppend(t, v, 0, 0, false, js.LineNo, js.ColPos-len(v), js.FileName, "")
 	} else {
@@ -727,7 +727,7 @@ func (js *JsonXScanner) PrevToken(offset int) (t TokenType) {
 }
 
 func (js *JsonXScanner) emitFloat(t TokenType, v string) {
-	godebug.Printf(db4, "    emit: %s ->%s<- called from, %s, %s\n", t, v, godebug.LINE(2), godebug.LINE(3))
+	godebug.Db2Printf(db4, "    emit: %s ->%s<- called from, %s, %s\n", t, v, godebug.LINE(2), godebug.LINE(3))
 	ln := len(v)
 	f, err := strconv.ParseFloat(v, 64)
 	if err != nil {
@@ -745,7 +745,7 @@ func (js *JsonXScanner) emitFloat(t TokenType, v string) {
 }
 
 func (js *JsonXScanner) emitInt(t TokenType, v string, base int) {
-	godebug.Printf(db4, "    emit: %s ->%s<- called from, %s, %s\n", t, v, godebug.LINE(2), godebug.LINE(3))
+	godebug.Db2Printf(db4, "    emit: %s ->%s<- called from, %s, %s\n", t, v, godebug.LINE(2), godebug.LINE(3))
 	ln := len(v)
 	i, err := strconv.ParseInt(v, base, 64)
 	if err != nil {
@@ -763,7 +763,7 @@ func (js *JsonXScanner) emitInt(t TokenType, v string, base int) {
 }
 
 func (js *JsonXScanner) emitBool(t TokenType, v string, kv bool) {
-	godebug.Printf(db4, "    emit: %s ->%v<- called from, %s, %s\n", t, v, godebug.LINE(2), godebug.LINE(3))
+	godebug.Db2Printf(db4, "    emit: %s ->%v<- called from, %s, %s\n", t, v, godebug.LINE(2), godebug.LINE(3))
 	ln := len(v)
 	// js.Toks = append(js.Toks, JsonToken{Number: js.EmitNo, TokenNo: t, Value: v, BValue: kv, LineNo: js.LineNo, ColPos: js.ColPos - ln, FileName: js.FileName})
 	// js.EmitNo++
@@ -890,7 +890,7 @@ func (js *JsonXScanner) scan() {
 	}
 
 	var consumeComment = func() {
-		godebug.Printf(db5, "AT: %s called from %s -- comments nest: %v --\n", godebug.LF(), godebug.LF(2), js.Options.CommentsNest)
+		godebug.Db2Printf(db5, "AT: %s called from %s -- comments nest: %v --\n", godebug.LF(), godebug.LF(2), js.Options.CommentsNest)
 		Adv()
 		depth := 1
 		for js.Pos < len(js.Buf) {
@@ -898,7 +898,7 @@ func (js *JsonXScanner) scan() {
 			if js.Options.CommentsNest && c == '/' && peekEq('*') {
 				Adv()
 				depth++
-				godebug.Printf(db5, "AT: %s depth = %d, pos = %d\n", godebug.LF(), depth, js.Pos)
+				godebug.Db2Printf(db5, "AT: %s depth = %d, pos = %d\n", godebug.LF(), depth, js.Pos)
 				js.ColPos++
 			}
 			if c == '*' && peekEq('/') {
@@ -907,7 +907,7 @@ func (js *JsonXScanner) scan() {
 				if js.Options.CommentsNest {
 					depth--
 				}
-				godebug.Printf(db5, "AT: %s depth = %d, pos = %d\n", godebug.LF(), depth, js.Pos)
+				godebug.Db2Printf(db5, "AT: %s depth = %d, pos = %d\n", godebug.LF(), depth, js.Pos)
 				if js.Options.CommentsNest && depth < 1 {
 					break
 				} else if !js.Options.CommentsNest {
@@ -939,18 +939,18 @@ func (js *JsonXScanner) scan() {
 			return true
 		}
 		rv = reBlank.MatchString(s)
-		godebug.Printf(db8, "for -->%s<-- found that it is ->%v<- in isBlank, %s\n", s, rv, godebug.LF())
+		godebug.Db2Printf(db8, "for -->%s<-- found that it is ->%v<- in isBlank, %s\n", s, rv, godebug.LF())
 		return
 	}
 
 	var get3QuoteString = func(st byte, t TokenType) {
 		firstColPos := js.ColPos - 2 //  this col position will be used if the currrent line is non-blank
 		if st == '`' {
-			godebug.Printf(db3, "A ``` ... ``` string - at top, %d\n", firstColPos)
+			godebug.Db2Printf(db3, "A ``` ... ``` string - at top, %d\n", firstColPos)
 		} else if st == '"' {
-			godebug.Printf(db3, "A \"\"\" ... \"\"\" string - at top\n", firstColPos)
+			godebug.Db2Printf(db3, "A \"\"\" ... \"\"\" string - at top\n", firstColPos)
 		} else if st == '\'' {
-			godebug.Printf(db3, "A ''' ... ''' string - at top\n", firstColPos)
+			godebug.Db2Printf(db3, "A ''' ... ''' string - at top\n", firstColPos)
 		}
 
 		// 1. consider indententation - what column position are we in.
@@ -1016,7 +1016,7 @@ func (js *JsonXScanner) scan() {
 		}
 
 		s := buffer.String()
-		godebug.Printf(db3, "orig:%c%c%c%s%c%c%c - %d\n", st, st, st, s, st, st, st, firstColPos)
+		godebug.Db2Printf(db3, "orig:%c%c%c%s%c%c%c - %d\n", st, st, st, s, st, st, st, firstColPos)
 
 		if st == '\'' {
 		} else {
@@ -1025,21 +1025,21 @@ func (js *JsonXScanner) scan() {
 			lines := strings.Split(s, "\n")
 			hasNewline := len(lines) > 1
 			if len(lines) > 0 && isBlank(lines[0]) {
-				godebug.Printf(db3, "found empty 1st line - discarding\n")
+				godebug.Db2Printf(db3, "found empty 1st line - discarding\n")
 				lines = lines[1:]
 			}
 			// remove last line if it is all blanks
 			n := len(lines)
 			if n > 0 && isBlank(lines[n-1]) {
-				godebug.Printf(db3, "found empty last line - discarding\n")
+				godebug.Db2Printf(db3, "found empty last line - discarding\n")
 				lines = lines[:n-1]
 			}
 
-			godebug.Printf(db3, "After discard of 1st/last ->%s<-\n", strings.Join(lines, "\n")+"\n")
+			godebug.Db2Printf(db3, "After discard of 1st/last ->%s<-\n", strings.Join(lines, "\n")+"\n")
 
 			// pick off blanks to trim from leading of each line
 			n = len(lines)
-			godebug.Printf(db3, "AT: %s - n=%d\n", godebug.LF(), n)
+			godebug.Db2Printf(db3, "AT: %s - n=%d\n", godebug.LF(), n)
 			nb := 0
 			if n > 0 {
 				for line := lines[0]; nb < len(line); nb++ {
@@ -1049,7 +1049,7 @@ func (js *JsonXScanner) scan() {
 				}
 			}
 			// nb is 4, why not trim 1st 4 blanks off of front??? <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-			godebug.Printf(db3, "AT: %s - nb=%d\n", godebug.LF(), nb)
+			godebug.Db2Printf(db3, "AT: %s - nb=%d\n", godebug.LF(), nb)
 			for ii, line := range lines {
 				tb := 0
 				for _, c := range line {
@@ -1060,7 +1060,7 @@ func (js *JsonXScanner) scan() {
 					}
 				}
 				if tb > 0 {
-					godebug.Printf(db3, "%sAT: trimming tb=%d, -->%s<-- to -->%s<--%s\n", MiscLib.ColorCyan, tb, line, line[tb:], MiscLib.ColorReset)
+					godebug.Db2Printf(db3, "%sAT: trimming tb=%d, -->%s<-- to -->%s<--%s\n", MiscLib.ColorCyan, tb, line, line[tb:], MiscLib.ColorReset)
 					line = line[tb:]
 				}
 				lines[ii] = line
@@ -1074,7 +1074,7 @@ func (js *JsonXScanner) scan() {
 
 		}
 
-		godebug.Printf(db3, "finl:%c%c%c%s%c%c%c - %d\n", st, st, st, s, st, st, st, firstColPos)
+		godebug.Db2Printf(db3, "finl:%c%c%c%s%c%c%c - %d\n", st, st, st, s, st, st, st, firstColPos)
 
 		js.emit(t, s)
 	}
@@ -1235,7 +1235,7 @@ func (js *JsonXScanner) scan() {
 			if c == '.' || c == 'e' || c == 'E' {
 				isFloat = true
 			}
-			godebug.Printf(db4, "      ! In Loop [%c] js.Pos=%d -->%s<--\n", c, js.Pos, js.Buf[js.Pos:])
+			godebug.Db2Printf(db4, "      ! In Loop [%c] js.Pos=%d -->%s<--\n", c, js.Pos, js.Buf[js.Pos:])
 			Adv()
 			if !((c >= '0' && c <= '9') || c == 'e' || c == 'E' || c == '.' || c == '_') {
 				if isOct {
@@ -1278,7 +1278,7 @@ func (js *JsonXScanner) scan() {
 	var NextState = func(dnx int) (nx int) {
 		// top := popSt('{')
 		top := peekSt()
-		godebug.Printf(db5, "AT: %s -- using peek to see top=%c\n", godebug.LF(), top)
+		godebug.Db2Printf(db5, "AT: %s -- using peek to see top=%c\n", godebug.LF(), top)
 		nx = dnx
 		if top == '[' {
 			nx = 3
@@ -1290,7 +1290,7 @@ func (js *JsonXScanner) scan() {
 
 	processFunction = func() {
 
-		godebug.Printf(Db["fx1"], "\n%sStart of 'function' call Rest of Input: -->%s<--, called from %s.%s\n", MiscLib.ColorBlue, js.Buf[js.Pos:], godebug.LF(2), MiscLib.ColorReset)
+		godebug.Db2Printf(Db["fx1"], "\n%sStart of 'function' call Rest of Input: -->%s<--, called from %s.%s\n", MiscLib.ColorBlue, js.Buf[js.Pos:], godebug.LF(2), MiscLib.ColorReset)
 
 		// xyzzy - problem "}}" is a word not an end marker and will process as an end marker
 		var buffer bytes.Buffer
@@ -1310,18 +1310,18 @@ func (js *JsonXScanner) scan() {
 		}
 
 		s := buffer.String()
-		godebug.Printf(db214 || Db["fx1"], "%sAccepted String: -->%s<--, Rest --[%s]--%s\n", MiscLib.ColorCyan, s, js.Buf[js.Pos:], MiscLib.ColorReset)
+		godebug.Db2Printf(db214 || Db["fx1"], "%sAccepted String: -->%s<--, Rest --[%s]--%s\n", MiscLib.ColorCyan, s, js.Buf[js.Pos:], MiscLib.ColorReset)
 
 		words := ParseLineIntoWords(s)
 
-		godebug.Printf(Db["fx1"], "%sWords: -->%s<--%s\n", MiscLib.ColorBlue, SVar(words), MiscLib.ColorReset)
+		godebug.Db2Printf(Db["fx1"], "%sWords: -->%s<--%s\n", MiscLib.ColorBlue, SVar(words), MiscLib.ColorReset)
 
 		if len(words) > 0 {
 			w0 := words[0]
 			fx, ok := js.Funcs[w0]
 			if ok {
 				rs := fx(js, words)
-				godebug.Printf(db214 || Db["fx1"], "%s%s returned -->>%s<<--%s\n", MiscLib.ColorYellow, w0, rs, MiscLib.ColorReset)
+				godebug.Db2Printf(db214 || Db["fx1"], "%s%s returned -->>%s<<--%s\n", MiscLib.ColorYellow, w0, rs, MiscLib.ColorReset)
 				// stich in 'rs' into input - how to handle.  Stack of input chunks.
 				if rs != "" {
 					js.pushedInput = append(js.pushedInput, JsonScannerInputStack{
@@ -1338,7 +1338,7 @@ func (js *JsonXScanner) scan() {
 					js.Buf = []byte(rs)
 				}
 			} else {
-				godebug.Printf(Db["fx1"], "%sUnable to find %s as a function to exectue%s\n", MiscLib.ColorRed, w0, MiscLib.ColorReset)
+				godebug.Db2Printf(Db["fx1"], "%sUnable to find %s as a function to exectue%s\n", MiscLib.ColorRed, w0, MiscLib.ColorReset)
 				js.emitAppend(TokenUnknown, string(c), 0, 0, false, js.LineNo, js.ColPos, js.FileName, fmt.Sprintf("Unable to execute function ->%s<-, not defeind.", w0))
 			}
 		}
@@ -1519,9 +1519,9 @@ func (js *JsonXScanner) scan() {
 				//if peekEq('{') {
 				//	processFunction()
 				//} else {
-				godebug.Printf(dbA101, "%sState 20 - found '{' %s %s\n%s", MiscLib.ColorRed, js.PrevToken(-2), js.PrevToken(-1), MiscLib.ColorReset)
+				godebug.Db2Printf(dbA101, "%sState 20 - found '{' %s %s\n%s", MiscLib.ColorRed, js.PrevToken(-2), js.PrevToken(-1), MiscLib.ColorReset)
 				if js.PrevToken(-1) == TokenId {
-					godebug.Printf(dbA101, "%sState match - return : - found '{'\n%s", MiscLib.ColorRed, MiscLib.ColorReset)
+					godebug.Db2Printf(dbA101, "%sState match - return : - found '{'\n%s", MiscLib.ColorRed, MiscLib.ColorReset)
 					js.emit(TokenColon, ":") // Feb 26 PJS
 				}
 				pushSt('{')
@@ -1530,9 +1530,9 @@ func (js *JsonXScanner) scan() {
 				//}
 
 			case c == '[':
-				godebug.Printf(dbA101, "%sState 20 - found '[' %s %s\n%s", MiscLib.ColorRed, js.PrevToken(-2), js.PrevToken(-1), MiscLib.ColorReset)
+				godebug.Db2Printf(dbA101, "%sState 20 - found '[' %s %s\n%s", MiscLib.ColorRed, js.PrevToken(-2), js.PrevToken(-1), MiscLib.ColorReset)
 				if js.PrevToken(-1) == TokenId {
-					godebug.Printf(dbA101, "%sState match - return : - found '['\n%s", MiscLib.ColorRed, MiscLib.ColorReset)
+					godebug.Db2Printf(dbA101, "%sState match - return : - found '['\n%s", MiscLib.ColorRed, MiscLib.ColorReset)
 					js.emit(TokenColon, ":") // Feb 26 PJS
 				}
 				pushSt('[')
@@ -1694,7 +1694,7 @@ func (js *JsonXScanner) scan() {
 			case c == ',':
 				js.State = 23 // state 2 if ID/String, state 1(pop) if }
 				top := peekSt()
-				godebug.Printf(db5, "AT: %s -- using peek to see top=%c\n", godebug.LF(), top)
+				godebug.Db2Printf(db5, "AT: %s -- using peek to see top=%c\n", godebug.LF(), top)
 				if top == '[' {
 					js.State = 3
 				} else if top == '{' {
@@ -1722,7 +1722,7 @@ func (js *JsonXScanner) scan() {
 			case c == '}':
 				top := popSt('{')
 				top = peekSt()
-				godebug.Printf(db5, "AT: %s -- using peek to see top=%c\n", godebug.LF(), top)
+				godebug.Db2Printf(db5, "AT: %s -- using peek to see top=%c\n", godebug.LF(), top)
 				if top == '[' {
 					js.State = 3
 				} else if top == '{' {
@@ -1734,7 +1734,7 @@ func (js *JsonXScanner) scan() {
 			case c == ']':
 				top := popSt('[')
 				top = peekSt()
-				godebug.Printf(db5, "AT: %s -- using peek to see top=%c\n", godebug.LF(), top)
+				godebug.Db2Printf(db5, "AT: %s -- using peek to see top=%c\n", godebug.LF(), top)
 				if top == '[' {
 					js.State = 3
 				} else if top == '{' {
@@ -1748,7 +1748,7 @@ func (js *JsonXScanner) scan() {
 				top := peekSt()
 				// nxSt := getNextState ( top )
 				nxSt := 1
-				godebug.Printf(db5, "AT: %s -- using peek to see top=%c\n", godebug.LF(), top)
+				godebug.Db2Printf(db5, "AT: %s -- using peek to see top=%c\n", godebug.LF(), top)
 				if top == '[' {
 					nxSt = 3
 				} else if top == '{' {
@@ -1824,7 +1824,7 @@ func (js *JsonXScanner) scan() {
 			case c == '}':
 				top := popSt('{')
 				top = peekSt()
-				godebug.Printf(db5, "AT: %s -- using peek to see top=%c\n", godebug.LF(), top)
+				godebug.Db2Printf(db5, "AT: %s -- using peek to see top=%c\n", godebug.LF(), top)
 				if top == '[' {
 					js.State = 3
 				} else if top == '{' {
@@ -1836,7 +1836,7 @@ func (js *JsonXScanner) scan() {
 			case c == ']':
 				top := popSt('[')
 				top = peekSt()
-				godebug.Printf(db5, "AT: %s -- using peek to see top=%c\n", godebug.LF(), top)
+				godebug.Db2Printf(db5, "AT: %s -- using peek to see top=%c\n", godebug.LF(), top)
 				if top == '[' {
 					js.State = 3
 				} else if top == '{' {
@@ -1864,7 +1864,7 @@ func (js *JsonXScanner) scan() {
 		}
 	}
 
-	godebug.Printf(db4, "End: js.Pos=%3d, js.State=%2d, StateSt=-->%s<-- buf--><--, c=%c\n", js.Pos, js.State, string(js.StateSt), c)
+	godebug.Db2Printf(db4, "End: js.Pos=%3d, js.State=%2d, StateSt=-->%s<-- buf--><--, c=%c\n", js.Pos, js.State, string(js.StateSt), c)
 
 }
 

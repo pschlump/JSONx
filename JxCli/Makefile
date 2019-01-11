@@ -8,7 +8,7 @@ install: build
 	cp JxCli ~/bin
 
 test: test0002 test0003 test0004 test0005 test0006 test0007 test0008 test0009 test0010 test0011 test0012 test0014 test0015 test0016 \
-	test0017 test0018
+	test0017 test0018 test0022
 	@echo PASS
 
 fail:
@@ -121,6 +121,11 @@ test0020: build
 test0021: build
 	@./JxCli -i testdata/test0021.jx -j out/test0021.json -m out/test0021.meta
 	@../CmpJson/CmpJson -a out/test0021.json -e ./ref/test0021.json | grep Passed >/dev/null
+
+test0022: build
+	./JxCli -i testdata/test-data1.jsonx -j out/test0022.json -m out/test0022.meta
+	@../CmpJson/CmpJson -a out/test0022.json -e ./ref/test0022.json | grep Passed >/dev/null
+
 
 
 

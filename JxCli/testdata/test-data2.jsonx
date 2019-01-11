@@ -1,0 +1,35 @@
+{
+	 "GethURL_ws"          	: "ws://192.168.0.139:8546"
+	,"GethURL_http"        	: "http://192.168.0.139:8545"
+	,"ABIPath"             	: [ "./abi" ]
+	,"SrcPath"             	: [ "./contracts" ]
+	,"FromAddress"         	: "0xc2a56884538778bacd91aa5bf343bf882c5fb18b"
+	,"FromAddressPassword" 	: "$ENV$AcctPw"
+	,"KeyFile"             	: "/Users/corwin/Projects/eth158/data/keystore/UTC--2018-03-11T01-37-33.202765887Z--c2a56884538778bacd91aa5bf343bf882c5fb18b"
+	,"KeyFilePassword"     	: "$ENV$AcctPw"
+	,"SolcCMD"			   	: "/usr/local/bin/solc"
+	,"AbigenCMD"			: "/Users/corwin/bin/abigen"
+	,"RebuildBinary"        : [ "make" ]
+	,"BinariesInDir"		: "./contracts"
+	,"ReadlineDir"		   	: "/Users/corwin"
+	,"AutoCurrentCheck"	   	: "yes"
+	,"NetworkFlag": {
+		"local03": {
+			 "GethURL_ws"          	: "ws://192.168.0.158:8546"
+			,"GethURL_http"        	: "http://192.168.0.158:8545"
+			,"FromAddress"         	: "0xc2a56884538778bacd91aa5bf343bf882c5fb18b"
+			,"FromAddressPassword" 	: "$ENV$AcctPw"
+			,"KeyFile"             	: "/Users/corwin/Projects/eth158/data/keystore/UTC--2018-03-11T01-37-33.202765887Z--c2a56884538778bacd91aa5bf343bf882c5fb18b"
+			,"KeyFilePassword"     	: "$ENV$AcctPw"
+		},
+		"g2": {
+			 "GethURL_ws"          	: "ws://192.168.0.157:8546"
+			,"GethURL_http"        	: "http://192.168.0.157:8545"
+			,"FromAddress"         	: "0x6ffba2d0f4c8fd7961f516af43c55fe2d56f6044",
+			,"FromAddressPassword" 	: "$ENV$AcctPw_g2"
+			,"KeyFile"             	: "./UTC--2018-02-15T19-57-35.216297214Z--6ffba2d0f4c8fd7961f516af43c55fe2d56f6044",
+			,"KeyFilePassword"     	: "password"
+		}
+	}
+}
+

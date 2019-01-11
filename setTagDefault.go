@@ -269,7 +269,7 @@ func SetDataSourceFnLn(meta map[string]MetaInfo, metaName string, ds SetByType, 
 }
 
 func GetVv(xName, path string, meta map[string]MetaInfo, topTag string) (req bool, typ_s, minV_s, maxV_s, minLen_s, maxLen_s, list_s, valRe_s string, ignoreDefault bool, name, metaName string) {
-	godebug.Printf(db203, "%sAT: %s%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), MiscLib.ColorReset)
+	godebug.Db2Printf(db203, "%sAT: %s%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), MiscLib.ColorReset)
 	name = xName
 	metaName = name
 	if len(path) > 0 {
@@ -277,10 +277,10 @@ func GetVv(xName, path string, meta map[string]MetaInfo, topTag string) (req boo
 	}
 	meta[metaName] = MetaInfo{SetBy: NotSet, DataFrom: FromTag}
 	// f := val.Field(i)
-	godebug.Printf(db203, "%sAT: %s%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), MiscLib.ColorReset)
+	godebug.Db2Printf(db203, "%sAT: %s%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), MiscLib.ColorReset)
 
 	if ok, etag := CheckGfNamesValid(topTag); !ok {
-		godebug.Printf(db201, "%sInvalid gf* tag %s will be ignored.%s\n", MiscLib.ColorRed, etag, MiscLib.ColorReset)
+		godebug.Db2Printf(db201, "%sInvalid gf* tag %s will be ignored.%s\n", MiscLib.ColorRed, etag, MiscLib.ColorReset)
 		AppendError(meta, metaName, fmt.Sprintf("Invalid gf* tag %s will be ignored.", etag))
 	}
 
@@ -306,8 +306,8 @@ func GetVv(xName, path string, meta map[string]MetaInfo, topTag string) (req boo
 		req = false
 	}
 
-	godebug.Printf(db203, "\tTop tag value : %q\n", topTag)
-	godebug.Printf(db203, "%sAT: %s, req = %v typ_s = %s minV_s = %s maxV_s = %s list_s = %s valRe_s = %s ignoreDefault = %v name = %s metaName = %s %s\n", MiscLib.ColorBlueOnWhite, godebug.LF(),
+	godebug.Db2Printf(db203, "\tTop tag value : %q\n", topTag)
+	godebug.Db2Printf(db203, "%sAT: %s, req = %v typ_s = %s minV_s = %s maxV_s = %s list_s = %s valRe_s = %s ignoreDefault = %v name = %s metaName = %s %s\n", MiscLib.ColorBlueOnWhite, godebug.LF(),
 		req, typ_s, minV_s, maxV_s, list_s, valRe_s, ignoreDefault, name, metaName, MiscLib.ColorReset)
 
 	return
@@ -327,10 +327,10 @@ func SetDefaults(f interface{}, meta map[string]MetaInfo, xName, topTag, path st
 // SetDefaults uses a set of tags to set default values and allocate storage inside a structure.
 func (sd *JsonXConfig) SetDefaults(f interface{}, meta map[string]MetaInfo, xName, topTag, path string) (err error) {
 
-	godebug.Printf(db201, "%sAT %s%s\n", MiscLib.ColorCyan, godebug.LF(), MiscLib.ColorReset)
+	godebug.Db2Printf(db201, "%sAT %s%s\n", MiscLib.ColorCyan, godebug.LF(), MiscLib.ColorReset)
 	val := reflect.ValueOf(f).Elem()
 	typeOfT := val.Type()
-	godebug.Printf(db201, "val=%v typeOfT=%v\n", val, typeOfT)
+	godebug.Db2Printf(db201, "val=%v typeOfT=%v\n", val, typeOfT)
 
 	typeOfValKind := fmt.Sprintf("%s", val.Kind())
 
@@ -338,16 +338,16 @@ func (sd *JsonXConfig) SetDefaults(f interface{}, meta map[string]MetaInfo, xNam
 	case reflect.String:
 
 		dv, name, metaName := sd.GetDv(xName, path, meta, topTag)
-		godebug.Printf(db201, "%s %s = %v\n", name, typeOfValKind, f)
-		godebug.Printf(db201, "\tTop tag value : %q\n", topTag)
+		godebug.Db2Printf(db201, "%s %s = %v\n", name, typeOfValKind, f)
+		godebug.Db2Printf(db201, "\tTop tag value : %q\n", topTag)
 
-		godebug.Printf(db242, "%sAT: %s, dv = ->%s<-%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), dv, MiscLib.ColorReset)
+		godebug.Db2Printf(db242, "%sAT: %s, dv = ->%s<-%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), dv, MiscLib.ColorReset)
 
 		if dv != "" {
-			godebug.Printf(db242, "%sAT: %s, dv = %s %s\n", MiscLib.ColorBlue, godebug.LF(), dv, MiscLib.ColorReset)
+			godebug.Db2Printf(db242, "%sAT: %s, dv = %s %s\n", MiscLib.ColorBlue, godebug.LF(), dv, MiscLib.ColorReset)
 			// xyzzy - check for overflow!
 			if p, ok := f.(*string); ok {
-				godebug.Printf(db242, "%sAT: %s, dv = %s %s\n", MiscLib.ColorBlue, godebug.LF(), dv, MiscLib.ColorReset)
+				godebug.Db2Printf(db242, "%sAT: %s, dv = %s %s\n", MiscLib.ColorBlue, godebug.LF(), dv, MiscLib.ColorReset)
 				*p = dv
 			}
 			SetDataSource(meta, metaName, IsDefault)
@@ -356,10 +356,10 @@ func (sd *JsonXConfig) SetDefaults(f interface{}, meta map[string]MetaInfo, xNam
 	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
 
 		dv, name, metaName := sd.GetDv(xName, path, meta, topTag)
-		godebug.Printf(db201, "%s %s = %v\n", name, typeOfValKind, f)
-		godebug.Printf(db201, "\tTop tag value : %q\n", topTag)
+		godebug.Db2Printf(db201, "%s %s = %v\n", name, typeOfValKind, f)
+		godebug.Db2Printf(db201, "\tTop tag value : %q\n", topTag)
 
-		godebug.Printf(db242, "%sAT: %s, dv = ->%s<-%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), dv, MiscLib.ColorReset)
+		godebug.Db2Printf(db242, "%sAT: %s, dv = ->%s<-%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), dv, MiscLib.ColorReset)
 
 		if dv != "" {
 			dvi, err := strconv.ParseInt(dv, 10, 64)
@@ -367,22 +367,22 @@ func (sd *JsonXConfig) SetDefaults(f interface{}, meta map[string]MetaInfo, xNam
 				err = ErrDefaultsNotSet
 				meta[metaName] = MetaInfo{SetBy: Error, ErrorMsg: []string{fmt.Sprintf("%s", err)}}
 			} else {
-				godebug.Printf(db242, "%sAT: %s, dvi = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvi, MiscLib.ColorReset)
+				godebug.Db2Printf(db242, "%sAT: %s, dvi = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvi, MiscLib.ColorReset)
 				// xyzzy - check for overflow!
 				if p, ok := f.(*int); ok {
-					godebug.Printf(db242, "%sAT: %s, dvi = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvi, MiscLib.ColorReset)
+					godebug.Db2Printf(db242, "%sAT: %s, dvi = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvi, MiscLib.ColorReset)
 					*p = int(dvi)
 				} else if p, ok := f.(*int64); ok {
-					godebug.Printf(db242, "%sAT: %s, dvi = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvi, MiscLib.ColorReset)
+					godebug.Db2Printf(db242, "%sAT: %s, dvi = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvi, MiscLib.ColorReset)
 					*p = dvi
 				} else if p, ok := f.(*int32); ok {
-					godebug.Printf(db242, "%sAT: %s, dvi = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvi, MiscLib.ColorReset)
+					godebug.Db2Printf(db242, "%sAT: %s, dvi = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvi, MiscLib.ColorReset)
 					*p = int32(dvi)
 				} else if p, ok := f.(*int16); ok {
-					godebug.Printf(db242, "%sAT: %s, dvi = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvi, MiscLib.ColorReset)
+					godebug.Db2Printf(db242, "%sAT: %s, dvi = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvi, MiscLib.ColorReset)
 					*p = int16(dvi)
 				} else if p, ok := f.(*int8); ok {
-					godebug.Printf(db242, "%sAT: %s, dvi = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvi, MiscLib.ColorReset)
+					godebug.Db2Printf(db242, "%sAT: %s, dvi = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvi, MiscLib.ColorReset)
 					*p = int8(dvi)
 				}
 				SetDataSource(meta, metaName, IsDefault)
@@ -392,10 +392,10 @@ func (sd *JsonXConfig) SetDefaults(f interface{}, meta map[string]MetaInfo, xNam
 	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
 
 		dv, name, metaName := sd.GetDv(xName, path, meta, topTag)
-		godebug.Printf(db201, "%s %s = %v\n", name, typeOfValKind, f)
-		godebug.Printf(db201, "\tTop tag value : %q\n", topTag)
+		godebug.Db2Printf(db201, "%s %s = %v\n", name, typeOfValKind, f)
+		godebug.Db2Printf(db201, "\tTop tag value : %q\n", topTag)
 
-		godebug.Printf(db242, "%sAT: %s, dv = ->%s<-%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), dv, MiscLib.ColorReset)
+		godebug.Db2Printf(db242, "%sAT: %s, dv = ->%s<-%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), dv, MiscLib.ColorReset)
 
 		if dv != "" {
 			dvu, err := strconv.ParseUint(dv, 10, 64)
@@ -403,22 +403,22 @@ func (sd *JsonXConfig) SetDefaults(f interface{}, meta map[string]MetaInfo, xNam
 				err = ErrDefaultsNotSet
 				meta[metaName] = MetaInfo{SetBy: Error, ErrorMsg: []string{fmt.Sprintf("%s", err)}}
 			} else {
-				godebug.Printf(db243, "%sAT: %s, dvu = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvu, MiscLib.ColorReset)
+				godebug.Db2Printf(db243, "%sAT: %s, dvu = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvu, MiscLib.ColorReset)
 				// xyzzy - check for overflow!
 				if p, ok := f.(*uint); ok {
-					godebug.Printf(db243, "%sAT: %s, dvu = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvu, MiscLib.ColorReset)
+					godebug.Db2Printf(db243, "%sAT: %s, dvu = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvu, MiscLib.ColorReset)
 					*p = uint(dvu)
 				} else if p, ok := f.(*uint64); ok {
-					godebug.Printf(db243, "%sAT: %s, dvu = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvu, MiscLib.ColorReset)
+					godebug.Db2Printf(db243, "%sAT: %s, dvu = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvu, MiscLib.ColorReset)
 					*p = dvu
 				} else if p, ok := f.(*uint32); ok {
-					godebug.Printf(db243, "%sAT: %s, dvu = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvu, MiscLib.ColorReset)
+					godebug.Db2Printf(db243, "%sAT: %s, dvu = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvu, MiscLib.ColorReset)
 					*p = uint32(dvu)
 				} else if p, ok := f.(*uint16); ok {
-					godebug.Printf(db243, "%sAT: %s, dvu = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvu, MiscLib.ColorReset)
+					godebug.Db2Printf(db243, "%sAT: %s, dvu = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvu, MiscLib.ColorReset)
 					*p = uint16(dvu)
 				} else if p, ok := f.(*uint8); ok {
-					godebug.Printf(db243, "%sAT: %s, dvu = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvu, MiscLib.ColorReset)
+					godebug.Db2Printf(db243, "%sAT: %s, dvu = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvu, MiscLib.ColorReset)
 					*p = uint8(dvu)
 				}
 				SetDataSource(meta, metaName, IsDefault)
@@ -428,10 +428,10 @@ func (sd *JsonXConfig) SetDefaults(f interface{}, meta map[string]MetaInfo, xNam
 	case reflect.Bool:
 
 		dv, name, metaName := sd.GetDv(xName, path, meta, topTag)
-		godebug.Printf(db201, "%s %s = %v\n", name, typeOfValKind, f)
-		godebug.Printf(db201, "\tTop tag value : %q\n", topTag)
+		godebug.Db2Printf(db201, "%s %s = %v\n", name, typeOfValKind, f)
+		godebug.Db2Printf(db201, "\tTop tag value : %q\n", topTag)
 
-		godebug.Printf(db242, "%sAT: %s, dv = ->%s<-%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), dv, MiscLib.ColorReset)
+		godebug.Db2Printf(db242, "%sAT: %s, dv = ->%s<-%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), dv, MiscLib.ColorReset)
 
 		if dv != "" {
 			dvb, err := strconv.ParseBool(dv)
@@ -439,10 +439,10 @@ func (sd *JsonXConfig) SetDefaults(f interface{}, meta map[string]MetaInfo, xNam
 				err = ErrDefaultsNotSet
 				meta[metaName] = MetaInfo{SetBy: Error, ErrorMsg: []string{fmt.Sprintf("%s", err)}}
 			} else {
-				godebug.Printf(db243, "%sAT: %s, dvb = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvb, MiscLib.ColorReset)
+				godebug.Db2Printf(db243, "%sAT: %s, dvb = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvb, MiscLib.ColorReset)
 				// xyzzy - check for overflow!
 				if p, ok := f.(*bool); ok {
-					godebug.Printf(db242, "%sAT: %s, dvb = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvb, MiscLib.ColorReset)
+					godebug.Db2Printf(db242, "%sAT: %s, dvb = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvb, MiscLib.ColorReset)
 					*p = dvb
 				}
 				SetDataSource(meta, metaName, IsDefault)
@@ -452,10 +452,10 @@ func (sd *JsonXConfig) SetDefaults(f interface{}, meta map[string]MetaInfo, xNam
 	case reflect.Float32, reflect.Float64:
 
 		dv, name, metaName := sd.GetDv(xName, path, meta, topTag)
-		godebug.Printf(db201, "%s %s = %v\n", name, typeOfValKind, f)
-		godebug.Printf(db201, "\tTop tag value : %q\n", topTag)
+		godebug.Db2Printf(db201, "%s %s = %v\n", name, typeOfValKind, f)
+		godebug.Db2Printf(db201, "\tTop tag value : %q\n", topTag)
 
-		godebug.Printf(db242, "%sAT: %s, dv = ->%s<-%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), dv, MiscLib.ColorReset)
+		godebug.Db2Printf(db242, "%sAT: %s, dv = ->%s<-%s\n", MiscLib.ColorBlueOnWhite, godebug.LF(), dv, MiscLib.ColorReset)
 
 		if dv != "" {
 			dvf, err := strconv.ParseFloat(dv, 64)
@@ -463,13 +463,13 @@ func (sd *JsonXConfig) SetDefaults(f interface{}, meta map[string]MetaInfo, xNam
 				err = ErrDefaultsNotSet
 				meta[metaName] = MetaInfo{SetBy: Error, ErrorMsg: []string{fmt.Sprintf("%s", err)}}
 			} else {
-				godebug.Printf(db242, "%sAT: %s, dvf = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvf, MiscLib.ColorReset)
+				godebug.Db2Printf(db242, "%sAT: %s, dvf = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvf, MiscLib.ColorReset)
 				// xyzzy - check for overflow!
 				if p, ok := f.(*float64); ok {
-					godebug.Printf(db242, "%sAT: %s, dvf = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvf, MiscLib.ColorReset)
+					godebug.Db2Printf(db242, "%sAT: %s, dvf = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvf, MiscLib.ColorReset)
 					*p = dvf
 				} else if p, ok := f.(*float32); ok {
-					godebug.Printf(db242, "%sAT: %s, dvf = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvf, MiscLib.ColorReset)
+					godebug.Db2Printf(db242, "%sAT: %s, dvf = %d %s\n", MiscLib.ColorBlue, godebug.LF(), dvf, MiscLib.ColorReset)
 					*p = float32(dvf)
 				}
 				SetDataSource(meta, metaName, IsDefault)
@@ -495,13 +495,13 @@ func (sd *JsonXConfig) SetDefaults(f interface{}, meta map[string]MetaInfo, xNam
 			}
 			meta[metaName] = MetaInfo{SetBy: NotSet, DataFrom: FromTag}
 			f := val.Field(i)
-			godebug.Printf(db201, "%d: %s %s = %v\n", i, name, f.Type(), f.Interface())
-			godebug.Printf(db201, "\tWhole tag value : %q\n", typeOfT.Field(i).Tag)
-			godebug.Printf(db201, "\tValue: %q\n", typeOfT.Field(i).Tag.Get("gfType"))
-			godebug.Printf(db201, "\tDefault value: %q\n", typeOfT.Field(i).Tag.Get("gfDefault"))
+			godebug.Db2Printf(db201, "%d: %s %s = %v\n", i, name, f.Type(), f.Interface())
+			godebug.Db2Printf(db201, "\tWhole tag value : %q\n", typeOfT.Field(i).Tag)
+			godebug.Db2Printf(db201, "\tValue: %q\n", typeOfT.Field(i).Tag.Get("gfType"))
+			godebug.Db2Printf(db201, "\tDefault value: %q\n", typeOfT.Field(i).Tag.Get("gfDefault"))
 
 			if ok, etag := CheckGfNamesValid(string(typeOfT.Field(i).Tag)); !ok {
-				godebug.Printf(db201, "%sInvalid gf* tag %s will be ignored.%s\n", MiscLib.ColorRed, etag, MiscLib.ColorReset)
+				godebug.Db2Printf(db201, "%sInvalid gf* tag %s will be ignored.%s\n", MiscLib.ColorRed, etag, MiscLib.ColorReset)
 				x := meta[metaName]
 				x.ErrorMsg = append(x.ErrorMsg, fmt.Sprintf("Invalid gf* tag %s will be ignored.", etag))
 				meta[metaName] = x
@@ -691,8 +691,8 @@ func (sd *JsonXConfig) SetDefaults(f interface{}, meta map[string]MetaInfo, xNam
 				newPath := GenStructPath(path, name)
 				if va.IsNil() {
 					alloc := typeOfT.Field(i).Tag.Get("gfAlloc")
-					godebug.Printf(db201, "%sgfAlloc [%s]%s\n", MiscLib.ColorGreen, alloc, MiscLib.ColorReset)
-					godebug.Printf(db201, "%s Found Slice %s\n", MiscLib.ColorYellow, MiscLib.ColorReset)
+					godebug.Db2Printf(db201, "%sgfAlloc [%s]%s\n", MiscLib.ColorGreen, alloc, MiscLib.ColorReset)
+					godebug.Db2Printf(db201, "%s Found Slice %s\n", MiscLib.ColorYellow, MiscLib.ColorReset)
 					if alloc == "y" || alloc == "1" {
 						va = reflect.New(va.Type().Elem()) //   Create new element
 						f.Set(va)                          //                            Assign element to variable
@@ -708,12 +708,12 @@ func (sd *JsonXConfig) SetDefaults(f interface{}, meta map[string]MetaInfo, xNam
 
 				// Xyzzy - gfIgnore
 				topTagArray := string(typeOfT.Field(i).Tag)
-				godebug.Printf(db201, "Top tag for Array: %s, %s\n", topTagArray, godebug.LF())
+				godebug.Db2Printf(db201, "Top tag for Array: %s, %s\n", topTagArray, godebug.LF())
 				for ii := 0; ii < f.Len(); ii++ {
 					vv := f.Index(ii)
-					godebug.Printf(db201, "In Loop[%d] %v, %T\n", ii, vv, vv)
+					godebug.Db2Printf(db201, "In Loop[%d] %v, %T\n", ii, vv, vv)
 					vI := vv.Interface()
-					godebug.Printf(db201, "       [%d] %v, %T\n", ii, vI, vI)
+					godebug.Db2Printf(db201, "       [%d] %v, %T\n", ii, vI, vI)
 					newPath := GenArrayPath(path, name, ii)
 					// nameSubI := fmt.Sprintf("%s[%d]", name, ii)
 					err = sd.SetDefaults(vv.Addr().Interface(), meta, newPath, topTagArray, "") // Xyzzy - Take return value from this and merge into parent!
@@ -724,19 +724,19 @@ func (sd *JsonXConfig) SetDefaults(f interface{}, meta map[string]MetaInfo, xNam
 				// Xyzzy - gfIgnore
 
 				alloc := typeOfT.Field(i).Tag.Get("gfAlloc")
-				godebug.Printf(db201, "%sgfAlloc [%s]%s\n", MiscLib.ColorGreen, alloc, MiscLib.ColorReset)
-				godebug.Printf(db201, "%s Found Slice %s\n", MiscLib.ColorYellow, MiscLib.ColorReset)
+				godebug.Db2Printf(db201, "%sgfAlloc [%s]%s\n", MiscLib.ColorGreen, alloc, MiscLib.ColorReset)
+				godebug.Db2Printf(db201, "%s Found Slice %s\n", MiscLib.ColorYellow, MiscLib.ColorReset)
 				va := reflect.ValueOf(f.Interface())
 				v2 := reflect.Indirect(va)
-				godebug.Printf(db201, "Type = va=%T, v2=%T\n", va, v2)
-				godebug.Printf(db201, "Len = %d\n", v2.Len())
+				godebug.Db2Printf(db201, "Type = va=%T, v2=%T\n", va, v2)
+				godebug.Db2Printf(db201, "Len = %d\n", v2.Len())
 				if v2.Len() == 0 && alloc != "" {
-					godebug.Printf(db201, "%sshould allocate [%s]%s\n", MiscLib.ColorGreen, alloc, MiscLib.ColorReset)
+					godebug.Db2Printf(db201, "%sshould allocate [%s]%s\n", MiscLib.ColorGreen, alloc, MiscLib.ColorReset)
 					tt := v2.Type()
 					used, cap := GetUsedCap(alloc)
 					meta[metaName] = MetaInfo{SetBy: Alloc, ErrorMsg: []string{"Allocated: " + alloc}}
 					newSlice := reflect.MakeSlice(tt, used, cap)
-					godebug.Printf(db201, "%s newSlice=%v %T %s\n", MiscLib.ColorGreen, newSlice, newSlice, MiscLib.ColorReset)
+					godebug.Db2Printf(db201, "%s newSlice=%v %T %s\n", MiscLib.ColorGreen, newSlice, newSlice, MiscLib.ColorReset)
 					for ii := 0; ii < used; ii++ {
 						vv := newSlice.Index(ii)
 						newPath := GenArrayPath(path, name, ii)
@@ -746,13 +746,13 @@ func (sd *JsonXConfig) SetDefaults(f interface{}, meta map[string]MetaInfo, xNam
 						// Xyzzy - not implemented yet - setting of CAP
 						// really should take newSlice and set into f, but don't know how to do that yet.
 					}
-					godebug.Printf(db201, "%s newSlice=%v %T %s\n", MiscLib.ColorGreen, newSlice, newSlice, MiscLib.ColorReset)
+					godebug.Db2Printf(db201, "%s newSlice=%v %T %s\n", MiscLib.ColorGreen, newSlice, newSlice, MiscLib.ColorReset)
 				} else {
 					for ii := 0; ii < v2.Len(); ii++ {
 						vv := v2.Index(ii)
-						godebug.Printf(db201, "In Loop[%d] %v, %T\n", ii, vv, vv)
+						godebug.Db2Printf(db201, "In Loop[%d] %v, %T\n", ii, vv, vv)
 						vI := vv.Interface()
-						godebug.Printf(db201, "       [%d] %v, %T\n", ii, vI, vI)
+						godebug.Db2Printf(db201, "       [%d] %v, %T\n", ii, vI, vI)
 						newPath := GenArrayPath(path, name, ii)
 						err = sd.SetDefaults(vv.Addr().Interface(), meta, "", "", newPath) // Xyzzy - Take return value from this and merge into parent!
 						// MergeMeta(err, meta, subMeta)

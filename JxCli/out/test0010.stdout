@@ -1,1 +1,3 @@
-Error at line 4, col 36, in source: File: /Users/corwin/go/src/www.2c-why.com/JsonX/parse.go LineNo:284, unknown token={"Number":7,"TokenNo":0,"TokenNoValue":0,"Name":"","Value":"missing-file","NValue":0,"FValue":0,"IValue":0,"BValue":false,"LineNo":4,"ColPos":36,"FileName":"testdata/test0010.jx","ErrorMsg":"Failed to __include__ file missing-file\n","Children":null,"GeneratedAt":"","UsedData":false,"AssignedTo":null} 
+JxCli: Error returned from Unmarshal: 1 Errors in JsonX.Unmarshal, File:testdata/test0010.jx
+[]
+

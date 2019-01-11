@@ -110,8 +110,8 @@ func ParseJsonX(buf []byte, js *JsonXScanner) (rv *JsonToken, NErrors int) {
 		MaxPos: len(js.Toks),
 	}
 	if db22 {
-		// godebug.Printf(db23,"\nScan Returns: %s\n\n", SVarI(js))
-		godebug.Printf(db23, "\nScan Returns:\n")
+		// godebug.Db2Printf(db23,"\nScan Returns: %s\n\n", SVarI(js))
+		godebug.Db2Printf(db23, "\nScan Returns:\n")
 		PrintJsonToken(js.Toks)
 	}
 	rv = pt.parseJsonXInternal(js, 0)
@@ -129,7 +129,7 @@ func (pt *ParserType) AdvTok2() {
 }
 
 func (pt *ParserType) AddError(code int, msg string, js *JsonXScanner, offset int) {
-	godebug.Printf(db28, "%s 	Error Message - %s, Called From: %s %s\n", MiscLib.ColorRed, msg, godebug.LF(2), MiscLib.ColorReset)
+	godebug.Db2Printf(db28, "%s 	Error Message - %s, Called From: %s %s\n", MiscLib.ColorRed, msg, godebug.LF(2), MiscLib.ColorReset)
 	pos := pt.CurPos + offset
 	if pos < 0 {
 		pos = 0
@@ -144,7 +144,7 @@ func (pt *ParserType) AddError(code int, msg string, js *JsonXScanner, offset in
 }
 
 func (pt *ParserType) AddErrorGA(code int, msg string, js *JsonXScanner, offset int, ga string) {
-	godebug.Printf(db28, "%s 	Error Message - %s, Called From: %s %s\n", MiscLib.ColorRed, msg, godebug.LF(2), MiscLib.ColorReset)
+	godebug.Db2Printf(db28, "%s 	Error Message - %s, Called From: %s %s\n", MiscLib.ColorRed, msg, godebug.LF(2), MiscLib.ColorReset)
 	pos := pt.CurPos + offset
 	if pos < 0 {
 		pos = 0
@@ -176,7 +176,7 @@ func NameValueNodeNullError(name JsonToken) (rv JsonToken) {
 }
 
 func (pt *ParserType) parseJsonXInternal(js *JsonXScanner, depth int) (rv *JsonToken) {
-	godebug.Printf(db23, "%s 	At Top %s, %s %s\n", MiscLib.ColorYellow, SVar(pt), godebug.LF(), MiscLib.ColorReset)
+	godebug.Db2Printf(db23, "%s 	At Top %s, %s %s\n", MiscLib.ColorYellow, SVar(pt), godebug.LF(), MiscLib.ColorReset)
 	for pt.IsUnknown(js, 0) && pt.CurPos < pt.MaxPos {
 		em := js.Toks[pt.CurPos].ErrorMsg
 		ga := js.Toks[pt.CurPos].GeneratedAt
@@ -190,46 +190,46 @@ func (pt *ParserType) parseJsonXInternal(js *JsonXScanner, depth int) (rv *JsonT
 		pt.AdvTok()
 	}
 	//	if pt.IsA(js, 0, TokenColon) && pt.IsValue(js, 1) {
-	//		godebug.Printf(db23, "%sAT: %s%s\n", MiscLib.ColorBlue, godebug.LF(), MiscLib.ColorReset)
+	//		godebug.Db2Printf(db23, "%sAT: %s%s\n", MiscLib.ColorBlue, godebug.LF(), MiscLib.ColorReset)
 	//		rv = &js.Toks[pt.CurPos+1]
 	//		pt.AdvTok()
 	//		pt.AdvTok()
-	//		godebug.Printf(db23, "%s 	Before Return %s, %s %s\n", MiscLib.ColorCyan, SVar(pt), godebug.LF(), MiscLib.ColorReset)
+	//		godebug.Db2Printf(db23, "%s 	Before Return %s, %s %s\n", MiscLib.ColorCyan, SVar(pt), godebug.LF(), MiscLib.ColorReset)
 	//		return
 	//	} else
 	if pt.IsValue(js, 0) {
-		godebug.Printf(db23, "%sAT: %s%s\n", MiscLib.ColorBlue, godebug.LF(), MiscLib.ColorReset)
+		godebug.Db2Printf(db23, "%sAT: %s%s\n", MiscLib.ColorBlue, godebug.LF(), MiscLib.ColorReset)
 		rv = &js.Toks[pt.CurPos]
 		pt.AdvTok()
-		godebug.Printf(db23, "%s 	Before Return %s, %s %s\n", MiscLib.ColorCyan, SVar(pt), godebug.LF(), MiscLib.ColorReset)
+		godebug.Db2Printf(db23, "%s 	Before Return %s, %s %s\n", MiscLib.ColorCyan, SVar(pt), godebug.LF(), MiscLib.ColorReset)
 		return
 	} else if pt.IsOpenHash(js, 0) {
 		rv = &js.Toks[pt.CurPos]
 		pt.AdvTok()
-		godebug.Printf(db23, "%sAT: %s%s\n", MiscLib.ColorBlue, godebug.LF(), MiscLib.ColorReset)
+		godebug.Db2Printf(db23, "%sAT: %s%s\n", MiscLib.ColorBlue, godebug.LF(), MiscLib.ColorReset)
 		for pt.CurPos < pt.MaxPos {
-			godebug.Printf(db23, "----- Top of Loop/Hash %d\n", pt.CurPos)
-			godebug.Printf(db23, "%sAT: %s%s\n", MiscLib.ColorBlue, godebug.LF(), MiscLib.ColorReset)
+			godebug.Db2Printf(db23, "----- Top of Loop/Hash %d\n", pt.CurPos)
+			godebug.Db2Printf(db23, "%sAT: %s%s\n", MiscLib.ColorBlue, godebug.LF(), MiscLib.ColorReset)
 			//rv.Children = append(rv.Children, pt.parseJsonXInternal(js, depth+1))
 			// id/str : <VALUE> -- triplet(s) 0 or more
 			if pt.IsId(js, 0) {
 				if pt.IsA(js, 1, TokenColon) && pt.IsAny(js, 2) {
-					godebug.Printf(db23, "%sAT: %s%s\n", MiscLib.ColorBlue, godebug.LF(), MiscLib.ColorReset)
+					godebug.Db2Printf(db23, "%sAT: %s%s\n", MiscLib.ColorBlue, godebug.LF(), MiscLib.ColorReset)
 					name := js.Toks[pt.CurPos]
 					pt.AdvTok2()
 					rv.Children = append(rv.Children, NameValueNode(name, *pt.parseJsonXInternal(js, depth+1)))
 				} else if pt.IsA(js, 1, TokenColon) && !pt.IsAny(js, 2) {
-					godebug.Printf(db23, "%sAT: %s%s\n", MiscLib.ColorBlue, godebug.LF(), MiscLib.ColorReset)
+					godebug.Db2Printf(db23, "%sAT: %s%s\n", MiscLib.ColorBlue, godebug.LF(), MiscLib.ColorReset)
 					name := js.Toks[pt.CurPos]
 					pt.AdvTok2()
 					rv.Children = append(rv.Children, NameValueNodeNullError(name))
 				} else if pt.IsValue(js, 1) {
-					godebug.Printf(db23, "%sAT: %s%s\n", MiscLib.ColorBlue, godebug.LF(), MiscLib.ColorReset)
+					godebug.Db2Printf(db23, "%sAT: %s%s\n", MiscLib.ColorBlue, godebug.LF(), MiscLib.ColorReset)
 					name := js.Toks[pt.CurPos]
 					pt.AdvTok()
 					rv.Children = append(rv.Children, NameValueNode(name, *pt.parseJsonXInternal(js, depth+1)))
 				} else {
-					godebug.Printf(db23, "%sAT: %s%s\n", MiscLib.ColorBlue, godebug.LF(), MiscLib.ColorReset)
+					godebug.Db2Printf(db23, "%sAT: %s%s\n", MiscLib.ColorBlue, godebug.LF(), MiscLib.ColorReset)
 					fmt.Printf("%sError at line %d col %d, in source: %s, unknown token=%s %s\n", MiscLib.ColorRed, js.Toks[IntMin(pt.CurPos, pt.MaxPos-1)].LineNo, js.Toks[IntMin(pt.CurPos, pt.MaxPos-1)].ColPos, godebug.LF(), SVar(js.Toks[IntMin(pt.CurPos, pt.MaxPos-1)]), MiscLib.ColorReset)
 					pt.AddError(1001, fmt.Sprintf("After ID expeced to find a ':' and a value, did not find these."), js, 0)
 
@@ -237,21 +237,21 @@ func (pt *ParserType) parseJsonXInternal(js *JsonXScanner, depth int) (rv *JsonT
 					pt.AdvTok()
 				}
 			} else if pt.IsValue(js, 0) && pt.ValueCanConvertToId(js, 0) {
-				godebug.Printf(db23, "%sAT: %s%s\n", MiscLib.ColorBlue, godebug.LF(), MiscLib.ColorReset)
+				godebug.Db2Printf(db23, "%sAT: %s%s\n", MiscLib.ColorBlue, godebug.LF(), MiscLib.ColorReset)
 				if pt.IsA(js, 1, TokenColon) && pt.IsAny(js, 2) {
-					godebug.Printf(db23, "%sAT: %s%s\n", MiscLib.ColorBlue, godebug.LF(), MiscLib.ColorReset)
+					godebug.Db2Printf(db23, "%sAT: %s%s\n", MiscLib.ColorBlue, godebug.LF(), MiscLib.ColorReset)
 					name := js.Toks[pt.CurPos]
 					name = pt.ConvertValueToId(name)
 					pt.AdvTok2()
 					rv.Children = append(rv.Children, NameValueNode(name, *pt.parseJsonXInternal(js, depth+1)))
 				} else if pt.IsA(js, 1, TokenColon) && !pt.IsAny(js, 2) {
-					godebug.Printf(db23, "%sAT: %s%s\n", MiscLib.ColorBlue, godebug.LF(), MiscLib.ColorReset)
+					godebug.Db2Printf(db23, "%sAT: %s%s\n", MiscLib.ColorBlue, godebug.LF(), MiscLib.ColorReset)
 					name := js.Toks[pt.CurPos]
 					name = pt.ConvertValueToId(name)
 					pt.AdvTok2()
 					rv.Children = append(rv.Children, NameValueNodeNullError(name))
 				} else {
-					godebug.Printf(db23, "%sAT: %s%s\n", MiscLib.ColorBlue, godebug.LF(), MiscLib.ColorReset)
+					godebug.Db2Printf(db23, "%sAT: %s%s\n", MiscLib.ColorBlue, godebug.LF(), MiscLib.ColorReset)
 					// error -- could be a value?
 					if printErrorMsgs {
 						fmt.Printf("%sError at line line %d col %d, in source: %s, unknown token=%s %s\n", MiscLib.ColorRed, js.Toks[IntMin(pt.CurPos, pt.MaxPos-1)].LineNo, js.Toks[IntMin(pt.CurPos, pt.MaxPos-1)].ColPos, godebug.LF(), SVar(js.Toks[IntMin(pt.CurPos, pt.MaxPos-1)]), MiscLib.ColorReset)
@@ -263,14 +263,14 @@ func (pt *ParserType) parseJsonXInternal(js *JsonXScanner, depth int) (rv *JsonT
 			} else if pt.IsCloseHash(js, 0) {
 				break
 			} else if pt.IsOpenHash(js, 0) {
-				godebug.Printf(db23, "%sAT: %s%s\n", MiscLib.ColorBlue, godebug.LF(), MiscLib.ColorReset)
+				godebug.Db2Printf(db23, "%sAT: %s%s\n", MiscLib.ColorBlue, godebug.LF(), MiscLib.ColorReset)
 				fmt.Printf("%sError at line line %d col %d, in source: %s, unknown token=%s %s\n", MiscLib.ColorRed, js.Toks[IntMin(pt.CurPos, pt.MaxPos-1)].LineNo, js.Toks[IntMin(pt.CurPos, pt.MaxPos-1)].ColPos, godebug.LF(), SVar(js.Toks[IntMin(pt.CurPos, pt.MaxPos-1)]), MiscLib.ColorReset)
 				pt.AddError(1003, fmt.Sprintf("In a dictionary/hash must have a ID before more data."), js, 0)
 				pt.NErrors++
 				pt.AdvTok()
 				break
 			} else if pt.IsOpenArray(js, 0) {
-				godebug.Printf(db23, "%sAT: %s%s\n", MiscLib.ColorBlue, godebug.LF(), MiscLib.ColorReset)
+				godebug.Db2Printf(db23, "%sAT: %s%s\n", MiscLib.ColorBlue, godebug.LF(), MiscLib.ColorReset)
 				if printErrorMsgs {
 					fmt.Printf("%sError at line %d, col %d, in source: %s, unknown token=%s %s\n", MiscLib.ColorRed, js.Toks[IntMin(pt.CurPos, pt.MaxPos-1)].LineNo, js.Toks[IntMin(pt.CurPos, pt.MaxPos-1)].ColPos, godebug.LF(), SVar(js.Toks[IntMin(pt.CurPos, pt.MaxPos-1)]), MiscLib.ColorReset)
 				}
@@ -279,7 +279,7 @@ func (pt *ParserType) parseJsonXInternal(js *JsonXScanner, depth int) (rv *JsonT
 				pt.AdvTok()
 				break
 			} else {
-				godebug.Printf(db23, "%sAT: %s%s\n", MiscLib.ColorBlue, godebug.LF(), MiscLib.ColorReset)
+				godebug.Db2Printf(db23, "%sAT: %s%s\n", MiscLib.ColorBlue, godebug.LF(), MiscLib.ColorReset)
 				if printErrorMsgs {
 					fmt.Printf("%sError at line %d, col %d, in source: %s, unknown token=%s %s\n", MiscLib.ColorRed, js.Toks[IntMin(pt.CurPos, pt.MaxPos-1)].LineNo, js.Toks[IntMin(pt.CurPos, pt.MaxPos-1)].ColPos, godebug.LF(), SVar(js.Toks[IntMin(pt.CurPos, pt.MaxPos-1)]), MiscLib.ColorReset)
 				}
@@ -298,14 +298,14 @@ func (pt *ParserType) parseJsonXInternal(js *JsonXScanner, depth int) (rv *JsonT
 			pt.AddError(1006, fmt.Sprintf("Expeed to find a ',' or a '}' found ->%s<- instead.", js.Toks[IntMin(pt.CurPos, pt.MaxPos-1)].Value), js, 0)
 			pt.NErrors++
 		}
-		godebug.Printf(db23, "%s 	Before Return %s, %s %s\n", MiscLib.ColorCyan, SVar(pt), godebug.LF(), MiscLib.ColorReset)
+		godebug.Db2Printf(db23, "%s 	Before Return %s, %s %s\n", MiscLib.ColorCyan, SVar(pt), godebug.LF(), MiscLib.ColorReset)
 		return
 	} else if pt.IsOpenArray(js, 0) {
-		godebug.Printf(db23, "%sAT: %s%s\n", MiscLib.ColorBlue, godebug.LF(), MiscLib.ColorReset)
+		godebug.Db2Printf(db23, "%sAT: %s%s\n", MiscLib.ColorBlue, godebug.LF(), MiscLib.ColorReset)
 		rv = &js.Toks[pt.CurPos]
 		pt.AdvTok()
 		for pt.CurPos < pt.MaxPos {
-			godebug.Printf(db23, "%sAT: %s%s\n", MiscLib.ColorBlue, godebug.LF(), MiscLib.ColorReset)
+			godebug.Db2Printf(db23, "%sAT: %s%s\n", MiscLib.ColorBlue, godebug.LF(), MiscLib.ColorReset)
 			// rv.Children = append(rv.Children, pt.parseJsonXInternal(js, depth+1))				// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 			// xyzzy00002 - probably not correct ! - if parseJsonXInternal returns children then this is a boo-boo! -- Changed so can return chilren.  Not implemented yet
 			if pt.IsCloseArray(js, 0) {
@@ -322,7 +322,7 @@ func (pt *ParserType) parseJsonXInternal(js *JsonXScanner, depth int) (rv *JsonT
 				}
 				rv.Children = append(rv.Children, *tmp)
 				if len(tmp.Children) > 0 {
-					godebug.Printf(dbInternalNote, "%sInternal Note - may be fixed - 80801 ! - %s%s\n", MiscLib.ColorYellow, SVar(tmp), MiscLib.ColorReset)
+					godebug.Db2Printf(dbInternalNote, "%sInternal Note - may be fixed - 80801 ! - %s%s\n", MiscLib.ColorYellow, SVar(tmp), MiscLib.ColorReset)
 					// pt.NErrors++
 				}
 			}
@@ -341,7 +341,7 @@ func (pt *ParserType) parseJsonXInternal(js *JsonXScanner, depth int) (rv *JsonT
 			}
 			pt.NErrors++
 		}
-		godebug.Printf(db23, "%s 	Before Return %s, %s %s\n", MiscLib.ColorCyan, SVar(pt), godebug.LF(), MiscLib.ColorReset)
+		godebug.Db2Printf(db23, "%s 	Before Return %s, %s %s\n", MiscLib.ColorCyan, SVar(pt), godebug.LF(), MiscLib.ColorReset)
 		return
 	} else {
 		// Xyzzy - report error - extra tokens after the 1st, assumed to be an array -- missing [
@@ -353,10 +353,10 @@ func (pt *ParserType) parseJsonXInternal(js *JsonXScanner, depth int) (rv *JsonT
 		pt.AddError(1008, fmt.Sprintf("Unexpected token, found ->%s<-.", js.Toks[IntMin(pt.CurPos, pt.MaxPos-1)].Value), js, 0)
 		pt.NErrors++
 		pt.AdvTok()
-		godebug.Printf(db23, "%s 	Before Return %s, %s %s\n", MiscLib.ColorCyan, SVar(pt), godebug.LF(), MiscLib.ColorReset)
+		godebug.Db2Printf(db23, "%s 	Before Return %s, %s %s\n", MiscLib.ColorCyan, SVar(pt), godebug.LF(), MiscLib.ColorReset)
 		return
 	}
-	godebug.Printf(db23, "%s 	Before Return %s, %s %s\n", MiscLib.ColorCyan, SVar(pt), godebug.LF(), MiscLib.ColorReset)
+	godebug.Db2Printf(db23, "%s 	Before Return %s, %s %s\n", MiscLib.ColorCyan, SVar(pt), godebug.LF(), MiscLib.ColorReset)
 	return
 }
 

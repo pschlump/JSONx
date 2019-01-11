@@ -1,0 +1,90 @@
+{
+	"[\"DBName\"]": {
+		"LineNo": 9,
+		"FileName": "testdata/test-data1.jsonx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"DBType\"]": {
+		"LineNo": 8,
+		"FileName": "testdata/test-data1.jsonx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"LoggingConfig\"][\"FileOn\"]": {
+		"LineNo": 11,
+		"FileName": "testdata/test-data1.jsonx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"LoggingConfig\"][\"RedisOn\"]": {
+		"LineNo": 12,
+		"FileName": "testdata/test-data1.jsonx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"PGConn\"]": {
+		"LineNo": 7,
+		"FileName": "testdata/test-data1.jsonx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"RedisConnectAuth\"]": {
+		"LineNo": 6,
+		"FileName": "testdata/test-data1.jsonx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"RedisConnectHost\"]": {
+		"LineNo": 5,
+		"FileName": "testdata/test-data1.jsonx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"debug_flags\"]": {
+		"LineNo": 0,
+		"FileName": "",
+		"ErrorMsg": [
+			"Note: Allocated Slice"
+		],
+		"SetBy": 5,
+		"DataFrom": 0
+	},
+	"[\"debug_flags\"][0]": {
+		"LineNo": 2,
+		"FileName": "testdata/test-data1.jsonx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"server_name\"]": {
+		"LineNo": 4,
+		"FileName": "testdata/test-data1.jsonx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	},
+	"[\"trace_flags\"]": {
+		"LineNo": 0,
+		"FileName": "",
+		"ErrorMsg": [
+			"Note: Allocated Slice"
+		],
+		"SetBy": 5,
+		"DataFrom": 0
+	},
+	"[\"trace_flags\"][0]": {
+		"LineNo": 3,
+		"FileName": "testdata/test-data1.jsonx",
+		"ErrorMsg": null,
+		"SetBy": 1,
+		"DataFrom": 8
+	}
+}
